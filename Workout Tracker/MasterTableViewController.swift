@@ -20,9 +20,6 @@ class MasterTableViewController: UITableViewController {
             // Load the sample data.
             loadSampleProgram()
         }
-        
-       print((NSUserDefaults.standardUserDefaults().dictionaryRepresentation() as NSDictionary).allKeys)
-       print((NSUserDefaults.standardUserDefaults().dictionaryRepresentation() as NSDictionary).allValues)
     }
     
     override func viewDidLoad() {
@@ -36,23 +33,23 @@ class MasterTableViewController: UITableViewController {
     }
     
     func loadSampleProgram() {
-        let squat = Exercise(name: "Squat", notes: "Squat notes", workoutLog: nil, weight: 135)
-        squat!.recordWorkout("16-04-20", weight: 135, repsFirstSet: 10, repsSecondSet: 8)
-        squat!.recordWorkout("16-04-22", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
+        let squat = Exercise(name: "Squat", notes: "Squat notes", workoutDiary: WorkoutDiary(diary: nil), weight: 135)
+        squat.recordWorkout("16-04-20", weight: 135, repsFirstSet: 10, repsSecondSet: 8)
+        squat.recordWorkout("16-04-22", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
         
-        let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", workoutLog: nil, weight: 135)
-        bench!.recordWorkout("16-04-20", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
-        bench!.recordWorkout("16-04-22", weight: 135, repsFirstSet: 9, repsSecondSet: 8)
+        let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", workoutDiary: WorkoutDiary(diary: nil), weight: 135)
+        bench.recordWorkout("16-04-20", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
+        bench.recordWorkout("16-04-22", weight: 135, repsFirstSet: 9, repsSecondSet: 8)
         
-        let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", workoutLog: nil, weight: 125)
-        row!.recordWorkout("16-04-20", weight: 125, repsFirstSet: 10, repsSecondSet: 9)
-        row!.recordWorkout("16-04-22", weight: 125, repsFirstSet: 11, repsSecondSet: 9)
+        let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", workoutDiary: WorkoutDiary(diary: nil), weight: 125)
+        row.recordWorkout("16-04-20", weight: 125, repsFirstSet: 10, repsSecondSet: 9)
+        row.recordWorkout("16-04-22", weight: 125, repsFirstSet: 11, repsSecondSet: 9)
         
         exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: nil)
         
-        exercises!.addExercise(bench!)
-        exercises!.addExercise(squat!)
-        exercises!.addExercise(row!)
+        exercises!.addExercise(bench)
+        exercises!.addExercise(squat)
+        exercises!.addExercise(row)
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,8 +73,6 @@ class MasterTableViewController: UITableViewController {
         // Fetches the appropriate exercise for the data source layout
         let exercise = exercises?.getExercise(indexPath.row)
         cell.textLabel!.text = exercise!.name
-
-        print("in tableView() indexPath.row: \(indexPath.row) exercise name: \(exercise!.name) exercises count: \(exercises!.getCount())")
 
         // Configure the cell...
         return cell

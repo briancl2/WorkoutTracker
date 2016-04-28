@@ -40,23 +40,15 @@ func roundToFives(x : Double) -> Int {
 
 class Exercise: NSObject, NSCoding {
     var name: String
-    var formNotes: String?
-    private var workoutLog: [[String:AnyObject]]?
+    var notes: String?
+    private var workoutDiary = WorkoutDiary(diary: nil)
     var currentWeights = Weights(heavy: 0)
     
-    init?(name: String, notes: String?, workoutLog: [[String:AnyObject]]?, weight: Int?) {
+    init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int) {
         self.name = name
-        self.formNotes = notes
-        if (workoutLog != nil) {
-            self.workoutLog = workoutLog
-        } else {
-            self.workoutLog = []
-        }
-        self.currentWeights.heavy = weight!
-   
-        if name.isEmpty {
-            return nil
-        }
+        self.notes = notes
+        self.workoutDiary = workoutDiary
+        self.currentWeights.heavy = weight
     }
     
     // MARK: Types
@@ -70,18 +62,23 @@ class Exercise: NSObject, NSCoding {
     
     struct PropertyKey {
         static let nameKey = "Exercise_name"
-        static let formNotesKey = "Exercise_formNotes"
-        static let workoutLogKey = "Exercise_workoutLog"
+        static let notesKey = "Exercise_notes"
+        static let workoutDiaryKey = "Exercise_workoutDiary"
         static let currentWeightsHeavyKey = "Exercise_currentWeightsHeavy"
     }
     
     func recordWorkout(date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {
-        let newWorkoutLogEntry = ["date": date, "weight": weight, "repsFirstSet": repsFirstSet, "repsSecondSet": repsSecondSet]
-        workoutLog!.append(newWorkoutLogEntry as! [String : AnyObject])
+        let newSets = [Set(weight: weight, repCount: repsFirstSet),Set(weight: weight, repCount: repsSecondSet)]
+        let newWorkoutLogEntry = Workout(date: date, sets: newSets)
+        workoutDiary.addWorkout(newWorkoutLogEntry)
     }
     
-    func getLastWorkout() -> [String:AnyObject]? {
-        return workoutLog?.last
+    func getLastWorkout() -> Workout? {
+        if let workout = workoutDiary.getLastWorkout() {
+            return workout
+        } else {
+            return nil
+        }
     }
     
     func getBarWeightsString(targetWeight: Int) -> String {
@@ -96,18 +93,18 @@ class Exercise: NSObject, NSCoding {
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
-        aCoder.encodeObject(formNotes, forKey: PropertyKey.formNotesKey)
-        aCoder.encodeObject(workoutLog, forKey: PropertyKey.workoutLogKey)
+        aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
+        aCoder.encodeObject(workoutDiary, forKey: PropertyKey.workoutDiaryKey)
         aCoder.encodeInteger(currentWeights.heavy, forKey: PropertyKey.currentWeightsHeavyKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
-        let formNotes = aDecoder.decodeObjectForKey(PropertyKey.formNotesKey) as! String
-        let workoutLog = aDecoder.decodeObjectForKey(PropertyKey.workoutLogKey) as! [[String : AnyObject]]
+        let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as! String?
+        let workoutDiary = aDecoder.decodeObjectForKey(PropertyKey.workoutDiaryKey) as! WorkoutDiary
         let currentWeights = aDecoder.decodeIntegerForKey(PropertyKey.currentWeightsHeavyKey)
 
         // Must call designated initializer.
-        self.init(name: name, notes: formNotes, workoutLog: workoutLog, weight: currentWeights)
+        self.init(name: name, notes: notes, workoutDiary: workoutDiary, weight: currentWeights)
     }
 }
