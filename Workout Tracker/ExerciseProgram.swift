@@ -30,9 +30,9 @@ class ExerciseProgram: NSObject, NSCoding {
     // MARK: Types
     
     struct PropertyKey {
-        static let nameKey = "name"
-        static let startDateKey = "startDate"
-        static let programKey = "program"
+        static let nameKey = "ExerciseProgram_name"
+        static let startDateKey = "ExerciseProgram_startDate"
+        static let programKey = "ExerciseProgram_program"
     }
     
     // MARK: Methods

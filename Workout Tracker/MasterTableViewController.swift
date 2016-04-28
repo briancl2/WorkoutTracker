@@ -20,6 +20,9 @@ class MasterTableViewController: UITableViewController {
             // Load the sample data.
             loadSampleProgram()
         }
+        
+       print((NSUserDefaults.standardUserDefaults().dictionaryRepresentation() as NSDictionary).allKeys)
+       print((NSUserDefaults.standardUserDefaults().dictionaryRepresentation() as NSDictionary).allValues)
     }
     
     override func viewDidLoad() {
@@ -146,13 +149,13 @@ class MasterTableViewController: UITableViewController {
     
     func saveProgram() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(exercises!), forKey: "program")
+        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(exercises!), forKey: "MasterTableViewController_program")
         defaults.synchronize()
     }
     
     func loadProgram() -> ExerciseProgram? {
         let defaults = NSUserDefaults.standardUserDefaults()
-        guard let decodedNSData = defaults.objectForKey("program") as? NSData,
+        guard let decodedNSData = defaults.objectForKey("MasterTableViewController_program") as? NSData,
             let exerciseProgram = NSKeyedUnarchiver.unarchiveObjectWithData(decodedNSData) as? ExerciseProgram
             else {
                 print("Failed")

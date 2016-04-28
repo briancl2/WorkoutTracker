@@ -69,10 +69,10 @@ class Exercise: NSObject, NSCoding {
     }
     
     struct PropertyKey {
-        static let nameKey = "name"
-        static let formNotesKey = "formNotes"
-        static let workoutLogKey = "workoutLog"
-        static let currentWeightsHeavyKey = "currentWeightsHeavy"
+        static let nameKey = "Exercise_name"
+        static let formNotesKey = "Exercise_formNotes"
+        static let workoutLogKey = "Exercise_workoutLog"
+        static let currentWeightsHeavyKey = "Exercise_currentWeightsHeavy"
     }
     
     func recordWorkout(date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {
