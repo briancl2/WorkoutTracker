@@ -8,12 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		15BF7C671CD009C80095440B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C661CD009C80095440B /* AppDelegate.swift */; };
-		15BF7C691CD009C80095440B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C681CD009C80095440B /* ViewController.swift */; };
+		15BF7C691CD009C80095440B /* ExerciseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C681CD009C80095440B /* ExerciseDetailViewController.swift */; };
 		15BF7C6C1CD009C80095440B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BF7C6A1CD009C80095440B /* Main.storyboard */; };
 		15BF7C6F1CD009C80095440B /* Workout_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C6D1CD009C80095440B /* Workout_Tracker.xcdatamodeld */; };
 		15BF7C711CD009C80095440B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15BF7C701CD009C80095440B /* Assets.xcassets */; };
 		15BF7C741CD009C80095440B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BF7C721CD009C80095440B /* LaunchScreen.storyboard */; };
 		15BF7C7F1CD009C80095440B /* Workout_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C7E1CD009C80095440B /* Workout_TrackerTests.swift */; };
+		15BF7C8A1CD00AB90095440B /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C891CD00AB90095440B /* Exercise.swift */; };
+		15BF7C8C1CD01A980095440B /* MasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C8B1CD01A980095440B /* MasterTableViewController.swift */; };
+		15BF7C8E1CD01B040095440B /* AddExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C8D1CD01B040095440B /* AddExerciseViewController.swift */; };
+		15BF7C901CD0C9190095440B /* ExerciseProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */; };
+		15BF7C921CD0D42A0095440B /* ExerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +34,7 @@
 /* Begin PBXFileReference section */
 		15BF7C631CD009C80095440B /* Workout Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Workout Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BF7C661CD009C80095440B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		15BF7C681CD009C80095440B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		15BF7C681CD009C80095440B /* ExerciseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailViewController.swift; sourceTree = "<group>"; };
 		15BF7C6B1CD009C80095440B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		15BF7C6E1CD009C80095440B /* Workout_Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workout_Tracker.xcdatamodel; sourceTree = "<group>"; };
 		15BF7C701CD009C80095440B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +43,11 @@
 		15BF7C7A1CD009C80095440B /* Workout TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Workout TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BF7C7E1CD009C80095440B /* Workout_TrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout_TrackerTests.swift; sourceTree = "<group>"; };
 		15BF7C801CD009C80095440B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15BF7C891CD00AB90095440B /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		15BF7C8B1CD01A980095440B /* MasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterTableViewController.swift; sourceTree = "<group>"; };
+		15BF7C8D1CD01B040095440B /* AddExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExerciseViewController.swift; sourceTree = "<group>"; };
+		15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseProgram.swift; sourceTree = "<group>"; };
+		15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +90,12 @@
 			isa = PBXGroup;
 			children = (
 				15BF7C661CD009C80095440B /* AppDelegate.swift */,
-				15BF7C681CD009C80095440B /* ViewController.swift */,
+				15BF7C8B1CD01A980095440B /* MasterTableViewController.swift */,
+				15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */,
+				15BF7C8D1CD01B040095440B /* AddExerciseViewController.swift */,
+				15BF7C681CD009C80095440B /* ExerciseDetailViewController.swift */,
+				15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */,
+				15BF7C891CD00AB90095440B /* Exercise.swift */,
 				15BF7C6A1CD009C80095440B /* Main.storyboard */,
 				15BF7C701CD009C80095440B /* Assets.xcassets */,
 				15BF7C721CD009C80095440B /* LaunchScreen.storyboard */,
@@ -201,8 +216,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				15BF7C6F1CD009C80095440B /* Workout_Tracker.xcdatamodeld in Sources */,
-				15BF7C691CD009C80095440B /* ViewController.swift in Sources */,
+				15BF7C921CD0D42A0095440B /* ExerciseTableViewCell.swift in Sources */,
+				15BF7C8A1CD00AB90095440B /* Exercise.swift in Sources */,
+				15BF7C8E1CD01B040095440B /* AddExerciseViewController.swift in Sources */,
+				15BF7C691CD009C80095440B /* ExerciseDetailViewController.swift in Sources */,
+				15BF7C8C1CD01A980095440B /* MasterTableViewController.swift in Sources */,
 				15BF7C671CD009C80095440B /* AppDelegate.swift in Sources */,
+				15BF7C901CD0C9190095440B /* ExerciseProgram.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
