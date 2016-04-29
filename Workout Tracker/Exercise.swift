@@ -46,7 +46,7 @@ class Exercise: NSObject, NSCoding {
         workoutDiary.addWorkout(newWorkoutLogEntry)
         
         //update weights
-        self.currentWeights = Weights(heavy: weight)
+        self.currentWeights.heavy = weight
     }
     
     func getLastWorkout() -> Workout? {
