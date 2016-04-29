@@ -34,14 +34,20 @@ class MasterTableViewController: UITableViewController {
     
     func loadSampleProgram() {
         let squat = Exercise(name: "Squat", notes: "Squat notes", workoutDiary: WorkoutDiary(diary: nil), weight: 135)
+        squat.recordWorkout("16-04-16", weight: 135, repsFirstSet: 10, repsSecondSet: 8)
+        squat.recordWorkout("16-04-18", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
         squat.recordWorkout("16-04-20", weight: 135, repsFirstSet: 10, repsSecondSet: 8)
         squat.recordWorkout("16-04-22", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
         
         let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", workoutDiary: WorkoutDiary(diary: nil), weight: 135)
+        bench.recordWorkout("16-04-07", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
+        bench.recordWorkout("16-04-13", weight: 135, repsFirstSet: 9, repsSecondSet: 8)
         bench.recordWorkout("16-04-20", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
         bench.recordWorkout("16-04-22", weight: 135, repsFirstSet: 9, repsSecondSet: 8)
         
         let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", workoutDiary: WorkoutDiary(diary: nil), weight: 125)
+        row.recordWorkout("16-04-01", weight: 125, repsFirstSet: 10, repsSecondSet: 9)
+        row.recordWorkout("16-04-07", weight: 125, repsFirstSet: 11, repsSecondSet: 9)
         row.recordWorkout("16-04-20", weight: 125, repsFirstSet: 10, repsSecondSet: 9)
         row.recordWorkout("16-04-22", weight: 125, repsFirstSet: 11, repsSecondSet: 9)
         

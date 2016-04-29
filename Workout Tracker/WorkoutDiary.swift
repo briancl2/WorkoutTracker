@@ -31,6 +31,28 @@ class WorkoutDiary: NSObject, NSCoding {
         return diary?.last
     }
     
+    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout {
+        if let dateRange = dateRange {
+            let daysAgo = calcDaysAgo(dateRange)
+            var index = diary!.count
+            
+            // iterate through Diary in reverse and find first Workout that is older than dateRange-ago
+            for workout in diary!.reverse() {
+                print(workout.date)
+                print(index)
+                index -= 1
+                if workout.date < daysAgo {
+                    return diary![index+1]
+                }
+            }
+
+            return diary!.first!
+            
+        } else {
+            return diary!.first!
+        }
+    }
+    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(diary, forKey: PropertyKey.diaryKey)
     }

@@ -47,9 +47,13 @@ class ExerciseDetailViewController: UIViewController  {
             display.text! += "Heavy (100%): \(heavyText)\n"
             display.text! += "\n"
             
-            if let lastWorkout = exercise.getLastWorkout() {
-                display.text! += "\(lastWorkout.date) Reps @\(lastWorkout.sets[0].weight): \(lastWorkout.sets[0].repCount) and \(lastWorkout.sets[1].repCount)\n"
-            }
+            let lastWorkout = exercise.getOldestWorkoutFromRange(15)
+            display.text! += "\(NSDateToPrettyString(lastWorkout.date)) Reps @\(lastWorkout.sets[0].weight): \(lastWorkout.sets[0].repCount) and \(lastWorkout.sets[1].repCount)\n"
+        
+//            if let lastWorkout = exercise.getLastWorkout() {
+//                display.text! += "\(NSDateToPrettyString(lastWorkout.date)) Reps @\(lastWorkout.sets[0].weight): \(lastWorkout.sets[0].repCount) and \(lastWorkout.sets[1].repCount)\n"
+//            }
+
         }
     }
 }

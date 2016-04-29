@@ -38,8 +38,11 @@ class Exercise: NSObject, NSCoding {
     }
     
     func recordWorkout(date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yy-MM-dd"
+        
         let newSets = [Set(weight: weight, repCount: repsFirstSet),Set(weight: weight, repCount: repsSecondSet)]
-        let newWorkoutLogEntry = Workout(date: date, sets: newSets)
+        let newWorkoutLogEntry = Workout(date: dateFormatter.dateFromString(date)!, sets: newSets)
         workoutDiary.addWorkout(newWorkoutLogEntry)
     }
     
@@ -49,6 +52,10 @@ class Exercise: NSObject, NSCoding {
         } else {
             return nil
         }
+    }
+    
+    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout {
+        return workoutDiary.getOldestWorkoutFromRange(15)
     }
     
     func getBarWeightsString(targetWeight: Int) -> String {

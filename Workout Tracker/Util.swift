@@ -38,3 +38,33 @@ func dropTrailingZero(number: Double) -> String {
 func roundToFives(x : Double) -> Int {
     return 5 * Int(round(x / 5.0))
 }
+
+func NSDateToPrettyString(date: NSDate) -> String {
+    let dateFormatter = NSDateFormatter()
+    //dateFormatter.dateFormat = "yy-MM-dd"
+    dateFormatter.dateFormat = "MMM d"
+    
+    return dateFormatter.stringFromDate(date)
+}
+
+func calcDaysAgo(daysAgo: Int) -> NSDate {
+    let newDateComponents = NSDateComponents()
+    newDateComponents.day = -daysAgo
+    
+    return NSCalendar.currentCalendar().dateByAddingComponents(newDateComponents, toDate: NSDate(), options: NSCalendarOptions.init(rawValue: 0))!
+}
+
+func ==(lhs: NSDate, rhs: NSDate) -> Bool
+{
+    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+}
+
+func <(lhs: NSDate, rhs: NSDate) -> Bool
+{
+    return lhs.compare(rhs) == .OrderedAscending
+}
+
+func >(lhs: NSDate, rhs: NSDate) -> Bool
+{
+    return lhs.compare(rhs) == .OrderedDescending
+}

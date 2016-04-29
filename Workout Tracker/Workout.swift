@@ -9,10 +9,10 @@
 import Foundation
 
 class Workout: NSObject, NSCoding {
-    var date: String
+    var date: NSDate
     var sets: [Set]
     
-    init(date: String, sets: [Set]) {
+    init(date: NSDate, sets: [Set]) {
         self.date = date
         self.sets = sets
     }
@@ -28,7 +28,7 @@ class Workout: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let date = aDecoder.decodeObjectForKey(PropertyKey.dateKey) as! String
+        let date = aDecoder.decodeObjectForKey(PropertyKey.dateKey) as! NSDate
         let sets = aDecoder.decodeObjectForKey(PropertyKey.setsKey) as! [Set]
         
         self.init(date: date, sets: sets)
