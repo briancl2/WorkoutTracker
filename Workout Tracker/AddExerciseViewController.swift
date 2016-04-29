@@ -72,7 +72,7 @@ class AddExerciseViewController: UIViewController, UINavigationControllerDelegat
             let weight = 135
             
             // Set the meal to be passed to MealListTableViewController after the unwind segue.
-            exercise = Exercise(name: name, notes: notes, workoutDiary: WorkoutDiary(diary: nil), weight: weight)
+            exercise = Exercise(name: name, notes: notes, workoutDiary: WorkoutDiary(diary: []), weight: weight)
         }
     }
 

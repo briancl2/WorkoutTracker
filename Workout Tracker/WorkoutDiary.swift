@@ -9,14 +9,10 @@
 import Foundation
 
 class WorkoutDiary: NSObject, NSCoding {
-    var diary: [Workout]?
+    var diary: [Workout] = []
     
-    init(diary: [Workout]?) {
-        if (diary != nil) {
-            self.diary = diary
-        } else {
-            self.diary = []
-        }
+    init(diary: [Workout]) {
+        self.diary = diary
     }
     
     struct PropertyKey {
@@ -24,32 +20,36 @@ class WorkoutDiary: NSObject, NSCoding {
     }
     
     func addWorkout(workout: Workout) {
-        diary?.append(workout)
+        diary.append(workout)
     }
     
     func getLastWorkout() -> Workout? {
-        return diary?.last
+        return diary.last
     }
     
-    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout {
+    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
+        if diary.count == 0 {
+            return nil
+        }
+        
         if let dateRange = dateRange {
             let daysAgo = calcDaysAgo(dateRange)
-            var index = diary!.count
+            var index = diary.count
             
             // iterate through Diary in reverse and find first Workout that is older than dateRange-ago
-            for workout in diary!.reverse() {
+            for workout in diary.reverse() {
                 print(workout.date)
                 print(index)
                 index -= 1
                 if workout.date < daysAgo {
-                    return diary![index+1]
+                    return diary[index+1]
                 }
             }
 
-            return diary!.first!
+            return diary.first
             
         } else {
-            return diary!.first!
+            return diary.first
         }
     }
     
@@ -58,7 +58,7 @@ class WorkoutDiary: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let diary = aDecoder.decodeObjectForKey(PropertyKey.diaryKey) as! [Workout]?
+        let diary = aDecoder.decodeObjectForKey(PropertyKey.diaryKey) as! [Workout]
         
         self.init(diary: diary)
     }

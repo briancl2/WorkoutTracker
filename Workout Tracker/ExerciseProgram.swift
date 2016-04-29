@@ -11,20 +11,12 @@ import Foundation
 class ExerciseProgram: NSObject, NSCoding {
     var name = "Allpro Auto Regulated"
     var startDate = "16-04-20"
-    var program: [Exercise]? = []
+    var program: [Exercise] = []
 
-    init?(name: String, startDate: String, program: [Exercise]?) {
+    init?(name: String, startDate: String, program: [Exercise]) {
         self.name = name
         self.startDate = startDate
-        if program != nil {
-           self.program = program
-        } else {
-            self.program = []
-        }
-
-        if name.isEmpty || startDate.isEmpty {
-            return nil
-        }
+        self.program = program
     }
     
     // MARK: Types
@@ -38,23 +30,23 @@ class ExerciseProgram: NSObject, NSCoding {
     // MARK: Methods
     
     func addExercise(newExercise: Exercise) {
-        program!.append(newExercise)
+        program.append(newExercise)
     }
     
     func getExercise(index: Int) -> Exercise {
-        return program![index]
+        return program[index]
     }
     
     func getCount() ->  Int {
-        return program!.count
+        return program.count
     }
     
     func updateExercise(index: Int, updatedExercise: Exercise) {
-        program![index] = updatedExercise
+        program[index] = updatedExercise
     }
     
     func removeExercise(index: Int) {
-        program!.removeAtIndex(index)
+        program.removeAtIndex(index)
     }
     
     // MARK: NSCoder
@@ -68,7 +60,7 @@ class ExerciseProgram: NSObject, NSCoding {
     required convenience init?(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
         let startDate = aDecoder.decodeObjectForKey(PropertyKey.startDateKey) as! String
-        let program = aDecoder.decodeObjectForKey(PropertyKey.programKey) as! [Exercise]?
+        let program = aDecoder.decodeObjectForKey(PropertyKey.programKey) as! [Exercise]
         
         // Must call designated initializer.
         self.init(name: name, startDate: startDate, program: program)

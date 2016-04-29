@@ -11,7 +11,7 @@ import Foundation
 class Exercise: NSObject, NSCoding {
     var name: String
     var notes: String?
-    private var workoutDiary = WorkoutDiary(diary: nil)
+    private var workoutDiary = WorkoutDiary(diary: [])
     var currentWeights = Weights(heavy: 0)
     
     init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int) {
@@ -54,7 +54,7 @@ class Exercise: NSObject, NSCoding {
         }
     }
     
-    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout {
+    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
         return workoutDiary.getOldestWorkoutFromRange(15)
     }
     
