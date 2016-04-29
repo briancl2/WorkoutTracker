@@ -58,7 +58,8 @@ class ExerciseDetailViewController: UIViewController  {
             if let lastWorkout = exercise.getLastWorkout() {
                 display.text! += "\(NSDateToPrettyString(lastWorkout.date)) Reps @\(lastWorkout.sets[0].weight): \(lastWorkout.sets[0].repCount) and \(lastWorkout.sets[1].repCount)\n"
                 display.text! += "\n"
-                display.text! += "15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))\n"
+                display.text! += "15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%"
+                display.text! += "\n"
             }
             
         }
