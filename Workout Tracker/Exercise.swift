@@ -44,6 +44,9 @@ class Exercise: NSObject, NSCoding {
         let newSets = [Set(weight: weight, repCount: repsFirstSet),Set(weight: weight, repCount: repsSecondSet)]
         let newWorkoutLogEntry = Workout(date: dateFormatter.dateFromString(date)!, sets: newSets)
         workoutDiary.addWorkout(newWorkoutLogEntry)
+        
+        //update weights
+        self.currentWeights = Weights(heavy: weight)
     }
     
     func getLastWorkout() -> Workout? {
@@ -64,6 +67,11 @@ class Exercise: NSObject, NSCoding {
         } else {
             return calculatePlates(roundToFives(Double(targetWeight)))
         }
+    }
+
+    func getTotalVolumeIncrease(dateRange: Int) -> Int {
+        let perfAnalyzer = PerformanceAnalyzer()
+        return perfAnalyzer.calcTotalVolumeIncrease(workoutDiary, dateRange: dateRange)
     }
     
     // MARK: NSCoder
