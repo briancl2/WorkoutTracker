@@ -36,29 +36,16 @@ class WorkoutDiary: NSObject, NSCoding {
         // if an argument was passed
         if let dateRange = dateRange {
             let daysAgo = calcDaysAgo(dateRange)
+            let workoutsInRange = diary.filter({$0.date > daysAgo})
             
-            // iterate through Diary in reverse to find first workout that is older than dateRange
-            for workout in diary.reverse() {
-                
-                // find the first workout that is older than our dateRange
-                if workout.date < daysAgo {
-                    
-                    // if that workout happens to be our last workout, return nil
-                    if workout == diary.last {
-                        return nil
-                    }
-                    
-                    // otherwise, return the workout just ahead of the matched workout
-                    return diary[diary.indexOf(workout)!+1]
-                }
+            // if there are workouts in the dateRange, return the first one (oldest)
+            if workoutsInRange != [] {
+                return workoutsInRange.first
+            } else {
+                return nil // otherwise no workouts were found in range, so return nil
             }
-            
-            // if we don't find any workouts that are older than our range, return the first
-            return diary.first
         } else {
-            
-            // if no argument, just return the first element
-            return diary.first
+            return diary.first // if no argument, just return the first element
         }
     }
     

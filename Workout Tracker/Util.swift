@@ -13,7 +13,6 @@ func calculatePlates(targetWeight: Int) -> String {
     let barWeight = 45
     var plates = [(45, 0), (35, 0), (25, 0), (10, 0), (5,0), (2.5, 0)]
     var tmp = Double(targetWeight - barWeight)
-    var bar = "Bar"
     
     for i in 0...plates.count-1 {
         while (tmp / plates[i].0 >= 2) {
@@ -21,14 +20,7 @@ func calculatePlates(targetWeight: Int) -> String {
             plates[i].1 += 2
         }
     }
-    
-    for i in 0...plates.count-1 {
-        if plates[i].1 > 0 {
-            bar += " + \(plates[i].1)x\(dropTrailingZero(plates[i].0))"
-        }
-    }
-    
-    return bar
+    return plates.filter({$0.1 > 0}).reduce("Bar", combine: { $0 + " + \($1.1)x\(dropTrailingZero($1.0))" })
 }
 
 func dropTrailingZero(number: Double) -> String {

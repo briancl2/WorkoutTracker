@@ -11,6 +11,7 @@ import Foundation
 class Set: NSObject, NSCoding {
     var weight: Int
     var repCount: Int
+    var volume: Int { return weight * repCount }
 
     init(weight: Int, repCount: Int) {
         self.weight = weight

@@ -13,12 +13,13 @@ class Exercise: NSObject, NSCoding {
     var notes: String?
     private var workoutDiary = WorkoutDiary(diary: [])
     var currentWeights = Weights(heavy: 0)
-    
+
     init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int) {
         self.name = name
         self.notes = notes
         self.workoutDiary = workoutDiary
         self.currentWeights.heavy = weight
+
     }
     
     // MARK: Types

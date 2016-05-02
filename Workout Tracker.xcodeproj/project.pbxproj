@@ -24,6 +24,7 @@
 		15BF7C8E1CD01B040095440B /* AddExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C8D1CD01B040095440B /* AddExerciseViewController.swift */; };
 		15BF7C901CD0C9190095440B /* ExerciseProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */; };
 		15BF7C921CD0D42A0095440B /* ExerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */; };
+		15D5A3B11CD68E1B00936E7C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A3B01CD68E1B00936E7C /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		15BF7C8D1CD01B040095440B /* AddExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExerciseViewController.swift; sourceTree = "<group>"; };
 		15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseProgram.swift; sourceTree = "<group>"; };
 		15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseTableViewCell.swift; sourceTree = "<group>"; };
+		15D5A3B01CD68E1B00936E7C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				15021DEB1CD1AAA7002508B1 /* Workout.swift */,
 				15021DEF1CD1B833002508B1 /* WorkoutDiary.swift */,
 				15021DED1CD1ABF1002508B1 /* Set.swift */,
+				15D5A3B01CD68E1B00936E7C /* User.swift */,
 				15021DF11CD2E084002508B1 /* Util.swift */,
 				15BF7C6A1CD009C80095440B /* Main.storyboard */,
 				15BF7C701CD009C80095440B /* Assets.xcassets */,
@@ -236,6 +239,7 @@
 				15021DEC1CD1AAA7002508B1 /* Workout.swift in Sources */,
 				15BF7C8E1CD01B040095440B /* AddExerciseViewController.swift in Sources */,
 				15021DF01CD1B833002508B1 /* WorkoutDiary.swift in Sources */,
+				15D5A3B11CD68E1B00936E7C /* User.swift in Sources */,
 				15BF7C691CD009C80095440B /* ExerciseDetailViewController.swift in Sources */,
 				15BF7C8C1CD01A980095440B /* MasterTableViewController.swift in Sources */,
 				15021DEA1CD1A868002508B1 /* PerformanceAnalyzer.swift in Sources */,
