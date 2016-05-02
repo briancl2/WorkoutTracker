@@ -11,6 +11,9 @@ import Foundation
 class Workout: NSObject, NSCoding {
     var date: NSDate
     var sets: [Set]
+    var totalVolume: Int {
+        return sets.reduce(0, combine: { $0 + $1.volume })
+    }
     
     init(date: NSDate, sets: [Set]) {
         self.date = date

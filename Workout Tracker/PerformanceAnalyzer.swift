@@ -12,13 +12,9 @@ class PerformanceAnalyzer {
     var dayRange = 15
     
     func calcTotalVolumeIncrease(diary: WorkoutDiary, dateRange: Int) -> Int{
-        let oldVolume = calcTotalVolume(diary.getOldestWorkoutFromRange(dateRange)!)
-        let newVolume = calcTotalVolume(diary.getLastWorkout()!)
+        let oldVolume = diary.getOldestWorkoutFromRange(dateRange)!.totalVolume
+        let newVolume = diary.getLastWorkout()!.totalVolume
         return Int(100 * (newVolume - oldVolume) / oldVolume)
-    }
-    
-    func calcTotalVolume(workout: Workout) -> Int {
-        return workout.sets.reduce(0, combine: { $0 + $1.volume })
     }
     
 //    func calcGoalAttainment() -> Int {
@@ -31,5 +27,5 @@ class PerformanceAnalyzer {
 //    func calc1RM(workout: Workout) -> Int {
 //        // convert workout to volume
 //    }
-    
+//    
 }
