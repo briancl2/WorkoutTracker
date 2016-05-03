@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -11,12 +12,15 @@
             <objects>
                 <tableViewController id="uPf-26-ocp" customClass="MasterTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="5cE-YQ-uJB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExerciseTableViewCell" id="m8M-DO-DHB" customClass="ExerciseTableViewCell" customModule="Workout_Tracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m8M-DO-DHB" id="Fcw-gn-y3I">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -41,7 +45,7 @@
             </objects>
             <point key="canvasLocation" x="-771" y="87"/>
         </scene>
-        <!--Title-->
+        <!--Exercise Detail View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ExerciseDetailViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -59,40 +63,71 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zi9-0B-AKy">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.70526446742111748" blue="0.73923954301666228" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="111" id="lba-tk-jvs"/>
+                                    <constraint firstAttribute="height" constant="30" id="xA6-Da-npE"/>
+                                </constraints>
+                                <state key="normal" title="Record Workout"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="lba-tk-jvs"/>
+                                        <exclude reference="xA6-Da-npE"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="lba-tk-jvs"/>
+                                        <include reference="xA6-Da-npE"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="Ps0-g6-aiC" kind="show" identifier="RecordWorkout" action="showDetailViewController:sender:" id="L0j-Tb-UGE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qaU-nZ-WC4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="4wY-o2-6VW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qaU-nZ-WC4" secondAttribute="trailing" constant="30" id="QyB-St-rys"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qaU-nZ-WC4" secondAttribute="bottom" constant="30" id="eVW-56-UeJ"/>
+                            <constraint firstItem="zi9-0B-AKy" firstAttribute="top" secondItem="qaU-nZ-WC4" secondAttribute="bottom" constant="55" id="YHV-pv-pWH"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zi9-0B-AKy" secondAttribute="bottom" constant="49" id="bcD-Vn-AWa"/>
                             <constraint firstItem="qaU-nZ-WC4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="50" id="egg-1m-Sst">
                                 <variation key="heightClass=regular-widthClass=compact" constant="72"/>
                             </constraint>
+                            <constraint firstItem="zi9-0B-AKy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gIS-wn-hZQ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="qaU-nZ-WC4"/>
+                                <exclude reference="zi9-0B-AKy"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="4wY-o2-6VW"/>
                                 <exclude reference="QyB-St-rys"/>
                                 <exclude reference="egg-1m-Sst"/>
-                                <exclude reference="eVW-56-UeJ"/>
+                                <exclude reference="YHV-pv-pWH"/>
+                                <exclude reference="gIS-wn-hZQ"/>
+                                <exclude reference="bcD-Vn-AWa"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="qaU-nZ-WC4"/>
+                                <include reference="zi9-0B-AKy"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="4wY-o2-6VW"/>
                                 <include reference="QyB-St-rys"/>
                                 <include reference="egg-1m-Sst"/>
-                                <include reference="eVW-56-UeJ"/>
+                                <include reference="YHV-pv-pWH"/>
+                                <include reference="gIS-wn-hZQ"/>
+                                <include reference="bcD-Vn-AWa"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="0nI-Uu-Gkv"/>
                     <connections>
                         <outlet property="display" destination="qaU-nZ-WC4" id="AHH-7R-t5q"/>
                     </connections>
@@ -100,6 +135,114 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="421.5" y="585"/>
+        </scene>
+        <!--Record Workout View Controller-->
+        <scene sceneID="TKb-hM-mfU">
+            <objects>
+                <viewController id="Ps0-g6-aiC" customClass="RecordWorkoutViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bjT-s2-QYd"/>
+                        <viewControllerLayoutGuide type="bottom" id="GZA-sx-JDv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="67y-i6-Cte">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IEf-xi-zKx">
+                                <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="152" y="148" width="97" height="30"/>
+                                </variation>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B1X-od-ymk">
+                                <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="152" y="252" width="97" height="30"/>
+                                </variation>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ev4-8g-DBy">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="77" y="152" width="38" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxP-t0-902">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="75" y="256" width="40" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWd-26-YYm">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="63" y="352" width="54" height="21"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhq-JD-Gpq">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="183" y="512" width="34" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="Ps0-g6-aiC" eventType="touchUpInside" id="WNb-WG-kjm"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="SaveWorkout" id="cJY-Yq-xXE"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GOR-sZ-aHr">
+                                <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="152" y="348" width="97" height="30"/>
+                                </variation>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="IEf-xi-zKx"/>
+                                <exclude reference="B1X-od-ymk"/>
+                                <exclude reference="ev4-8g-DBy"/>
+                                <exclude reference="VxP-t0-902"/>
+                                <exclude reference="CWd-26-YYm"/>
+                                <exclude reference="jhq-JD-Gpq"/>
+                                <exclude reference="GOR-sZ-aHr"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="IEf-xi-zKx"/>
+                                <include reference="B1X-od-ymk"/>
+                                <include reference="ev4-8g-DBy"/>
+                                <include reference="VxP-t0-902"/>
+                                <include reference="CWd-26-YYm"/>
+                                <include reference="jhq-JD-Gpq"/>
+                                <include reference="GOR-sZ-aHr"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="set1TextField" destination="IEf-xi-zKx" id="MlA-Dw-CzY"/>
+                        <outlet property="set2TextField" destination="B1X-od-ymk" id="N8P-cE-Ae6"/>
+                        <outlet property="weightTextField" destination="GOR-sZ-aHr" id="22v-3A-OQV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qr0-Zf-HDK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1191" y="585"/>
         </scene>
         <!--Add New Exercise-->
         <scene sceneID="pp8-s8-RiP">
@@ -110,6 +253,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oqR-gs-JQU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iMt-hG-W4G">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter new exercise name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2Q-sA-wwb">
@@ -195,4 +339,7 @@
             <point key="canvasLocation" x="-1608" y="87"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="cJY-Yq-xXE"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -61,6 +61,9 @@ class ExerciseDetailViewController: UIViewController  {
                 display.text! += "15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%"
                 display.text! += "\n"
                 
+                display.text! += "Calculated 1RM: \(exercise.getCalculated1RM())lbs\n"
+                display.text! += "Goal Attainment: \(exercise.getGoalAttainment())%\n"
+                
             }
             
         }

@@ -75,6 +75,17 @@ class Exercise: NSObject, NSCoding {
         return perfAnalyzer.calcTotalVolumeIncrease(workoutDiary, dateRange: dateRange)
     }
     
+    func getCalculated1RM() -> Int {
+        let perfAnalyzer = PerformanceAnalyzer()
+        return Int(perfAnalyzer.calc1RM(getLastWorkout()!))
+    }
+    
+    func getGoalAttainment() -> Int {
+        let perfAnalyzer = PerformanceAnalyzer()
+        return perfAnalyzer.calcGoalAttainment(getLastWorkout()!)
+    }
+    
+    
     // MARK: NSCoder
     
     func encodeWithCoder(aCoder: NSCoder) {
