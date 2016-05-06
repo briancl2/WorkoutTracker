@@ -39,6 +39,8 @@ class MasterTableViewController: UITableViewController {
         squat.recordWorkout("16-04-25", weight: 145, repsFirstSet: 10, repsSecondSet: 10)
         squat.recordWorkout("16-04-27", weight: 145, repsFirstSet: 10, repsSecondSet: 10)
         squat.recordWorkout("16-04-29", weight: 145, repsFirstSet: 11, repsSecondSet: 10)
+        squat.recordWorkout("16-05-02", weight: 145, repsFirstSet: 11, repsSecondSet: 10)
+        squat.recordWorkout("16-05-05", weight: 145, repsFirstSet: 11, repsSecondSet: 11)
         
         let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", workoutDiary: WorkoutDiary(diary: []), weight: 0)
         bench.recordWorkout("16-04-18", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
@@ -46,6 +48,8 @@ class MasterTableViewController: UITableViewController {
         bench.recordWorkout("16-04-25", weight: 135, repsFirstSet: 9, repsSecondSet: 8)
         bench.recordWorkout("16-04-27", weight: 135, repsFirstSet: 10, repsSecondSet: 8)
         bench.recordWorkout("16-04-29", weight: 135, repsFirstSet: 10, repsSecondSet: 8)
+        bench.recordWorkout("16-05-02", weight: 135, repsFirstSet: 10, repsSecondSet: 9)
+        bench.recordWorkout("16-05-05", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
         
         let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", workoutDiary: WorkoutDiary(diary: []), weight: 0)
         row.recordWorkout("16-04-19", weight: 115, repsFirstSet: 11, repsSecondSet: 10)
@@ -53,6 +57,8 @@ class MasterTableViewController: UITableViewController {
         row.recordWorkout("16-04-25", weight: 115, repsFirstSet: 11, repsSecondSet: 11)
         row.recordWorkout("16-04-27", weight: 115, repsFirstSet: 12, repsSecondSet: 10)
         row.recordWorkout("16-04-29", weight: 115, repsFirstSet: 13, repsSecondSet: 10)
+        row.recordWorkout("16-05-02", weight: 115, repsFirstSet: 13, repsSecondSet: 11)
+        row.recordWorkout("16-05-05", weight: 125, repsFirstSet: 9, repsSecondSet: 8)
         
         exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [])
         
@@ -127,7 +133,7 @@ class MasterTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "ShowDetail" {
+        if segue.identifier == "ShowExerciseDetail" {
             let exerciseDetailTableViewController = segue.destinationViewController as! ExerciseDetailTableViewController
             
             // Get the cell that generated this segue

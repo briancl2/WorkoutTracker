@@ -3,8 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master Table View Controller-->
@@ -24,7 +22,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Gcq-mm-5Nt" kind="show" id="06e-lM-KSc"/>
+                                    <segue destination="Gcq-mm-5Nt" kind="show" identifier="ShowExerciseDetail" id="06e-lM-KSc"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -49,9 +47,9 @@
         <scene sceneID="9ST-Cl-06S">
             <objects>
                 <tableViewController id="Gcq-mm-5Nt" customClass="ExerciseDetailTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="a6M-o2-GDT">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="a6M-o2-GDT">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseDetailCell" id="5fm-to-u2Y" customClass="ExerciseDetailTableViewCell" customModule="Workout_Tracker" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -59,7 +57,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Ps0-g6-aiC" kind="show" action="showDetailViewController:sender:" id="dx7-xm-Ltb"/>
+                                    <segue destination="Ps0-g6-aiC" kind="show" id="lnL-7M-GMZ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -69,99 +67,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="no8-fM-nq6"/>
-                    <nil key="simulatedTopBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzG-sr-oPV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24" y="87"/>
-        </scene>
-        <!--Exercise Detail View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ExerciseDetailViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some stuff goes here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaU-nZ-WC4">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zi9-0B-AKy">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.70526446742111748" blue="0.73923954301666228" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="111" id="lba-tk-jvs"/>
-                                    <constraint firstAttribute="height" constant="30" id="xA6-Da-npE"/>
-                                </constraints>
-                                <state key="normal" title="Record Workout"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="lba-tk-jvs"/>
-                                        <exclude reference="xA6-Da-npE"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="lba-tk-jvs"/>
-                                        <include reference="xA6-Da-npE"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="qaU-nZ-WC4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="4wY-o2-6VW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qaU-nZ-WC4" secondAttribute="trailing" constant="30" id="QyB-St-rys"/>
-                            <constraint firstItem="zi9-0B-AKy" firstAttribute="top" secondItem="qaU-nZ-WC4" secondAttribute="bottom" constant="55" id="YHV-pv-pWH"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zi9-0B-AKy" secondAttribute="bottom" constant="49" id="bcD-Vn-AWa"/>
-                            <constraint firstItem="qaU-nZ-WC4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="50" id="egg-1m-Sst">
-                                <variation key="heightClass=regular-widthClass=compact" constant="72"/>
-                            </constraint>
-                            <constraint firstItem="zi9-0B-AKy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gIS-wn-hZQ"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="qaU-nZ-WC4"/>
-                                <exclude reference="zi9-0B-AKy"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="4wY-o2-6VW"/>
-                                <exclude reference="QyB-St-rys"/>
-                                <exclude reference="egg-1m-Sst"/>
-                                <exclude reference="YHV-pv-pWH"/>
-                                <exclude reference="gIS-wn-hZQ"/>
-                                <exclude reference="bcD-Vn-AWa"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="qaU-nZ-WC4"/>
-                                <include reference="zi9-0B-AKy"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="4wY-o2-6VW"/>
-                                <include reference="QyB-St-rys"/>
-                                <include reference="egg-1m-Sst"/>
-                                <include reference="YHV-pv-pWH"/>
-                                <include reference="gIS-wn-hZQ"/>
-                                <include reference="bcD-Vn-AWa"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="display" destination="qaU-nZ-WC4" id="AHH-7R-t5q"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="969" y="-587.25"/>
         </scene>
         <!--Record Workout View Controller-->
         <scene sceneID="TKb-hM-mfU">
@@ -257,7 +166,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="set1TextField" destination="IEf-xi-zKx" id="MlA-Dw-CzY"/>
                         <outlet property="set2TextField" destination="B1X-od-ymk" id="N8P-cE-Ae6"/>
