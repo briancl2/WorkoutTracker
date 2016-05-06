@@ -24,7 +24,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Gcq-mm-5Nt" kind="showDetail" identifier="ShowDetail" id="872-IY-Fzh"/>
+                                    <segue destination="Gcq-mm-5Nt" kind="show" id="06e-lM-KSc"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -59,7 +59,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Ps0-g6-aiC" kind="showDetail" id="dx7-xm-Ltb"/>
+                                    <segue destination="Ps0-g6-aiC" kind="show" action="showDetailViewController:sender:" id="dx7-xm-Ltb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -69,7 +69,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="no8-fM-nq6"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedTopBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzG-sr-oPV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -257,7 +257,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="set1TextField" destination="IEf-xi-zKx" id="MlA-Dw-CzY"/>
                         <outlet property="set2TextField" destination="B1X-od-ymk" id="N8P-cE-Ae6"/>
