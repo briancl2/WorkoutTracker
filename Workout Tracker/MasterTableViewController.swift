@@ -128,13 +128,13 @@ class MasterTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "ShowDetail" {
-            let exerciseDetailViewController = segue.destinationViewController as! ExerciseDetailViewController
+            let exerciseDetailTableViewController = segue.destinationViewController as! ExerciseDetailTableViewController
             
             // Get the cell that generated this segue
             if let selectedExerciseCell = sender as? ExerciseTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedExerciseCell)!
                 let selectedExercise = exercises!.getExercise(indexPath.row)
-                exerciseDetailViewController.exercise = selectedExercise
+                exerciseDetailTableViewController.exercise = selectedExercise
             }
         }
     }
