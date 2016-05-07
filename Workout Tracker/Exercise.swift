@@ -58,6 +58,14 @@ class Exercise: NSObject, NSCoding {
         }
     }
     
+    func getLastWorkouts(number: Int) -> [Workout]? {
+        if let workouts = workoutDiary.getLastWorkouts(number) {
+            return workouts
+        } else {
+            return nil
+        }
+    }
+    
     func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
         return workoutDiary.getOldestWorkoutFromRange(15)
     }

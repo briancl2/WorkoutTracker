@@ -27,6 +27,15 @@ class WorkoutDiary: NSObject, NSCoding {
         return diary.last
     }
     
+    func getLastWorkouts(number: Int) -> [Workout]? {
+        if diary.count > 0 {
+            return Array(diary.suffix(number))
+        } else {
+            return nil
+        }
+    }
+
+    
     func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
         // if diary is empty, return nil
         if diary.count == 0 {

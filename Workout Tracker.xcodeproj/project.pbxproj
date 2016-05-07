@@ -12,11 +12,10 @@
 		15021DEE1CD1ABF1002508B1 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15021DED1CD1ABF1002508B1 /* Set.swift */; };
 		15021DF01CD1B833002508B1 /* WorkoutDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15021DEF1CD1B833002508B1 /* WorkoutDiary.swift */; };
 		15021DF21CD2E084002508B1 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15021DF11CD2E084002508B1 /* Util.swift */; };
-		158A64351CD84B0600B4A54A /* RecordWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A64341CD84B0600B4A54A /* RecordWorkoutViewController.swift */; };
 		158A64371CDD19CD00B4A54A /* ExerciseDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A64361CDD19CD00B4A54A /* ExerciseDetailTableViewController.swift */; };
 		158A64391CDD19EF00B4A54A /* ExerciseDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A64381CDD19EF00B4A54A /* ExerciseDetailTableViewCell.swift */; };
+		158A643B1CDD82BB00B4A54A /* RecordWorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A643A1CDD82BB00B4A54A /* RecordWorkoutTableViewController.swift */; };
 		15BF7C671CD009C80095440B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C661CD009C80095440B /* AppDelegate.swift */; };
-		15BF7C691CD009C80095440B /* ExerciseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C681CD009C80095440B /* ExerciseDetailViewController.swift */; };
 		15BF7C6C1CD009C80095440B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BF7C6A1CD009C80095440B /* Main.storyboard */; };
 		15BF7C6F1CD009C80095440B /* Workout_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C6D1CD009C80095440B /* Workout_Tracker.xcdatamodeld */; };
 		15BF7C711CD009C80095440B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15BF7C701CD009C80095440B /* Assets.xcassets */; };
@@ -46,12 +45,11 @@
 		15021DED1CD1ABF1002508B1 /* Set.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		15021DEF1CD1B833002508B1 /* WorkoutDiary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDiary.swift; sourceTree = "<group>"; };
 		15021DF11CD2E084002508B1 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		158A64341CD84B0600B4A54A /* RecordWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordWorkoutViewController.swift; sourceTree = "<group>"; };
 		158A64361CDD19CD00B4A54A /* ExerciseDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseDetailTableViewController.swift; sourceTree = "<group>"; };
 		158A64381CDD19EF00B4A54A /* ExerciseDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseDetailTableViewCell.swift; sourceTree = "<group>"; };
+		158A643A1CDD82BB00B4A54A /* RecordWorkoutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordWorkoutTableViewController.swift; sourceTree = "<group>"; };
 		15BF7C631CD009C80095440B /* Workout Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Workout Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BF7C661CD009C80095440B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		15BF7C681CD009C80095440B /* ExerciseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailViewController.swift; sourceTree = "<group>"; };
 		15BF7C6B1CD009C80095440B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		15BF7C6E1CD009C80095440B /* Workout_Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workout_Tracker.xcdatamodel; sourceTree = "<group>"; };
 		15BF7C701CD009C80095440B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -111,10 +109,9 @@
 				15BF7C8B1CD01A980095440B /* MasterTableViewController.swift */,
 				15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */,
 				15BF7C8D1CD01B040095440B /* AddExerciseViewController.swift */,
-				15BF7C681CD009C80095440B /* ExerciseDetailViewController.swift */,
-				158A64341CD84B0600B4A54A /* RecordWorkoutViewController.swift */,
 				158A64361CDD19CD00B4A54A /* ExerciseDetailTableViewController.swift */,
 				158A64381CDD19EF00B4A54A /* ExerciseDetailTableViewCell.swift */,
+				158A643A1CDD82BB00B4A54A /* RecordWorkoutTableViewController.swift */,
 				15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */,
 				15BF7C891CD00AB90095440B /* Exercise.swift */,
 				15021DE91CD1A868002508B1 /* PerformanceAnalyzer.swift */,
@@ -251,14 +248,13 @@
 				15021DF01CD1B833002508B1 /* WorkoutDiary.swift in Sources */,
 				158A64391CDD19EF00B4A54A /* ExerciseDetailTableViewCell.swift in Sources */,
 				15D5A3B11CD68E1B00936E7C /* User.swift in Sources */,
-				15BF7C691CD009C80095440B /* ExerciseDetailViewController.swift in Sources */,
 				15BF7C8C1CD01A980095440B /* MasterTableViewController.swift in Sources */,
 				15021DEA1CD1A868002508B1 /* PerformanceAnalyzer.swift in Sources */,
 				15BF7C671CD009C80095440B /* AppDelegate.swift in Sources */,
-				158A64351CD84B0600B4A54A /* RecordWorkoutViewController.swift in Sources */,
 				15021DF21CD2E084002508B1 /* Util.swift in Sources */,
 				15021DEE1CD1ABF1002508B1 /* Set.swift in Sources */,
 				15BF7C901CD0C9190095440B /* ExerciseProgram.swift in Sources */,
+				158A643B1CDD82BB00B4A54A /* RecordWorkoutTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

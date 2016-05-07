@@ -10,7 +10,7 @@ import UIKit
 
 class ExerciseDetailTableViewController: UITableViewController {
 
-    var exercise: Exercise?
+    var exercise: Exercise!
     
     var exerciseDetails = [[String]]()
     var exerciseSections = [String]()
@@ -18,43 +18,29 @@ class ExerciseDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let exercise = exercise {
+        let currentWeights = exercise.currentWeights
+        let warmup25Text = "Warmup (25%): \(String(currentWeights.warmup25)) \(exercise.getBarWeightsString(currentWeights.warmup25))"
+        let warmup50Text = "Warmup (50%): \(String(currentWeights.warmup50)) \(exercise.getBarWeightsString(currentWeights.warmup50))"
+        let heavyText = "Heavy (100%): \(String(currentWeights.heavy)) \(exercise.getBarWeightsString(currentWeights.heavy))"
         
-            let currentWeights = exercise.currentWeights
-            let warmup25Text = "Warmup (25%): \(String(currentWeights.warmup25)) \(exercise.getBarWeightsString(currentWeights.warmup25))"
-            let warmup50Text = "Warmup (50%): \(String(currentWeights.warmup50)) \(exercise.getBarWeightsString(currentWeights.warmup50))"
-            let heavyText = "Heavy (100%): \(String(currentWeights.heavy)) \(exercise.getBarWeightsString(currentWeights.heavy))"
-            
-            exerciseDetails.append([warmup25Text, warmup50Text, heavyText])
-            exerciseSections.append("Weights")
-            
-            
-            if let notes = exercise.notes {
-                exerciseDetails.append(["\(notes)"])
-                exerciseSections.append("Notes")
-            }
-            
-//            if let lastWorkoutInRange = exercise.getOldestWorkoutFromRange(15) {
-//                exerciseDetails.append("\(NSDateToPrettyString(lastWorkoutInRange.date)) Reps @\(lastWorkoutInRange.sets[0].weight): \(lastWorkoutInRange.sets[0].repCount) and \(lastWorkoutInRange.sets[1].repCount)")
-//            }
-            
-            if let lastWorkout = exercise.getLastWorkout() {
-                exerciseDetails.append(["\(NSDateToPrettyString(lastWorkout.date)) Reps @\(lastWorkout.sets[0].weight): \(lastWorkout.sets[0].repCount) and \(lastWorkout.sets[1].repCount)"])
-                exerciseSections.append("Last Workout")
-                exerciseDetails.append(["15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%", "Calculated 1RM: \(exercise.getCalculated1RM())lbs", "Goal Attainment: \(exercise.getGoalAttainment())%"])
-                exerciseSections.append("Stats")
-            }
-
-            
+        exerciseDetails.append([warmup25Text, warmup50Text, heavyText])
+        exerciseSections.append("Weights")
+    
+        if let notes = exercise.notes {
+            exerciseDetails.append(["\(notes)"])
+            exerciseSections.append("Notes")
         }
-
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    
+        if let lastWorkouts = exercise.getLastWorkouts(3) {
+            var workoutsToDisplay = [String]()
+            for workout in lastWorkouts {
+                workoutsToDisplay.append("\(NSDateToPrettyString(workout.date)) Reps @\(workout.sets[0].weight): \(workout.sets[0].repCount) and \(workout.sets[1].repCount)")
+            }
+            exerciseDetails.append(workoutsToDisplay)
+            exerciseSections.append("Last Workouts")
+            exerciseDetails.append(["15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%", "Calculated 1RM: \(exercise.getCalculated1RM())lbs", "Goal Attainment: \(exercise.getGoalAttainment())%"])
+            exerciseSections.append("Stats")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,14 +111,22 @@ class ExerciseDetailTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
+        if segue.identifier == "RecordWorkout" {
+            let recordWorkoutTableViewController = segue.destinationViewController as! RecordWorkoutTableViewController
+            
+            if let lastWorkout = exercise.getLastWorkout() {
+                recordWorkoutTableViewController.workout = lastWorkout
+            }
 
+        }
+    }
 }
+
+
