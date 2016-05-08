@@ -42,12 +42,19 @@ class Exercise: NSObject, NSCoding {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         
-        let newSets = [Set(weight: weight, repCount: repsFirstSet),Set(weight: weight, repCount: repsSecondSet)]
+        let newSets = [Sets(weight: weight, repCount: repsFirstSet),Sets(weight: weight, repCount: repsSecondSet)]
         let newWorkoutLogEntry = Workout(date: dateFormatter.dateFromString(date)!, sets: newSets)
         workoutDiary.addWorkout(newWorkoutLogEntry)
         
         //update weights
         self.currentWeights.heavy = weight
+    }
+    
+    func recordWorkout(newWorkout: Workout) {
+        workoutDiary.addWorkout(newWorkout)
+        print(newWorkout)
+        //update weights
+        self.currentWeights.heavy = newWorkout.sets[0].weight
     }
     
     func getLastWorkout() -> Workout? {

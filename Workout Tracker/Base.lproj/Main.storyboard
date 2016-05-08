@@ -76,7 +76,7 @@
             </objects>
             <point key="canvasLocation" x="24" y="87"/>
         </scene>
-        <!--Record Workout Table View Controller-->
+        <!--Title-->
         <scene sceneID="uhP-0d-52F">
             <objects>
                 <tableViewController id="VZP-DE-Mxe" customClass="RecordWorkoutTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -91,45 +91,46 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qun-44-0Iv" id="tDi-cK-JHz">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUk-qZ-kYc">
-                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RrK-wc-qOT">
+                                                    <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="topMargin" secondItem="bUk-qZ-kYc" secondAttribute="top" id="4Hn-LO-GNP"/>
-                                                <constraint firstItem="bUk-qZ-kYc" firstAttribute="leading" secondItem="tDi-cK-JHz" secondAttribute="leadingMargin" constant="146" id="VvZ-b5-U4v">
+                                                <constraint firstItem="RrK-wc-qOT" firstAttribute="leading" secondItem="tDi-cK-JHz" secondAttribute="leadingMargin" constant="37" id="7dx-dH-Owu">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="8"/>
                                                 </constraint>
-                                                <constraint firstAttribute="bottomMargin" secondItem="bUk-qZ-kYc" secondAttribute="bottom" constant="6" id="kJh-iW-lBr">
+                                                <constraint firstItem="RrK-wc-qOT" firstAttribute="top" secondItem="tDi-cK-JHz" secondAttribute="topMargin" constant="-1" id="9eu-tZ-wHR">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                                 </constraint>
-                                                <constraint firstAttribute="trailingMargin" secondItem="bUk-qZ-kYc" secondAttribute="trailing" constant="196" id="wcG-Tx-8iD">
+                                                <constraint firstAttribute="trailingMargin" secondItem="RrK-wc-qOT" secondAttribute="trailing" constant="250" id="KIS-cE-13d">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                                <constraint firstAttribute="bottomMargin" secondItem="RrK-wc-qOT" secondAttribute="bottom" constant="-2" id="R1B-Jt-dan">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                                 </constraint>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
-                                                    <exclude reference="bUk-qZ-kYc"/>
+                                                    <exclude reference="RrK-wc-qOT"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="4Hn-LO-GNP"/>
-                                                    <exclude reference="VvZ-b5-U4v"/>
-                                                    <exclude reference="kJh-iW-lBr"/>
-                                                    <exclude reference="wcG-Tx-8iD"/>
+                                                    <exclude reference="7dx-dH-Owu"/>
+                                                    <exclude reference="9eu-tZ-wHR"/>
+                                                    <exclude reference="KIS-cE-13d"/>
+                                                    <exclude reference="R1B-Jt-dan"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
-                                                    <include reference="bUk-qZ-kYc"/>
+                                                    <include reference="RrK-wc-qOT"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="4Hn-LO-GNP"/>
-                                                    <include reference="VvZ-b5-U4v"/>
-                                                    <include reference="kJh-iW-lBr"/>
-                                                    <include reference="wcG-Tx-8iD"/>
+                                                    <include reference="7dx-dH-Owu"/>
+                                                    <include reference="9eu-tZ-wHR"/>
+                                                    <include reference="KIS-cE-13d"/>
+                                                    <include reference="R1B-Jt-dan"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -359,8 +360,21 @@
                             <outlet property="delegate" destination="VZP-DE-Mxe" id="ArN-IZ-HfW"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="5W8-L3-gWB">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ex0-S3-0Hh">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="VZP-DE-Mxe" id="ZIV-fD-1hE"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="QhP-xS-Url">
+                            <connections>
+                                <segue destination="Slu-mY-9yp" kind="unwind" unwindAction="unwindToExerciseDetail:" id="fe0-bM-pgr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="dateLabel" destination="bUk-qZ-kYc" id="lpq-3r-G81"/>
+                        <outlet property="dateTextField" destination="RrK-wc-qOT" id="oS7-Bf-hsn"/>
+                        <outlet property="doneButton" destination="QhP-xS-Url" id="aGg-vM-ngc"/>
                         <outlet property="setOneLabel" destination="vwd-VP-Oiw" id="OdT-WH-2vT"/>
                         <outlet property="setOneStepper" destination="jAx-rs-wk4" id="1kY-oC-cwj"/>
                         <outlet property="setTwoLabel" destination="qBd-Re-mkZ" id="Bod-6u-FUS"/>
@@ -370,6 +384,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFQ-WP-keR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Slu-mY-9yp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="862.5" y="87"/>
         </scene>

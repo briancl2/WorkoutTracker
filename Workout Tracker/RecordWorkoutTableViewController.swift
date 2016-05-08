@@ -8,18 +8,22 @@
 
 import UIKit
 
-class RecordWorkoutTableViewController: UITableViewController {
-    @IBOutlet weak var dateLabel: UILabel!
+class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
+
+    @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var setOneLabel: UILabel!
     @IBOutlet weak var setTwoLabel: UILabel!
     @IBOutlet weak var weightStepper: UIStepper!
     @IBOutlet weak var setOneStepper: UIStepper!
     @IBOutlet weak var setTwoStepper: UIStepper!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
 
+    var newWorkout: Workout?
+    
     var newDate: NSDate? {
         didSet {
-            dateLabel.text = NSDateToPrettyString(newDate!)
+            dateTextField.text = NSDateToPrettyString(newDate!)
         }
     }
     var newWeight: Int? {
@@ -42,8 +46,45 @@ class RecordWorkoutTableViewController: UITableViewController {
 
     var workout: Workout?
 
+    //  MARK: UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        let datePicker = UIDatePicker()
+        textField.inputView = datePicker
+        datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
+    }
+    
+    func datePickerChanged(sender: UIDatePicker) {
+        newDate = sender.date
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    // disable editing of date text.  datepicker input only
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        return false
+    }
+    
+    // MARK: Helper Functions
+    
+    func closeKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    // MARK: Touch Events
+
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        dateTextField.resignFirstResponder()
+        closeKeyboard()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateTextField.delegate = self
         
         newDate = NSDate()
 
@@ -71,16 +112,38 @@ class RecordWorkoutTableViewController: UITableViewController {
 
     }
 
+    // MARK: Actions
+    
+    @IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
+        navigationController!.popViewControllerAnimated(true)
+    }
+    
     @IBAction func weightStepperChanged(sender: UIStepper) {
         newWeight = Int(sender.value)
+        closeKeyboard()
     }
     
     @IBAction func setOneStepperChanged(sender: UIStepper) {
         newSetOne = Int(sender.value)
+        closeKeyboard()
     }
 
     @IBAction func setTwoStepperChanged(sender: UIStepper) {
         newSetTwo = Int(sender.value)
+        closeKeyboard()
+    }
+    
+    // MARK: Navigation
+    
+    // This method lets you configure a view controller before it's presented.
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if doneButton === sender {
+            let newSets = [Sets(weight: newWeight!, repCount: newSetOne!), Sets(weight: newWeight!, repCount: newSetTwo!)]
+
+            
+            // Set the meal to be passed to MealListTableViewController after the unwind segue.
+            newWorkout = Workout(date: newDate!, sets: newSets)
+        }
     }
 
 

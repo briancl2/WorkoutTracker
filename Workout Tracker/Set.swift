@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Set: NSObject, NSCoding {
+class Sets: NSObject, NSCoding {
     var weight: Int
     var repCount: Int
     var volume: Int { return weight * repCount }
@@ -19,8 +19,8 @@ class Set: NSObject, NSCoding {
     }
     
     struct PropertyKey {
-        static let weightKey = "Set_weight"
-        static let repCountKey = "Set_repCount"
+        static let weightKey = "Sets_weight"
+        static let repCountKey = "Sets_repCount"
     }
     
     func encodeWithCoder(aCoder: NSCoder) {

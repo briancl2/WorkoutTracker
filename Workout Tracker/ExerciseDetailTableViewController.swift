@@ -14,17 +14,29 @@ class ExerciseDetailTableViewController: UITableViewController {
     
     var exerciseDetails = [[String]]()
     var exerciseSections = [String]()
+
+    override func viewWillAppear(animated: Bool) {
+        displayExerciseDetail()
+        self.tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("load \(exercise.getLastWorkout()))")
         
+        displayExerciseDetail()
+    }
+    
+    func displayExerciseDetail() {
+        
+        print("display \(exercise.getLastWorkout()))")
         let currentWeights = exercise.currentWeights
         let warmup25Text = "Warmup (25%): \(String(currentWeights.warmup25)) \(exercise.getBarWeightsString(currentWeights.warmup25))"
         let warmup50Text = "Warmup (50%): \(String(currentWeights.warmup50)) \(exercise.getBarWeightsString(currentWeights.warmup50))"
         let heavyText = "Heavy (100%): \(String(currentWeights.heavy)) \(exercise.getBarWeightsString(currentWeights.heavy))"
         
-        exerciseDetails.append([warmup25Text, warmup50Text, heavyText])
-        exerciseSections.append("Weights")
+        exerciseDetails = [[warmup25Text, warmup50Text, heavyText]]
+        exerciseSections = ["Weights"]
     
         if let notes = exercise.notes {
             exerciseDetails.append(["\(notes)"])
@@ -41,6 +53,7 @@ class ExerciseDetailTableViewController: UITableViewController {
             exerciseDetails.append(["15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%", "Calculated 1RM: \(exercise.getCalculated1RM())lbs", "Goal Attainment: \(exercise.getGoalAttainment())%"])
             exerciseSections.append("Stats")
         }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,6 +138,13 @@ class ExerciseDetailTableViewController: UITableViewController {
                 recordWorkoutTableViewController.workout = lastWorkout
             }
 
+        }
+    }
+    
+    @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController, newWorkout = sourceViewController.newWorkout {
+            exercise.recordWorkout(newWorkout)
+            //saveProgram()
         }
     }
 }
