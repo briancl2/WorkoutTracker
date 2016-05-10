@@ -17,16 +17,11 @@ class PerformanceAnalyzer {
         return Int(100 * (newVolume - oldVolume) / oldVolume)
     }
     
-    func calcGoalAttainment(workout: Workout) -> Int {
-        let bodyWeight = 162.0
-        let goalWeight = bodyWeight * 1.5
+    func calcGoalAttainment(workout: Workout, goal: Int) -> Int {
+        let goalWeight = Double(goal)
         let current1RM = calc1RM(workout)
         
         return Int(100 * (current1RM / goalWeight))
-        
-        // get current volume with current reps.
-        // convert current volume with reps to 1RM
-        // return percentage
     }
     
     func calc1RM(workout: Workout) -> Double {

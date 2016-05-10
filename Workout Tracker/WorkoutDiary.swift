@@ -20,7 +20,14 @@ class WorkoutDiary: NSObject, NSCoding {
     }
     
     func addWorkout(workout: Workout) {
-        diary.append(workout)
+        if let lastWorkout = diary.last {
+            diary.append(workout)
+            if workout.date < lastWorkout.date { // if the working being added isn't the newest workout
+                sortDiaryByDate()
+            }
+        } else {
+            diary = [workout] // adding first workout
+        }
     }
     
     func getLastWorkout() -> Workout? {
@@ -33,6 +40,10 @@ class WorkoutDiary: NSObject, NSCoding {
         } else {
             return nil
         }
+    }
+    
+    func sortDiaryByDate() {
+        diary.sortInPlace({$0.date < $1.date})
     }
 
     

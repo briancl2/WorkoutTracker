@@ -13,12 +13,14 @@ class Exercise: NSObject, NSCoding {
     var notes: String?
     private var workoutDiary = WorkoutDiary(diary: [])
     var currentWeights = Weights(heavy: 0)
+    var goal = 0
 
-    init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int) {
+    init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int, goal: Int) {
         self.name = name
         self.notes = notes
         self.workoutDiary = workoutDiary
         self.currentWeights.heavy = weight
+        self.goal = goal
 
     }
     
@@ -36,6 +38,7 @@ class Exercise: NSObject, NSCoding {
         static let notesKey = "Exercise_notes"
         static let workoutDiaryKey = "Exercise_workoutDiary"
         static let currentWeightsHeavyKey = "Exercise_currentWeightsHeavy"
+        static let goal = "Exercise_goal"
     }
     
     func recordWorkout(date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {
@@ -97,7 +100,7 @@ class Exercise: NSObject, NSCoding {
     
     func getGoalAttainment() -> Int {
         let perfAnalyzer = PerformanceAnalyzer()
-        return perfAnalyzer.calcGoalAttainment(getLastWorkout()!)
+        return perfAnalyzer.calcGoalAttainment(getLastWorkout()!, goal: goal)
     }
     
     
@@ -108,6 +111,7 @@ class Exercise: NSObject, NSCoding {
         aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
         aCoder.encodeObject(workoutDiary, forKey: PropertyKey.workoutDiaryKey)
         aCoder.encodeInteger(currentWeights.heavy, forKey: PropertyKey.currentWeightsHeavyKey)
+        aCoder.encodeInteger(goal, forKey: PropertyKey.goal)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -115,8 +119,9 @@ class Exercise: NSObject, NSCoding {
         let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as! String?
         let workoutDiary = aDecoder.decodeObjectForKey(PropertyKey.workoutDiaryKey) as! WorkoutDiary
         let currentWeights = aDecoder.decodeIntegerForKey(PropertyKey.currentWeightsHeavyKey)
+        let goal = aDecoder.decodeIntegerForKey(PropertyKey.goal)
 
         // Must call designated initializer.
-        self.init(name: name, notes: notes, workoutDiary: workoutDiary, weight: currentWeights)
+        self.init(name: name, notes: notes, workoutDiary: workoutDiary, weight: currentWeights, goal: goal)
     }
 }

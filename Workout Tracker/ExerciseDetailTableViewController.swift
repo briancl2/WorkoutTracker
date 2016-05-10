@@ -38,10 +38,6 @@ class ExerciseDetailTableViewController: UITableViewController {
         exerciseDetails = [[warmup25Text, warmup50Text, heavyText]]
         exerciseSections = ["Weights"]
     
-        if let notes = exercise.notes {
-            exerciseDetails.append(["\(notes)"])
-            exerciseSections.append("Notes")
-        }
     
         if let lastWorkouts = exercise.getLastWorkouts(3) {
             var workoutsToDisplay = [String]()
@@ -50,8 +46,13 @@ class ExerciseDetailTableViewController: UITableViewController {
             }
             exerciseDetails.append(workoutsToDisplay)
             exerciseSections.append("Last Workouts")
-            exerciseDetails.append(["15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%", "Calculated 1RM: \(exercise.getCalculated1RM())lbs", "Goal Attainment: \(exercise.getGoalAttainment())%"])
+            exerciseDetails.append(["15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%", "Calculated 1RM: \(exercise.getCalculated1RM())lbs", "Goal Attainment: \(exercise.getGoalAttainment())% of \(exercise.goal) lbs"])
             exerciseSections.append("Stats")
+        }
+        
+        if let notes = exercise.notes {
+            exerciseDetails.append(["\(notes)"])
+            exerciseSections.append("Notes")
         }
 
     }

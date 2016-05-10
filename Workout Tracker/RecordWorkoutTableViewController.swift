@@ -29,6 +29,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     var newWeight: Int? {
         didSet {
             weightLabel.text = "\(newWeight!) lbs"
+            checkValidExercise()
         }
     }
     
@@ -50,6 +51,8 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     func textFieldDidBeginEditing(textField: UITextField) {
         let datePicker = UIDatePicker()
+        datePicker.maximumDate = NSDate()
+        datePicker.datePickerMode = UIDatePickerMode.Date
         textField.inputView = datePicker
         datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
     }
@@ -74,6 +77,14 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         self.view.endEditing(true)
     }
     
+    func checkValidExercise() {
+        if newWeight > 0 {
+            doneButton.enabled = true
+        } else {
+            doneButton.enabled = false
+        }
+    }
+    
     // MARK: Touch Events
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -85,6 +96,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         dateTextField.delegate = self
+        doneButton.enabled = false
         
         newDate = NSDate()
 
