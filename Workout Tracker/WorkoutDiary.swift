@@ -55,7 +55,7 @@ class WorkoutDiary: NSObject, NSCoding {
         
         // if an argument was passed
         if let dateRange = dateRange {
-            let daysAgo = calcDaysAgo(dateRange)
+            let daysAgo = DaysAgo(daysAgo: dateRange).date
             let workoutsInRange = diary.filter({$0.date > daysAgo})
             
             // if there are workouts in the dateRange, return the first one (oldest)

@@ -22,14 +22,11 @@ class ExerciseDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("load \(exercise.getLastWorkout()))")
         
         displayExerciseDetail()
     }
     
     func displayExerciseDetail() {
-        
-        print("display \(exercise.getLastWorkout()))")
         let currentWeights = exercise.currentWeights
         let warmup25Text = "Warmup (25%): \(String(currentWeights.warmup25)) \(exercise.getBarWeightsString(currentWeights.warmup25))"
         let warmup50Text = "Warmup (50%): \(String(currentWeights.warmup50)) \(exercise.getBarWeightsString(currentWeights.warmup50))"
@@ -42,7 +39,8 @@ class ExerciseDetailTableViewController: UITableViewController {
         if let lastWorkouts = exercise.getLastWorkouts(3) {
             var workoutsToDisplay = [String]()
             for workout in lastWorkouts {
-                workoutsToDisplay.append("\(NSDateToPrettyString(workout.date)) Reps @\(workout.sets[0].weight): \(workout.sets[0].repCount) and \(workout.sets[1].repCount)")
+                workoutsToDisplay.append("\(workout.date.myPrettyString) Reps @\(workout.sets[0].weight): \(workout.sets[0].repCount) and \(workout.sets[1].repCount)")
+                //workoutsToDisplay.append(" Reps @\(workout.sets[0].weight): \(workout.sets[0].repCount) and \(workout.sets[1].repCount)")
             }
             exerciseDetails.append(workoutsToDisplay)
             exerciseSections.append("Last Workouts")

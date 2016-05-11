@@ -29,8 +29,12 @@ class Exercise: NSObject, NSCoding {
     // weights of the exercise
     struct Weights {
         var heavy = 0
-        var warmup25: Int { return roundToFives(Double(heavy) * 0.25) }
-        var warmup50: Int { return roundToFives(Double(heavy) * 0.50) }
+        var warmup25: Int {
+            return Int(Double(heavy) * 0.25).roundedToFive
+        }
+        var warmup50: Int {
+            return Int(Double(heavy) * 0.50).roundedToFive
+        }
     }
     
     struct PropertyKey {
@@ -55,7 +59,6 @@ class Exercise: NSObject, NSCoding {
     
     func recordWorkout(newWorkout: Workout) {
         workoutDiary.addWorkout(newWorkout)
-        print(newWorkout)
         //update weights
         self.currentWeights.heavy = newWorkout.sets[0].weight
     }
@@ -84,23 +87,20 @@ class Exercise: NSObject, NSCoding {
         if targetWeight < 54 {
             return "Bar"
         } else {
-            return calculatePlates(roundToFives(Double(targetWeight)))
+            return Bar(weight: targetWeight.roundedToFive).barText
         }
     }
 
     func getTotalVolumeIncrease(dateRange: Int) -> Int {
-        let perfAnalyzer = PerformanceAnalyzer()
-        return perfAnalyzer.calcTotalVolumeIncrease(workoutDiary, dateRange: dateRange)
+        return TotalVolumeIncrease(diary: workoutDiary, dateRange: dateRange).percentage
     }
     
     func getCalculated1RM() -> Int {
-        let perfAnalyzer = PerformanceAnalyzer()
-        return Int(perfAnalyzer.calc1RM(getLastWorkout()!))
+        return Int(OneRepMax(set: getLastWorkout()!.sets[0]).value)
     }
     
     func getGoalAttainment() -> Int {
-        let perfAnalyzer = PerformanceAnalyzer()
-        return perfAnalyzer.calcGoalAttainment(getLastWorkout()!, goal: goal)
+        return GoalAttainment(set: (getLastWorkout()?.sets[0])!, goal: goal).percentage
     }
     
     

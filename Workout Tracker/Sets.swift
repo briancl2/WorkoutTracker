@@ -1,5 +1,5 @@
 //
-//  Set.swift
+//  Sets.swift
 //  Workout Tracker
 //
 //  Created by briancl on 4/27/16.
@@ -36,3 +36,4 @@ class Sets: NSObject, NSCoding {
     }
     
 }
+

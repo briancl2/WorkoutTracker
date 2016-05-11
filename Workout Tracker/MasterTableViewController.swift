@@ -61,7 +61,7 @@ class MasterTableViewController: UITableViewController {
         row.recordWorkout("16-04-29", weight: 115, repsFirstSet: 13, repsSecondSet: 10)
         row.recordWorkout("16-05-02", weight: 115, repsFirstSet: 13, repsSecondSet: 11)
         row.recordWorkout("16-05-05", weight: 125, repsFirstSet: 9, repsSecondSet: 8)
-        row.recordWorkout("16-05-05", weight: 125, repsFirstSet: 9, repsSecondSet: 9)
+        row.recordWorkout("16-05-07", weight: 125, repsFirstSet: 9, repsSecondSet: 9)
         
         exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [])
         

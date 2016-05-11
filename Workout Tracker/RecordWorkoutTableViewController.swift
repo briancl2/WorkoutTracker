@@ -23,7 +23,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     var newDate: NSDate? {
         didSet {
-            dateTextField.text = NSDateToPrettyString(newDate!)
+            dateTextField.text = newDate!.myPrettyString
         }
     }
     var newWeight: Int? {
