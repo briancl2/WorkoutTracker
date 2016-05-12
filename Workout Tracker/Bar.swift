@@ -29,3 +29,4 @@ struct Bar {
         return plates.filter({$0.1 > 0}).reduce("Bar", combine: { $0 + " + \($1.1)x\($1.0.trimmedToString)" })
     }
 }
+
