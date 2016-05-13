@@ -10,7 +10,7 @@ import UIKit
 
 class MasterTableViewController: UITableViewController, ExerciseDetailTableViewControllerDelegate {
 
-    var exercises = ExerciseProgram(name: "temp", startDate: "temp", program: [])
+    var exercises = ExerciseProgram(name: "temp", startDate: "temp", program: [], userProfile: User(bodyWeight: 0, name: ""))
     
     override func viewWillAppear(animated: Bool) {
         // Load any saved program, otherwise load sample data.
@@ -34,7 +34,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
     }
     
     func loadSampleProgram() {
-        let squat = Exercise(name: "Squat", notes: "Squat notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
+        let squat = Exercise(name: "Squat", notes: "Squat notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 320)
         squat.recordWorkout("16-04-17", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
         squat.recordWorkout("16-04-22", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
         squat.recordWorkout("16-04-25", weight: 145, repsFirstSet: 10, repsSecondSet: 10)
@@ -43,6 +43,8 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         squat.recordWorkout("16-05-02", weight: 145, repsFirstSet: 11, repsSecondSet: 10)
         squat.recordWorkout("16-05-05", weight: 145, repsFirstSet: 11, repsSecondSet: 11)
         squat.recordWorkout("16-05-07", weight: 145, repsFirstSet: 11, repsSecondSet: 11)
+        squat.recordWorkout("16-05-09", weight: 145, repsFirstSet: 12, repsSecondSet: 11)
+        squat.recordWorkout("16-05-12", weight: 145, repsFirstSet: 13, repsSecondSet: 11)
         
         let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
         bench.recordWorkout("16-04-18", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
@@ -53,6 +55,8 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         bench.recordWorkout("16-05-02", weight: 135, repsFirstSet: 10, repsSecondSet: 9)
         bench.recordWorkout("16-05-05", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
         bench.recordWorkout("16-05-07", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
+        bench.recordWorkout("16-05-09", weight: 135, repsFirstSet: 11, repsSecondSet: 10)
+        bench.recordWorkout("16-05-12", weight: 135, repsFirstSet: 12, repsSecondSet: 10)
         
         let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
         row.recordWorkout("16-04-19", weight: 115, repsFirstSet: 11, repsSecondSet: 10)
@@ -63,12 +67,87 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         row.recordWorkout("16-05-02", weight: 115, repsFirstSet: 13, repsSecondSet: 11)
         row.recordWorkout("16-05-05", weight: 125, repsFirstSet: 9, repsSecondSet: 8)
         row.recordWorkout("16-05-07", weight: 125, repsFirstSet: 9, repsSecondSet: 9)
+        row.recordWorkout("16-05-09", weight: 125, repsFirstSet: 10, repsSecondSet: 9)
+        row.recordWorkout("16-05-12", weight: 125, repsFirstSet: 10, repsSecondSet: 10)
         
-        exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [])
+        let ohp = Exercise(name: "Overhead Press", notes: "OHP notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 160)
+        ohp.recordWorkout("16-04-19", weight: 95, repsFirstSet: 8, repsSecondSet: 8)
+        ohp.recordWorkout("16-04-22", weight: 95, repsFirstSet: 10, repsSecondSet: 7)
+        ohp.recordWorkout("16-04-25", weight: 95, repsFirstSet: 10, repsSecondSet: 7)
+        ohp.recordWorkout("16-04-27", weight: 95, repsFirstSet: 10, repsSecondSet: 7)
+        ohp.recordWorkout("16-04-29", weight: 95, repsFirstSet: 10, repsSecondSet: 7)
+        ohp.recordWorkout("16-05-02", weight: 95, repsFirstSet: 10, repsSecondSet: 8)
+        ohp.recordWorkout("16-05-05", weight: 95, repsFirstSet: 10, repsSecondSet: 8)
+        ohp.recordWorkout("16-05-07", weight: 95, repsFirstSet: 10, repsSecondSet: 8)
+        ohp.recordWorkout("16-05-09", weight: 95, repsFirstSet: 10, repsSecondSet: 8)
+        ohp.recordWorkout("16-05-12", weight: 95, repsFirstSet: 10, repsSecondSet: 9)
+        
+        let sldl = Exercise(name: "Straight Leg Deadlift", notes: "SLDL notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
+        sldl.recordWorkout("16-04-19", weight: 95, repsFirstSet: 13, repsSecondSet: 11)
+        sldl.recordWorkout("16-04-22", weight: 95, repsFirstSet: 13, repsSecondSet: 12)
+        sldl.recordWorkout("16-04-25", weight: 105, repsFirstSet: 9, repsSecondSet: 8)
+        sldl.recordWorkout("16-04-27", weight: 105, repsFirstSet: 10, repsSecondSet: 10)
+        sldl.recordWorkout("16-04-29", weight: 105, repsFirstSet: 11, repsSecondSet: 10)
+        sldl.recordWorkout("16-05-02", weight: 105, repsFirstSet: 12, repsSecondSet: 11)
+        sldl.recordWorkout("16-05-05", weight: 105, repsFirstSet: 12, repsSecondSet: 11)
+        sldl.recordWorkout("16-05-07", weight: 105, repsFirstSet: 13, repsSecondSet: 11)
+        sldl.recordWorkout("16-05-09", weight: 115, repsFirstSet: 9, repsSecondSet: 8)
+        sldl.recordWorkout("16-05-12", weight: 115, repsFirstSet: 10, repsSecondSet: 9)
+        
+        let chin = Exercise(name: "Chin-up", notes: "Chin notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
+        chin.recordWorkout("16-04-19", weight: 110, repsFirstSet: 10, repsSecondSet: 9)
+        chin.recordWorkout("16-04-22", weight: 110, repsFirstSet: 10, repsSecondSet: 9)
+        chin.recordWorkout("16-04-25", weight: 110, repsFirstSet: 10, repsSecondSet: 10)
+        chin.recordWorkout("16-04-27", weight: 110, repsFirstSet: 11, repsSecondSet: 10)
+        chin.recordWorkout("16-04-29", weight: 110, repsFirstSet: 11, repsSecondSet: 10)
+        chin.recordWorkout("16-05-05", weight: 110, repsFirstSet: 11, repsSecondSet: 11)
+        chin.recordWorkout("16-05-07", weight: 110, repsFirstSet: 11, repsSecondSet: 11)
+        chin.recordWorkout("16-05-09", weight: 110, repsFirstSet: 12, repsSecondSet: 11)
+        chin.recordWorkout("16-05-12", weight: 110, repsFirstSet: 13, repsSecondSet: 11)
+        
+        let calf = Exercise(name: "Calf Raise", notes: "calf notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 320)
+        calf.recordWorkout("16-04-19", weight: 150, repsFirstSet: 13, repsSecondSet: 11)
+        calf.recordWorkout("16-04-22", weight: 175, repsFirstSet: 10, repsSecondSet: 8)
+        calf.recordWorkout("16-04-25", weight: 175, repsFirstSet: 10, repsSecondSet: 10)
+        calf.recordWorkout("16-04-27", weight: 175, repsFirstSet: 11, repsSecondSet: 10)
+        calf.recordWorkout("16-04-29", weight: 175, repsFirstSet: 11, repsSecondSet: 11)
+        calf.recordWorkout("16-05-05", weight: 175, repsFirstSet: 12, repsSecondSet: 11)
+        calf.recordWorkout("16-05-09", weight: 175, repsFirstSet: 12, repsSecondSet: 11)
+        calf.recordWorkout("16-05-12", weight: 175, repsFirstSet: 13, repsSecondSet: 11)
+        
+        let torso = Exercise(name: "Torso Rotation", notes: "torso notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
+        torso.recordWorkout("16-04-19", weight: 130, repsFirstSet: 13, repsSecondSet: 11)
+        torso.recordWorkout("16-04-22", weight: 140, repsFirstSet: 9, repsSecondSet: 9)
+        torso.recordWorkout("16-04-25", weight: 140, repsFirstSet: 11, repsSecondSet: 9)
+        torso.recordWorkout("16-04-27", weight: 140, repsFirstSet: 10, repsSecondSet: 10)
+        torso.recordWorkout("16-04-29", weight: 140, repsFirstSet: 11, repsSecondSet: 10)
+        torso.recordWorkout("16-05-05", weight: 140, repsFirstSet: 11, repsSecondSet: 10)
+        torso.recordWorkout("16-05-07", weight: 140, repsFirstSet: 11, repsSecondSet: 11)
+        torso.recordWorkout("16-05-09", weight: 140, repsFirstSet: 11, repsSecondSet: 11)
+        torso.recordWorkout("16-05-12", weight: 140, repsFirstSet: 12, repsSecondSet: 11)
+        
+        let curl = Exercise(name: "Curl", notes: "curl notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 120)
+        curl.recordWorkout("16-04-19", weight: 50, repsFirstSet: 11, repsSecondSet: 8)
+        curl.recordWorkout("16-04-22", weight: 50, repsFirstSet: 11, repsSecondSet: 9)
+        curl.recordWorkout("16-04-25", weight: 50, repsFirstSet: 12, repsSecondSet: 10)
+        curl.recordWorkout("16-04-27", weight: 50, repsFirstSet: 12, repsSecondSet: 10)
+        curl.recordWorkout("16-04-29", weight: 50, repsFirstSet: 12, repsSecondSet: 11)
+        curl.recordWorkout("16-05-05", weight: 50, repsFirstSet: 13, repsSecondSet: 11)
+        curl.recordWorkout("16-05-07", weight: 60, repsFirstSet: 9, repsSecondSet: 8)
+        curl.recordWorkout("16-05-09", weight: 60, repsFirstSet: 9, repsSecondSet: 9)
+        curl.recordWorkout("16-05-12", weight: 60, repsFirstSet: 10, repsSecondSet: 9)
+        
+        exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
         
         exercises!.addExercise(squat)
         exercises!.addExercise(bench)
         exercises!.addExercise(row)
+        exercises!.addExercise(ohp)
+        exercises!.addExercise(sldl)
+        exercises!.addExercise(chin)
+        exercises!.addExercise(calf)
+        exercises!.addExercise(torso)
+        exercises!.addExercise(curl)
     }
 
     override func didReceiveMemoryWarning() {

@@ -22,6 +22,7 @@ class ExerciseDetailTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         displayExerciseDetail()
         self.tableView.reloadData()
+        self.title = exercise.name
     }
     
     override func viewDidLoad() {
@@ -34,9 +35,9 @@ class ExerciseDetailTableViewController: UITableViewController {
     
     func displayExerciseDetail() {
         let currentWeights = exercise.currentWeights
-        let warmup25Text = "Warmup (25%): \(String(currentWeights.warmup25)) \(exercise.getBarWeightsString(currentWeights.warmup25))"
-        let warmup50Text = "Warmup (50%): \(String(currentWeights.warmup50)) \(exercise.getBarWeightsString(currentWeights.warmup50))"
-        let heavyText = "Heavy (100%): \(String(currentWeights.heavy)) \(exercise.getBarWeightsString(currentWeights.heavy))"
+        let warmup25Text = "Warmup (25%): \(currentWeights.warmup25.value)lbs \(currentWeights.warmup25.barText)"
+        let warmup50Text = "Warmup (50%): \(currentWeights.warmup50.value)lbs \(currentWeights.warmup50.barText)"
+        let heavyText = "Heavy (100%): \(currentWeights.heavy.value)lbs \(currentWeights.heavy.barText)"
         
         exerciseDetails = [[warmup25Text, warmup50Text, heavyText]]
         exerciseSections = ["Weights"]
@@ -45,8 +46,7 @@ class ExerciseDetailTableViewController: UITableViewController {
         if let lastWorkouts = exercise.getLastWorkouts(3) {
             var workoutsToDisplay = [String]()
             for workout in lastWorkouts {
-                workoutsToDisplay.append("\(workout.date.myPrettyString) Reps @\(workout.sets[0].weight): \(workout.sets[0].repCount) and \(workout.sets[1].repCount)")
-                //workoutsToDisplay.append(" Reps @\(workout.sets[0].weight): \(workout.sets[0].repCount) and \(workout.sets[1].repCount)")
+                workoutsToDisplay.append("\(workout.date.myPrettyString): \(workout.sets[0].repCount) and \(workout.sets[1].repCount) Reps @ \(workout.sets[0].weight)lbs")
             }
             exerciseDetails.append(workoutsToDisplay)
             exerciseSections.append("Last Workouts")
@@ -54,8 +54,8 @@ class ExerciseDetailTableViewController: UITableViewController {
             if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(15) {
                 stats.append("15-day total volume increase: \(totalVolumeIncrease)%")
             }
-            stats.append("Calculated 1RM: \(exercise.getCalculated1RM())lbs")
-            stats.append("Goal Attainment: \(exercise.getGoalAttainment())% of \(exercise.goal) lbs")
+            stats.append("Calculated 1RM: \(exercise.calculated1RM)lbs")
+            stats.append("Goal Attainment: \(exercise.goalAttainment)% of \(exercise.goal)lbs")
             exerciseDetails.append(stats)
             exerciseSections.append("Stats")
         }
@@ -99,8 +99,6 @@ class ExerciseDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return exerciseSections[section]
     }
-    
-
 
     /*
     // Override to support conditional editing of the table view.

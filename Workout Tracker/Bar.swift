@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Bar {
+struct BarText {
     var barText = ""
     
     init(weight: Int) {
@@ -16,6 +16,10 @@ struct Bar {
     }
     
     private func calculatePlates(targetWeight: Int) -> String {
+        if targetWeight == 0 {
+            return ""
+        }
+        
         let barWeight = 45
         var plates = [(45, 0), (35, 0), (25, 0), (10, 0), (5,0), (2.5, 0)]
         var tmp = Double(targetWeight - barWeight)

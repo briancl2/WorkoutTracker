@@ -12,32 +12,44 @@ class Exercise: NSObject, NSCoding {
     var name: String
     var notes: String?
     private var workoutDiary = WorkoutDiary(diary: [])
-    var currentWeights = Weights(heavy: 0)
+    var currentWeights: ExerciseWeights
     var goal = 0
+    
+    var calculated1RM: Int {
+        return Int(OneRepMax(set: getLastWorkout()!.sets[0]).value)
+    }
+    
+    var goalAttainment: Int {
+        return GoalAttainment(set: (getLastWorkout()?.sets[0])!, goal: goal).percentage
+    }
 
     init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int, goal: Int) {
         self.name = name
         self.notes = notes
         self.workoutDiary = workoutDiary
-        self.currentWeights.heavy = weight
+        self.currentWeights = ExerciseWeights(weight: weight)
         self.goal = goal
 
     }
     
     // MARK: Types
     
-    // weights of the exercise
-    struct Weights {
-        var heavy = 0
-        var warmup25: Int {
-            return Int(Double(heavy) * 0.25).roundedToFive
+    
+    struct ExerciseWeights {
+        let heavy: Weight
+        var warmup25: Weight {
+            return Weight(value: Int(Double(heavy.value) * 0.25))
         }
-        var warmup50: Int {
-            return Int(Double(heavy) * 0.50).roundedToFive
+        var warmup50: Weight {
+            return Weight(value: Int(Double(heavy.value) * 0.50))
+        }
+        
+        init(weight: Int) {
+            self.heavy = Weight(value: weight)
         }
     }
     
-    struct PropertyKey {
+    private struct PropertyKey {
         static let nameKey = "Exercise_name"
         static let notesKey = "Exercise_notes"
         static let workoutDiaryKey = "Exercise_workoutDiary"
@@ -54,13 +66,13 @@ class Exercise: NSObject, NSCoding {
         workoutDiary.addWorkout(newWorkoutLogEntry)
         
         //update weights
-        self.currentWeights.heavy = weight
+        self.currentWeights = ExerciseWeights(weight: weight)
     }
     
     func recordWorkout(newWorkout: Workout) {
         workoutDiary.addWorkout(newWorkout)
         //update weights
-        self.currentWeights.heavy = newWorkout.sets[0].weight
+        self.currentWeights = ExerciseWeights(weight: newWorkout.sets[0].weight)
     }
     
     func getLastWorkout() -> Workout? {
@@ -83,31 +95,10 @@ class Exercise: NSObject, NSCoding {
         return workoutDiary.getOldestWorkoutFromRange(15)
     }
     
-    func getBarWeightsString(targetWeight: Int) -> String {
-        if targetWeight == 0 {
-            return ""
-        }
-        
-        if targetWeight < 54 {
-            return "Bar"
-        } else {
-            return Bar(weight: targetWeight.roundedToFive).barText
-        }
-    }
-
     func getTotalVolumeIncrease(dateRange: Int) -> Int? {
         return TotalVolumeIncrease(diary: workoutDiary, dateRange: dateRange).percentage
     }
-    
-    func getCalculated1RM() -> Int {
-        return Int(OneRepMax(set: getLastWorkout()!.sets[0]).value)
-    }
-    
-    func getGoalAttainment() -> Int {
-        return GoalAttainment(set: (getLastWorkout()?.sets[0])!, goal: goal).percentage
-    }
-    
-    
+
     func saveExercise() {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(self), forKey: "ExerciseProgram")
@@ -120,7 +111,7 @@ class Exercise: NSObject, NSCoding {
         aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
         aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
         aCoder.encodeObject(workoutDiary, forKey: PropertyKey.workoutDiaryKey)
-        aCoder.encodeInteger(currentWeights.heavy, forKey: PropertyKey.currentWeightsHeavyKey)
+        aCoder.encodeInteger(currentWeights.heavy.value, forKey: PropertyKey.currentWeightsHeavyKey)
         aCoder.encodeInteger(goal, forKey: PropertyKey.goal)
     }
     
