@@ -100,48 +100,7 @@ class ExerciseDetailTableViewController: UITableViewController {
         return exerciseSections[section]
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerFrame = tableView.frame
-        
-        var headerView:UIView = UIView(frame: CGRectMake(0, 0, headerFrame.size.width, headerFrame.size.height))
-        //headerView.backgroundColor = UIColor(red: 108/255, green: 185/255, blue: 0/255, alpha: 0.9)
-        
-        var title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        //title.font = UIFont.boldSystemFontOfSize(20.0)
-        title.text = exerciseSections[section]
-        //title.textColor = UIColor.whiteColor()
-        headerView.addSubview(title)
-        
-        var headBttn: UIButton = UIButton(type: UIButtonType.System)
-        headBttn.translatesAutoresizingMaskIntoConstraints = false
-        headBttn.enabled = true
-        headBttn.titleLabel?.text = "\(section)"
-        headBttn.tag = section
-        headBttn.addTarget(self, action: #selector(UIPushBehavior.addItem(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        headBttn.layer.cornerRadius = 5
-        headBttn.layer.borderWidth = 1
-        headBttn.layer.borderColor = UIColor.blackColor().CGColor
-        headerView.addSubview(headBttn)
-        
-        var viewsDict = Dictionary <String, UIView>()
-        viewsDict["title"] = title
-        viewsDict["headBttn"] = headBttn
-        
-        headerView.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat(
-                "H:|-10-[title]-[headBttn]-15-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict))
-        
-        headerView.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:|-[title]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict))
-        headerView.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:|-[headBttn]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict))
-        
-        return headerView
-        
-    }
+
 
     /*
     // Override to support conditional editing of the table view.
