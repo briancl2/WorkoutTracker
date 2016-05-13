@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ExerciseDetailTableViewControllerDelegate {
+    func save()
+}
+
 class ExerciseDetailTableViewController: UITableViewController {
 
     var exercise: Exercise!
@@ -25,6 +29,8 @@ class ExerciseDetailTableViewController: UITableViewController {
         
         displayExerciseDetail()
     }
+    
+
     
     func displayExerciseDetail() {
         let currentWeights = exercise.currentWeights
@@ -44,7 +50,13 @@ class ExerciseDetailTableViewController: UITableViewController {
             }
             exerciseDetails.append(workoutsToDisplay)
             exerciseSections.append("Last Workouts")
-            exerciseDetails.append(["15-day total volume increase: \(exercise.getTotalVolumeIncrease(15))%", "Calculated 1RM: \(exercise.getCalculated1RM())lbs", "Goal Attainment: \(exercise.getGoalAttainment())% of \(exercise.goal) lbs"])
+            var stats: [String] = []
+            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(15) {
+                stats.append("15-day total volume increase: \(totalVolumeIncrease)%")
+            }
+            stats.append("Calculated 1RM: \(exercise.getCalculated1RM())lbs")
+            stats.append("Goal Attainment: \(exercise.getGoalAttainment())% of \(exercise.goal) lbs")
+            exerciseDetails.append(stats)
             exerciseSections.append("Stats")
         }
         
@@ -143,9 +155,16 @@ class ExerciseDetailTableViewController: UITableViewController {
     @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController, newWorkout = sourceViewController.newWorkout {
             exercise.recordWorkout(newWorkout)
-            //saveProgram()
+            save()
         }
     }
+    
+    var delegate: ExerciseDetailTableViewControllerDelegate?
+    
+    func save() {
+        delegate?.save()
+    }
+    
 }
 
 

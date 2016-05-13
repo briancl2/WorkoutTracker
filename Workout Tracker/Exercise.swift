@@ -84,6 +84,10 @@ class Exercise: NSObject, NSCoding {
     }
     
     func getBarWeightsString(targetWeight: Int) -> String {
+        if targetWeight == 0 {
+            return ""
+        }
+        
         if targetWeight < 54 {
             return "Bar"
         } else {
@@ -91,7 +95,7 @@ class Exercise: NSObject, NSCoding {
         }
     }
 
-    func getTotalVolumeIncrease(dateRange: Int) -> Int {
+    func getTotalVolumeIncrease(dateRange: Int) -> Int? {
         return TotalVolumeIncrease(diary: workoutDiary, dateRange: dateRange).percentage
     }
     
@@ -103,6 +107,12 @@ class Exercise: NSObject, NSCoding {
         return GoalAttainment(set: (getLastWorkout()?.sets[0])!, goal: goal).percentage
     }
     
+    
+    func saveExercise() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(self), forKey: "ExerciseProgram")
+        defaults.synchronize()
+    }
     
     // MARK: NSCoder
     

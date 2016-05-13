@@ -8,13 +8,13 @@
 
 import UIKit
 
-class MasterTableViewController: UITableViewController {
+class MasterTableViewController: UITableViewController, ExerciseDetailTableViewControllerDelegate {
 
     var exercises = ExerciseProgram(name: "temp", startDate: "temp", program: [])
     
     override func viewWillAppear(animated: Bool) {
         // Load any saved program, otherwise load sample data.
-        if let savedProgram = loadProgram() {
+        if let savedProgram = load() {
             exercises = savedProgram
         } else {
             // Load the sample data.
@@ -30,6 +30,7 @@ class MasterTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
+
     }
     
     func loadSampleProgram() {
@@ -107,7 +108,7 @@ class MasterTableViewController: UITableViewController {
         if editingStyle == .Delete {
             // Delete the row from the data source
             exercises!.removeExercise(indexPath.row)
-            saveProgram()
+            save()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } //else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -139,6 +140,8 @@ class MasterTableViewController: UITableViewController {
         if segue.identifier == "ShowExerciseDetail" {
             let exerciseDetailTableViewController = segue.destinationViewController as! ExerciseDetailTableViewController
             
+            exerciseDetailTableViewController.delegate = self
+            
             // Get the cell that generated this segue
             if let selectedExerciseCell = sender as? ExerciseTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedExerciseCell)!
@@ -154,27 +157,18 @@ class MasterTableViewController: UITableViewController {
             let newIndexPath = NSIndexPath(forRow: exercises!.getCount(), inSection: 0)
             exercises!.addExercise(exercise)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-            saveProgram()
+            save()
         }
     }
     
     // MARK: NSCoding
     
-    func saveProgram() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(exercises!), forKey: "MasterTableViewController_program")
-        defaults.synchronize()
+    func save() {
+        exercises?.saveProgram()
     }
     
-    func loadProgram() -> ExerciseProgram? {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        guard let decodedNSData = defaults.objectForKey("MasterTableViewController_program") as? NSData,
-            let exerciseProgram = NSKeyedUnarchiver.unarchiveObjectWithData(decodedNSData) as? ExerciseProgram
-            else {
-                print("Failed")
-                return nil
-        }
-        return exerciseProgram
+    func load() -> ExerciseProgram? {
+        return exercises?.loadProgram()
     }
 
 

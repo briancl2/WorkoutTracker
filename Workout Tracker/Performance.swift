@@ -10,16 +10,19 @@ import Foundation
 
 
 struct TotalVolumeIncrease {
-    var percentage = 0
+    var percentage: Int?
     
     init(diary: WorkoutDiary, dateRange: Int) {
         self.percentage = calcTotalVolumeIncrease(diary, dateRange: dateRange)
     }
     
-    private func calcTotalVolumeIncrease(diary: WorkoutDiary, dateRange: Int) -> Int {
-        let oldVolume = diary.getOldestWorkoutFromRange(dateRange)!.totalVolume
-        let newVolume = diary.getLastWorkout()!.totalVolume
-        return Int(100 * (newVolume - oldVolume) / oldVolume)
+    private func calcTotalVolumeIncrease(diary: WorkoutDiary, dateRange: Int) -> Int? {
+        if let oldWorkout = diary.getOldestWorkoutFromRange(dateRange) {
+            let oldVolume = oldWorkout.totalVolume
+            let newVolume = diary.getLastWorkout()!.totalVolume
+            return Int(100 * (newVolume - oldVolume) / oldVolume)
+        }
+        return nil
     }
 }
 

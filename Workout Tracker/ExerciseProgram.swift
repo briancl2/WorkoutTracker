@@ -49,6 +49,25 @@ class ExerciseProgram: NSObject, NSCoding {
         program.removeAtIndex(index)
     }
     
+    // MARK: Persistence
+    
+    func saveProgram() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(self), forKey: "ExerciseProgram")
+        defaults.synchronize()
+    }
+    
+    func loadProgram() -> ExerciseProgram? {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        guard let decodedNSData = defaults.objectForKey("ExerciseProgram") as? NSData,
+            let exerciseProgram = NSKeyedUnarchiver.unarchiveObjectWithData(decodedNSData) as? ExerciseProgram
+            else {
+                print("Failed")
+                return nil
+        }
+        return exerciseProgram
+    }
+    
     // MARK: NSCoder
     
     func encodeWithCoder(aCoder: NSCoder) {

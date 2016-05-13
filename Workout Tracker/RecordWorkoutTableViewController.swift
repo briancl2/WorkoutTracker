@@ -106,7 +106,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
             newSetTwo = lastWorkout.sets[1].repCount
         } else {
             newWeight = 0
-            newSetOne = 9
+            newSetOne = 8
             newSetTwo = 8
         }
         
