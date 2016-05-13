@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6gd-LE-WXB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0TX-qW-NC3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -43,7 +43,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G8i-Nq-VeA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-771" y="87"/>
+            <point key="canvasLocation" x="147" y="87"/>
         </scene>
         <!--Exercise Detail Table View Controller-->
         <scene sceneID="9ST-Cl-06S">
@@ -62,6 +62,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SectionHeaderCell" id="FSe-M9-feG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSe-M9-feG" id="WOI-PT-ZbN">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.93124181937172779" green="0.93124181937172779" blue="0.93124181937172779" alpha="0.5" colorSpace="calibratedRGB"/>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Gcq-mm-5Nt" id="MKt-2E-ONB"/>
@@ -78,7 +86,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzG-sr-oPV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="87"/>
+            <point key="canvasLocation" x="960" y="405"/>
         </scene>
         <!--Record Workout-->
         <scene sceneID="uhP-0d-52F">
@@ -100,7 +108,7 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RrK-wc-qOT">
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -161,7 +169,7 @@
                                                 </stepper>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSD-f9-Chz">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -228,7 +236,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwd-VP-Oiw">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -301,7 +309,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBd-Re-mkZ">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -399,7 +407,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFQ-WP-keR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Slu-mY-9yp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="862.5" y="87"/>
+            <point key="canvasLocation" x="1810.5" y="387"/>
         </scene>
         <!--Add New Exercise-->
         <scene sceneID="2Be-af-EbU">
@@ -421,7 +429,7 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g., Squat, OHP, Bent Over Row" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZMC-BI-lX6">
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -476,7 +484,7 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g., 200, 250, etc" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3LU-o7-Uzt">
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -528,7 +536,7 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3uB-fF-s5w">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
@@ -600,12 +608,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpG-UC-MZu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1h1-aH-O3C" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="24" y="-674.25"/>
+            <point key="canvasLocation" x="984" y="-431.25"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Workout-->
         <scene sceneID="nXz-MD-MtV">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6gd-LE-WXB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Workout" id="Ydc-WL-iXY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rwz-I8-tMG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -621,7 +630,117 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ka3-EP-55A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1608" y="87"/>
+            <point key="canvasLocation" x="-690" y="87"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="7K6-qZ-Rbk">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="0TX-qW-NC3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Nuc-48-X3z">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="6gd-LE-WXB" kind="relationship" relationship="viewControllers" id="8Tc-bu-Run"/>
+                        <segue destination="Ztw-Y0-SoL" kind="relationship" relationship="viewControllers" id="DUs-EI-uut"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ybQ-E7-8iU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1848" y="555"/>
+        </scene>
+        <!--Timer-->
+        <scene sceneID="gcL-3r-Sl1">
+            <objects>
+                <viewController id="Ztw-Y0-SoL" customClass="TimerViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CB0-4k-rDy"/>
+                        <viewControllerLayoutGuide type="bottom" id="ejJ-2u-Yjs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rNu-cE-P2B">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yat-bu-RKD">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <state key="normal" title="Start Timer"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="134" y="425" width="133" height="45"/>
+                                </variation>
+                                <connections>
+                                    <action selector="startTimerButtonTapped:" destination="Ztw-Y0-SoL" eventType="touchUpInside" id="4wA-UQ-iez"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54O-rq-Mfv">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5l-lv-Ofl">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <state key="normal" title="Reset Timer"/>
+                                <connections>
+                                    <action selector="resetTimerButtonTapped:" destination="Ztw-Y0-SoL" eventType="touchUpInside" id="m0E-xR-zqd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Yat-bu-RKD" firstAttribute="top" secondItem="54O-rq-Mfv" secondAttribute="bottom" constant="8" id="5Vj-zX-Geu">
+                                <variation key="heightClass=regular-widthClass=compact" constant="8" symbolic="YES"/>
+                            </constraint>
+                            <constraint firstItem="54O-rq-Mfv" firstAttribute="centerX" secondItem="rNu-cE-P2B" secondAttribute="centerX" id="GsY-WC-36d"/>
+                            <constraint firstItem="a5l-lv-Ofl" firstAttribute="centerX" secondItem="Yat-bu-RKD" secondAttribute="centerX" id="QMF-sb-mDv"/>
+                            <constraint firstItem="a5l-lv-Ofl" firstAttribute="top" secondItem="Yat-bu-RKD" secondAttribute="bottom" constant="8" id="Zjw-ds-ESU">
+                                <variation key="heightClass=regular-widthClass=compact" constant="8" symbolic="YES"/>
+                            </constraint>
+                            <constraint firstItem="54O-rq-Mfv" firstAttribute="centerY" secondItem="rNu-cE-P2B" secondAttribute="centerY" id="fm2-PW-Z1o"/>
+                            <constraint firstItem="Yat-bu-RKD" firstAttribute="centerX" secondItem="54O-rq-Mfv" secondAttribute="centerX" id="iko-uu-dgb"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Yat-bu-RKD"/>
+                                <exclude reference="54O-rq-Mfv"/>
+                                <exclude reference="a5l-lv-Ofl"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="GsY-WC-36d"/>
+                                <exclude reference="fm2-PW-Z1o"/>
+                                <exclude reference="5Vj-zX-Geu"/>
+                                <exclude reference="iko-uu-dgb"/>
+                                <exclude reference="QMF-sb-mDv"/>
+                                <exclude reference="Zjw-ds-ESU"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Yat-bu-RKD"/>
+                                <include reference="54O-rq-Mfv"/>
+                                <include reference="a5l-lv-Ofl"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="GsY-WC-36d"/>
+                                <include reference="fm2-PW-Z1o"/>
+                                <include reference="5Vj-zX-Geu"/>
+                                <include reference="iko-uu-dgb"/>
+                                <include reference="QMF-sb-mDv"/>
+                                <include reference="Zjw-ds-ESU"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Timer" id="xzi-xJ-UEd"/>
+                    <connections>
+                        <outlet property="resetTimerButton" destination="a5l-lv-Ofl" id="p8f-TT-YuZ"/>
+                        <outlet property="startTimerButton" destination="Yat-bu-RKD" id="juy-xi-tEh"/>
+                        <outlet property="timerLabel" destination="54O-rq-Mfv" id="LxJ-jd-eir"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fzH-PZ-PWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-760.5" y="873.75"/>
         </scene>
     </scenes>
 </document>
