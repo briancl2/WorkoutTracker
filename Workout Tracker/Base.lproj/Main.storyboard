@@ -10,7 +10,7 @@
         <!--Master Table View Controller-->
         <scene sceneID="MzS-td-GLU">
             <objects>
-                <tableViewController id="uPf-26-ocp" customClass="MasterTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MasterTableViewController" id="uPf-26-ocp" customClass="MasterTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="5cE-YQ-uJB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -607,14 +607,17 @@
             <objects>
                 <tableViewController id="Qdi-z4-Ctl" customClass="ProfileTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rIg-BD-cep">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="Name" id="TC1-n4-9ce">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="u5W-jo-FXf">
+                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u5W-jo-FXf" id="FUW-pk-Hih">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n52-f0-38O">
@@ -664,8 +667,10 @@
                             <tableViewSection headerTitle="Program" id="Cju-n3-hcf">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="SBK-GV-V75">
+                                        <rect key="frame" x="0.0" y="145" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SBK-GV-V75" id="pbY-5Y-FCh">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xK0-El-Bur">
@@ -715,8 +720,10 @@
                             <tableViewSection headerTitle="Bodyweight" id="dCk-gF-F26">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ns4-dc-ayY">
+                                        <rect key="frame" x="0.0" y="240" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ns4-dc-ayY" id="FHl-qi-LSI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lSL-Rz-LWS">
@@ -830,6 +837,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ejJ-2u-Yjs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rNu-cE-P2B">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yat-bu-RKD">
@@ -875,12 +883,12 @@
                                 <exclude reference="a5l-lv-Ofl"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="GsY-WC-36d"/>
-                                <exclude reference="fm2-PW-Z1o"/>
                                 <exclude reference="5Vj-zX-Geu"/>
                                 <exclude reference="iko-uu-dgb"/>
                                 <exclude reference="QMF-sb-mDv"/>
                                 <exclude reference="Zjw-ds-ESU"/>
+                                <exclude reference="GsY-WC-36d"/>
+                                <exclude reference="fm2-PW-Z1o"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -890,12 +898,12 @@
                                 <include reference="a5l-lv-Ofl"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="GsY-WC-36d"/>
-                                <include reference="fm2-PW-Z1o"/>
                                 <include reference="5Vj-zX-Geu"/>
                                 <include reference="iko-uu-dgb"/>
                                 <include reference="QMF-sb-mDv"/>
                                 <include reference="Zjw-ds-ESU"/>
+                                <include reference="GsY-WC-36d"/>
+                                <include reference="fm2-PW-Z1o"/>
                             </mask>
                         </variation>
                     </view>

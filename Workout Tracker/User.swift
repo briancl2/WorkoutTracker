@@ -8,9 +8,9 @@
 
 import Foundation
 
-class User {
-    var bodyWeight = 0
-    var name: String
+class User: NSObject, NSCoding {
+    var bodyWeight = 1
+    var name = ""
     
     init(bodyWeight: Int, name: String) {
         self.bodyWeight = bodyWeight
@@ -19,17 +19,17 @@ class User {
     
     struct PropertyKey {
         static let bodyWeightKey = "User_bodyWeight"
-        static let name = "User_name"
+        static let nameKey = "User_name"
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(bodyWeight, forKey: PropertyKey.bodyWeightKey)
-        aCoder.encodeObject(name, forKey: PropertyKey.name)
+        aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let bodyWeight = aDecoder.decodeIntegerForKey(PropertyKey.bodyWeightKey)
-        let name = aDecoder.decodeObjectForKey(PropertyKey.name) as! String
+        let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
         
         self.init(bodyWeight: bodyWeight, name: name)
     }

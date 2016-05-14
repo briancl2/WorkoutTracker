@@ -11,16 +11,14 @@ import Foundation
 class ExerciseProgram: NSObject, NSCoding {
     var name = "Allpro Auto Regulated"
     var startDate = "16-04-20"
-    var userProfile: User?
+    var userProfile: User
     var program: [Exercise] = []
 
-    init?(name: String, startDate: String, program: [Exercise], userProfile: User?) {
+    init?(name: String, startDate: String, program: [Exercise], userProfile: User) {
         self.name = name
         self.startDate = startDate
         self.program = program
-        if let user = userProfile {
-            self.userProfile = user
-        }
+        self.userProfile = userProfile
     }
     
     // MARK: Types

@@ -76,11 +76,7 @@ class Exercise: NSObject, NSCoding {
     }
     
     func getLastWorkout() -> Workout? {
-        if let workout = workoutDiary.getLastWorkout() {
-            return workout
-        } else {
-            return nil
-        }
+        return workoutDiary.diary.last
     }
     
     func getLastWorkouts(number: Int) -> [Workout]? {
