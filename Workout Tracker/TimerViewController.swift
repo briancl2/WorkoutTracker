@@ -42,13 +42,11 @@ class TimerViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func startTimerButtonTapped(sender: UIButton) {
-        
         if !timer.valid { //prevent more than one timer on the thread
             timerLabel.text = timeString(timeCount)
             timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self,selector: #selector(TimerViewController.timerDidEnd(_:)),userInfo: nil, repeats: true)
             schedulePushNotification()
         }
-        
     }
     
     @IBAction func resetTimerButtonTapped(sender: UIButton) {
@@ -94,17 +92,14 @@ class TimerViewController: UIViewController {
     dynamic private func applicationWillResignActive() {
         if !timer.valid {
             clearDefaults()
-            NSLog("Clearning defaults")
         } else {
             saveDefaults()
-            NSLog("Saving defaults")
         }
     }
     
     dynamic private func applicationDidBecomeActive() {
         if timer.valid {
             loadDefaults()
-            NSLog("Loading defaults")
         }
     }
     
@@ -112,18 +107,12 @@ class TimerViewController: UIViewController {
         let userDefault = NSUserDefaults.standardUserDefaults()
         userDefault.setObject(timeCount, forKey: PropertyKey.timeCountKey)
         userDefault.setObject(NSDate().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
-        
-        userDefault.synchronize()
-    
     }
     
     private func clearDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
         userDefault.removeObjectForKey(PropertyKey.timeCountKey)
         userDefault.removeObjectForKey(PropertyKey.timeMeasurementKey)
-        
-        userDefault.synchronize()
-    
     }
     
     private func loadDefaults() {
