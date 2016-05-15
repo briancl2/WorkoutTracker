@@ -367,6 +367,139 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Timer" id="K8y-2i-IKJ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Hyy-fO-MGL">
+                                        <rect key="frame" x="0.0" y="304" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hyy-fO-MGL" id="tSX-Rm-gff">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgC-C0-e4s">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="EgC-C0-e4s" firstAttribute="top" secondItem="tSX-Rm-gff" secondAttribute="topMargin" constant="3" id="UGP-8b-4MI">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                                <constraint firstAttribute="trailingMargin" secondItem="EgC-C0-e4s" secondAttribute="trailing" constant="102" id="VHO-Sf-SpI">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                                <constraint firstItem="EgC-C0-e4s" firstAttribute="leading" secondItem="tSX-Rm-gff" secondAttribute="leadingMargin" constant="128" id="jCu-oi-6pT">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                                                </constraint>
+                                                <constraint firstAttribute="bottomMargin" secondItem="EgC-C0-e4s" secondAttribute="bottom" constant="3" id="yin-OE-XcB">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="EgC-C0-e4s"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="UGP-8b-4MI"/>
+                                                    <exclude reference="VHO-Sf-SpI"/>
+                                                    <exclude reference="jCu-oi-6pT"/>
+                                                    <exclude reference="yin-OE-XcB"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="EgC-C0-e4s"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="UGP-8b-4MI"/>
+                                                    <include reference="VHO-Sf-SpI"/>
+                                                    <include reference="jCu-oi-6pT"/>
+                                                    <include reference="yin-OE-XcB"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jjE-a5-XCH">
+                                        <rect key="frame" x="0.0" y="348" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jjE-a5-XCH" id="4rS-NZ-ubX">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzr-Nl-sZ8">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <state key="normal" title="Start Timer"/>
+                                                    <connections>
+                                                        <action selector="timerStartButtonTapped:" destination="VZP-DE-Mxe" eventType="touchUpInside" id="Jtp-Fk-S6D"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HE5-7G-t74">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <state key="normal" title="Reset Timer"/>
+                                                    <connections>
+                                                        <action selector="timerResetButtonTapped:" destination="VZP-DE-Mxe" eventType="touchUpInside" id="sjc-cW-86e"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Fzr-Nl-sZ8" firstAttribute="top" secondItem="4rS-NZ-ubX" secondAttribute="topMargin" constant="-3" id="3JP-JF-7zk">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                                <constraint firstItem="HE5-7G-t74" firstAttribute="height" secondItem="Fzr-Nl-sZ8" secondAttribute="height" id="6RO-CZ-Yeb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="HE5-7G-t74" secondAttribute="trailing" constant="137" id="6iB-pA-Gg3">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                                <constraint firstItem="Fzr-Nl-sZ8" firstAttribute="leading" secondItem="4rS-NZ-ubX" secondAttribute="leadingMargin" constant="62" id="KGO-Gg-o8e">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                                                </constraint>
+                                                <constraint firstItem="HE5-7G-t74" firstAttribute="top" secondItem="Fzr-Nl-sZ8" secondAttribute="top" id="YzS-4z-yQY"/>
+                                                <constraint firstItem="HE5-7G-t74" firstAttribute="width" secondItem="Fzr-Nl-sZ8" secondAttribute="width" id="eRO-YI-IeD"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Fzr-Nl-sZ8" secondAttribute="bottom" id="fEp-wY-zBH"/>
+                                                <constraint firstItem="HE5-7G-t74" firstAttribute="bottom" secondItem="Fzr-Nl-sZ8" secondAttribute="bottom" id="kJT-OE-dOq"/>
+                                                <constraint firstItem="HE5-7G-t74" firstAttribute="leading" secondItem="Fzr-Nl-sZ8" secondAttribute="trailing" constant="93" id="nLP-mg-JF9">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="Fzr-Nl-sZ8"/>
+                                                    <exclude reference="HE5-7G-t74"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="3JP-JF-7zk"/>
+                                                    <exclude reference="KGO-Gg-o8e"/>
+                                                    <exclude reference="fEp-wY-zBH"/>
+                                                    <exclude reference="6RO-CZ-Yeb"/>
+                                                    <exclude reference="6iB-pA-Gg3"/>
+                                                    <exclude reference="YzS-4z-yQY"/>
+                                                    <exclude reference="eRO-YI-IeD"/>
+                                                    <exclude reference="kJT-OE-dOq"/>
+                                                    <exclude reference="nLP-mg-JF9"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="Fzr-Nl-sZ8"/>
+                                                    <include reference="HE5-7G-t74"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="3JP-JF-7zk"/>
+                                                    <include reference="KGO-Gg-o8e"/>
+                                                    <include reference="fEp-wY-zBH"/>
+                                                    <include reference="6RO-CZ-Yeb"/>
+                                                    <include reference="6iB-pA-Gg3"/>
+                                                    <include reference="YzS-4z-yQY"/>
+                                                    <include reference="eRO-YI-IeD"/>
+                                                    <include reference="kJT-OE-dOq"/>
+                                                    <include reference="nLP-mg-JF9"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="VZP-DE-Mxe" id="6Hx-M7-qlA"/>
@@ -392,6 +525,9 @@
                         <outlet property="setOneStepper" destination="jAx-rs-wk4" id="1kY-oC-cwj"/>
                         <outlet property="setTwoLabel" destination="qBd-Re-mkZ" id="Bod-6u-FUS"/>
                         <outlet property="setTwoStepper" destination="Net-C5-qAE" id="hQn-RX-Uhg"/>
+                        <outlet property="timerLabel" destination="EgC-C0-e4s" id="BML-hS-rV3"/>
+                        <outlet property="timerResetButton" destination="HE5-7G-t74" id="ymA-Nf-GUi"/>
+                        <outlet property="timerStartButton" destination="Fzr-Nl-sZ8" id="xwM-ya-wTB"/>
                         <outlet property="weightLabel" destination="jSD-f9-Chz" id="dNp-3v-b17"/>
                         <outlet property="weightStepper" destination="gzP-b0-WkT" id="ZJO-h9-7N9"/>
                     </connections>
