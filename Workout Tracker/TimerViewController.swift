@@ -20,16 +20,12 @@ class TimerViewController: UIViewController {
     let timerEnd:NSTimeInterval = 90
     var timeCount:NSTimeInterval = 0
     
-    var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
-    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
        
         resetTimeCount()
         timerLabel.text = timeString(timeCount)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimerViewController.reinstateBackgroundTask), name: UIApplicationDidBecomeActiveNotification, object: nil)
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimerViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimerViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
@@ -51,7 +47,6 @@ class TimerViewController: UIViewController {
             timerLabel.text = timeString(timeCount)
             timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self,selector: #selector(TimerViewController.timerDidEnd(_:)),userInfo: nil, repeats: true)
             schedulePushNotification()
-            registerBackgroundTask()
         }
         
     }
@@ -76,14 +71,10 @@ class TimerViewController: UIViewController {
             timerLabel.text = "Time is up!!"
             timer.invalidate()
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-            if backgroundTask != UIBackgroundTaskInvalid {
-                endBackgroundTask()
-                cancelAllNotifications()
-            }
+            cancelAllNotifications()
         } else { //update the time on the clock if not reached
             timerLabel.text = timeString(timeCount)
         }
-        
     }
     
     func timeString(time: NSTimeInterval) -> String {
@@ -91,27 +82,6 @@ class TimerViewController: UIViewController {
         let seconds = time - Double(minutes) * 60
         let secondsFraction = seconds - Double(Int(seconds))
         return String(format:"%02i:%02i.%02i",minutes,Int(seconds),Int(secondsFraction * 100.0))
-    }
-    
-    // MARK: BackgroundTask
-    
-    func registerBackgroundTask() {
-        backgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler {
-            [unowned self] in
-            self.endBackgroundTask()
-        }
-        assert(backgroundTask != UIBackgroundTaskInvalid)
-    }
-    
-    func reinstateBackgroundTask() {
-        if timeCount != 0.0 && (backgroundTask == UIBackgroundTaskInvalid) {
-            registerBackgroundTask()
-        }
-    }
-    
-    func endBackgroundTask() {
-        UIApplication.sharedApplication().endBackgroundTask(backgroundTask)
-        backgroundTask = UIBackgroundTaskInvalid
     }
     
     // MARK: Timer Storage
