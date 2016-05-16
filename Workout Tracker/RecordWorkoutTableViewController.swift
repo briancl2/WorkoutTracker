@@ -25,6 +25,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
 
     var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
     var workout: Workout? // passed from sender
+    var exerciseName: String? // passed from sender
     
     var newDate: NSDate? {
         didSet {
@@ -60,6 +61,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Add \(exerciseName!) Workout"
         dateTextField.delegate = self
         doneButton.enabled = false
         
@@ -139,7 +141,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         
         // last workout's reps
         if workout != nil && section == 2 {
-            return "Reps finished on \(workout!.date.myPrettyString): \(workout!.sets[0].repCount) and \(workout!.sets[1].repCount)"
+            return "Reps finished on \(workout!.date.myPrettyString): \(workout!.sets[0].repCount) and \(workout!.sets[1].repCount) @ \(workout!.sets[0].weight)lbs"
         }
         
         return nil

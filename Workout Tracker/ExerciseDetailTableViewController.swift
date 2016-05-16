@@ -145,6 +145,8 @@ class ExerciseDetailTableViewController: UITableViewController {
         if segue.identifier == "RecordWorkout" {
             let recordWorkoutTableViewController = segue.destinationViewController as! RecordWorkoutTableViewController
             
+            recordWorkoutTableViewController.exerciseName = exercise.name
+            
             if let lastWorkout = exercise.getLastWorkout() {
                 recordWorkoutTableViewController.workout = lastWorkout
             }
