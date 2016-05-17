@@ -273,7 +273,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     @IBAction func timerStartButtonTapped(sender: UIButton) {
         if !timer.valid { //prevent more than one timer on the thread
             timerLabel.text = timeString(timeCount)
-            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self,selector: #selector(TimerViewController.timerDidEnd(_:)),userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self,selector: #selector(RecordWorkoutTableViewController.timerDidEnd(_:)),userInfo: nil, repeats: true)
             schedulePushNotification()
         }
     }

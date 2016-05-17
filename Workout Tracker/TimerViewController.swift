@@ -15,16 +15,15 @@ class TimerViewController: UIViewController {
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var resetTimerButton: UIButton!
     
-    var timer = NSTimer()
-    let timeInterval:NSTimeInterval = 0.01
-    let timerEnd:NSTimeInterval = 90
-    var timeCount:NSTimeInterval = 0
+    let timerEnd: NSTimeInterval = 90
+    var timerCounter: NSTimeInterval = 0
+    
+    var myTimer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        resetTimeCount()
-        timerLabel.text = timeString(timeCount)
+        updateLabel(timerEnd)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimerViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimerViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -39,91 +38,99 @@ class TimerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Timer Handlers
+    
+    func startTimer(length: NSTimeInterval, restart: Bool = false) {
+        if myTimer?.running != true { // only proceed if myTimer? points to an object AND running is false
+            myTimer = Timer(length: length)
+            
+            let started = myTimer.start({
+                [weak self] leftTick in self!.updateLabel(leftTick)
+                }, stopHandler: {
+                    [weak self] finished in self!.showFinish(finished)
+                })
+            
+            if started && !restart {
+                updateLabel(timerEnd)
+                schedulePushNotification()
+                print("starting new timer")
+            } else {
+                print("restarting timer")
+            }
+        }
+    }
+    
+    func updateLabel(time: NSTimeInterval) {
+        timerLabel.text = time.myPrettyString
+        timerCounter = time
+    }
+    
+    func showFinish(finished: Bool) {
+        if finished {
+            timerLabel.text = "Time is up!!"
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            cancelAllNotifications()
+        }
+    }
+    
     // MARK: Actions
     
     @IBAction func startTimerButtonTapped(sender: UIButton) {
-        if !timer.valid { //prevent more than one timer on the thread
-            timerLabel.text = timeString(timeCount)
-            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self,selector: #selector(TimerViewController.timerDidEnd(_:)),userInfo: nil, repeats: true)
-            schedulePushNotification()
-        }
+        startTimer(timerEnd)
+
     }
-    
+
     @IBAction func resetTimerButtonTapped(sender: UIButton) {
-        timer.invalidate()
-        resetTimeCount()
-        timerLabel.text = timeString(timeCount)
+        myTimer?.stop(true)
         cancelAllNotifications()
-    }
-    
-    // MARK: Timer
-    
-    func resetTimeCount(){
-        timeCount = timerEnd
-    }
-    
-    func timerDidEnd(timer: NSTimer){
-        //timer that counts down
-        timeCount = timeCount - timeInterval
-        if timeCount <= 0 {  //test for target time reached.
-            timerLabel.text = "Time is up!!"
-            timer.invalidate()
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-            cancelAllNotifications()
-        } else { //update the time on the clock if not reached
-            timerLabel.text = timeString(timeCount)
-        }
-    }
-    
-    func timeString(time: NSTimeInterval) -> String {
-        let minutes = Int(time) / 60
-        let seconds = time - Double(minutes) * 60
-        let secondsFraction = seconds - Double(Int(seconds))
-        return String(format:"%02i:%02i.%02i",minutes,Int(seconds),Int(secondsFraction * 100.0))
+        updateLabel(timerEnd)
     }
     
     // MARK: Timer Storage
     
     struct PropertyKey {
-        static let timeCountKey = "TimerViewController_timeCount"
+        static let timerCounterKey = "TimerViewController_timerCounter"
         static let timeMeasurementKey = "TimerViewController_timeMeasurement"
     }
     
     dynamic private func applicationWillResignActive() {
-        if !timer.valid {
-            clearDefaults()
-        } else {
+        if myTimer?.running == true {
             saveDefaults()
+        } else {
+            clearDefaults()
         }
     }
     
     dynamic private func applicationDidBecomeActive() {
-        if timer.valid {
+        if myTimer?.running == true {
             loadDefaults()
+            myTimer.stop(true)
+            startTimer(timerCounter, restart: true)
         }
     }
     
     private func saveDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setObject(timeCount, forKey: PropertyKey.timeCountKey)
+        userDefault.setObject(timerCounter, forKey: PropertyKey.timerCounterKey)
         userDefault.setObject(NSDate().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
+        print("saving defaults")
     }
     
     private func clearDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.removeObjectForKey(PropertyKey.timeCountKey)
+        userDefault.removeObjectForKey(PropertyKey.timerCounterKey)
         userDefault.removeObjectForKey(PropertyKey.timeMeasurementKey)
+        print("cleaning defaults")
     }
     
     private func loadDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        let restoredTimeCount = userDefault.objectForKey(PropertyKey.timeCountKey) as! Double
+        let restoredTimerCounter = userDefault.objectForKey(PropertyKey.timerCounterKey) as! Double
         let restoredTimeMeasurement = userDefault.objectForKey(PropertyKey.timeMeasurementKey) as! Double
-
         let timeDelta = NSDate().timeIntervalSince1970 - restoredTimeMeasurement
-        print(timeDelta)
-        print(timeCount - restoredTimeCount - timeDelta)
-        timeCount = restoredTimeCount - timeDelta
+        
+        timerCounter = restoredTimerCounter - timeDelta
+        print("loading defaults")
     }
     
     // MARK: Notifications

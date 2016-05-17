@@ -45,3 +45,12 @@ extension Double {
         return String(format: "%g", self)
     }
 }
+
+extension NSTimeInterval {
+    var myPrettyString: String {
+        let minutes = Int(self) / 60
+        let seconds = self - Double(minutes) * 60
+        let secondsFraction = seconds - Double(Int(seconds))
+        return String(format:"%02i:%02i.%02i",minutes,Int(seconds),Int(secondsFraction * 100.0))
+    }
+}
