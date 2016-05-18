@@ -46,6 +46,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         squat.recordWorkout("16-05-09", weight: 145, repsFirstSet: 12, repsSecondSet: 11)
         squat.recordWorkout("16-05-12", weight: 145, repsFirstSet: 13, repsSecondSet: 11)
         squat.recordWorkout("16-05-14", weight: 155, repsFirstSet: 9, repsSecondSet: 7)
+        squat.recordWorkout("16-05-16", weight: 155, repsFirstSet: 9, repsSecondSet: 8)
         
         let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
         bench.recordWorkout("16-04-18", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
@@ -59,6 +60,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         bench.recordWorkout("16-05-09", weight: 135, repsFirstSet: 11, repsSecondSet: 10)
         bench.recordWorkout("16-05-12", weight: 135, repsFirstSet: 12, repsSecondSet: 10)
         bench.recordWorkout("16-05-14", weight: 135, repsFirstSet: 12, repsSecondSet: 10)
+        bench.recordWorkout("16-05-16", weight: 135, repsFirstSet: 12, repsSecondSet: 11)
         
         let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
         row.recordWorkout("16-04-19", weight: 115, repsFirstSet: 11, repsSecondSet: 10)
@@ -72,6 +74,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         row.recordWorkout("16-05-09", weight: 125, repsFirstSet: 10, repsSecondSet: 9)
         row.recordWorkout("16-05-12", weight: 125, repsFirstSet: 10, repsSecondSet: 10)
         row.recordWorkout("16-05-14", weight: 125, repsFirstSet: 11, repsSecondSet: 10)
+        row.recordWorkout("16-05-16", weight: 125, repsFirstSet: 12, repsSecondSet: 10)
         
         let ohp = Exercise(name: "Overhead Press", notes: "OHP notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 160)
         ohp.recordWorkout("16-04-19", weight: 95, repsFirstSet: 8, repsSecondSet: 8)
@@ -85,6 +88,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         ohp.recordWorkout("16-05-09", weight: 95, repsFirstSet: 10, repsSecondSet: 8)
         ohp.recordWorkout("16-05-12", weight: 95, repsFirstSet: 10, repsSecondSet: 9)
         ohp.recordWorkout("16-05-14", weight: 95, repsFirstSet: 10, repsSecondSet: 10)
+        ohp.recordWorkout("16-05-16", weight: 95, repsFirstSet: 10, repsSecondSet: 10)
         
         let sldl = Exercise(name: "Straight Leg Deadlift", notes: "SLDL notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
         sldl.recordWorkout("16-04-19", weight: 95, repsFirstSet: 13, repsSecondSet: 11)
@@ -98,6 +102,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         sldl.recordWorkout("16-05-09", weight: 115, repsFirstSet: 9, repsSecondSet: 8)
         sldl.recordWorkout("16-05-12", weight: 115, repsFirstSet: 10, repsSecondSet: 9)
         sldl.recordWorkout("16-05-14", weight: 115, repsFirstSet: 11, repsSecondSet: 10)
+        sldl.recordWorkout("16-05-16", weight: 115, repsFirstSet: 12, repsSecondSet: 10)
         
         let chin = Exercise(name: "Chin-up", notes: "Chin notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
         chin.recordWorkout("16-04-19", weight: 110, repsFirstSet: 10, repsSecondSet: 9)
@@ -110,6 +115,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         chin.recordWorkout("16-05-09", weight: 110, repsFirstSet: 12, repsSecondSet: 11)
         chin.recordWorkout("16-05-12", weight: 110, repsFirstSet: 13, repsSecondSet: 11)
         chin.recordWorkout("16-05-14", weight: 110, repsFirstSet: 13, repsSecondSet: 11)
+        chin.recordWorkout("16-05-14", weight: 120, repsFirstSet: 11, repsSecondSet: 9)
         
         let calf = Exercise(name: "Calf Raise", notes: "calf notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 320)
         calf.recordWorkout("16-04-19", weight: 150, repsFirstSet: 13, repsSecondSet: 11)
@@ -120,6 +126,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         calf.recordWorkout("16-05-05", weight: 175, repsFirstSet: 12, repsSecondSet: 11)
         calf.recordWorkout("16-05-09", weight: 175, repsFirstSet: 12, repsSecondSet: 11)
         calf.recordWorkout("16-05-12", weight: 175, repsFirstSet: 13, repsSecondSet: 11)
+        calf.recordWorkout("16-05-16", weight: 195, repsFirstSet: 9, repsSecondSet: 8)
         
         let torso = Exercise(name: "Torso Rotation", notes: "torso notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 240)
         torso.recordWorkout("16-04-19", weight: 130, repsFirstSet: 13, repsSecondSet: 11)
@@ -132,6 +139,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         torso.recordWorkout("16-05-09", weight: 140, repsFirstSet: 11, repsSecondSet: 11)
         torso.recordWorkout("16-05-12", weight: 140, repsFirstSet: 12, repsSecondSet: 11)
         torso.recordWorkout("16-05-14", weight: 140, repsFirstSet: 12, repsSecondSet: 11)
+        torso.recordWorkout("16-05-16", weight: 140, repsFirstSet: 13, repsSecondSet: 11)
         
         let curl = Exercise(name: "Curl", notes: "curl notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 120)
         curl.recordWorkout("16-04-19", weight: 50, repsFirstSet: 11, repsSecondSet: 8)
@@ -144,6 +152,7 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         curl.recordWorkout("16-05-09", weight: 60, repsFirstSet: 9, repsSecondSet: 9)
         curl.recordWorkout("16-05-12", weight: 60, repsFirstSet: 10, repsSecondSet: 9)
         curl.recordWorkout("16-05-14", weight: 60, repsFirstSet: 10, repsSecondSet: 9)
+        curl.recordWorkout("16-05-16", weight: 60, repsFirstSet: 11, repsSecondSet: 9)
         
         exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
         

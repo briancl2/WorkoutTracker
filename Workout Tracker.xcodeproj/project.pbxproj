@@ -22,6 +22,7 @@
 		158A64481CE6599800B4A54A /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A64471CE6599800B4A54A /* Weight.swift */; };
 		158A644A1CE66B4500B4A54A /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A64491CE66B4500B4A54A /* ProfileTableViewController.swift */; };
 		158A64511CEA5C5100B4A54A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A64501CEA5C5000B4A54A /* Timer.swift */; };
+		15B5EF6E1CEC9ED300A52D1B /* WorkoutHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B5EF6D1CEC9ED300A52D1B /* WorkoutHistoryTableViewController.swift */; };
 		15BF7C671CD009C80095440B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C661CD009C80095440B /* AppDelegate.swift */; };
 		15BF7C6C1CD009C80095440B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BF7C6A1CD009C80095440B /* Main.storyboard */; };
 		15BF7C6F1CD009C80095440B /* Workout_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C6D1CD009C80095440B /* Workout_Tracker.xcdatamodeld */; };
@@ -61,6 +62,7 @@
 		158A64471CE6599800B4A54A /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		158A64491CE66B4500B4A54A /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		158A64501CEA5C5000B4A54A /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		15B5EF6D1CEC9ED300A52D1B /* WorkoutHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryTableViewController.swift; sourceTree = "<group>"; };
 		15BF7C631CD009C80095440B /* Workout Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Workout Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BF7C661CD009C80095440B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15BF7C6B1CD009C80095440B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				158A64361CDD19CD00B4A54A /* ExerciseDetailTableViewController.swift */,
 				158A64381CDD19EF00B4A54A /* ExerciseDetailTableViewCell.swift */,
 				158A643A1CDD82BB00B4A54A /* RecordWorkoutTableViewController.swift */,
+				15B5EF6D1CEC9ED300A52D1B /* WorkoutHistoryTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -169,8 +172,8 @@
 				158A644B1CE67D0A00B4A54A /* ViewControllers */,
 				158A644D1CE67D4D00B4A54A /* Models */,
 				158A644C1CE67D3B00B4A54A /* Types */,
-				15BF7C6A1CD009C80095440B /* Main.storyboard */,
 				158A64421CE3ED9B00B4A54A /* Helpers */,
+				15BF7C6A1CD009C80095440B /* Main.storyboard */,
 				15BF7C701CD009C80095440B /* Assets.xcassets */,
 				15BF7C721CD009C80095440B /* LaunchScreen.storyboard */,
 				15BF7C751CD009C80095440B /* Info.plist */,
@@ -306,6 +309,7 @@
 				15D5A3B11CD68E1B00936E7C /* User.swift in Sources */,
 				15BF7C8C1CD01A980095440B /* MasterTableViewController.swift in Sources */,
 				15021DEA1CD1A868002508B1 /* Performance.swift in Sources */,
+				15B5EF6E1CEC9ED300A52D1B /* WorkoutHistoryTableViewController.swift in Sources */,
 				15BF7C671CD009C80095440B /* AppDelegate.swift in Sources */,
 				158A64481CE6599800B4A54A /* Weight.swift in Sources */,
 				15021DF21CD2E084002508B1 /* Helper.swift in Sources */,

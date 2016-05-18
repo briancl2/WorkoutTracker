@@ -151,8 +151,16 @@ class ExerciseDetailTableViewController: UITableViewController {
             if let lastWorkout = exercise.getLastWorkout() {
                 recordWorkoutTableViewController.workout = lastWorkout
             }
-
+        } else if segue.identifier == "WorkoutHistory" {
+            let workoutHistoryTableViewController = segue.destinationViewController as! WorkoutHistoryTableViewController
+            
+            workoutHistoryTableViewController.workoutName = exercise.name
+            
+            if let history = exercise.getHistory() {
+                workoutHistoryTableViewController.workoutHistory = history
+            }
         }
+        
     }
     
     @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {

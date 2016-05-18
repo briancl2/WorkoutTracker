@@ -80,11 +80,7 @@ class Exercise: NSObject, NSCoding {
     }
     
     func getLastWorkouts(number: Int) -> [Workout]? {
-        if let workouts = workoutDiary.getLastWorkouts(number) {
-            return workouts
-        } else {
-            return nil
-        }
+        return workoutDiary.getLastWorkouts(number)
     }
     
     func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
@@ -94,12 +90,16 @@ class Exercise: NSObject, NSCoding {
     func getTotalVolumeIncrease(dateRange: Int) -> Int? {
         return TotalVolumeIncrease(diary: workoutDiary, dateRange: dateRange).percentage
     }
-
-    func saveExercise() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(self), forKey: "ExerciseProgram")
-        defaults.synchronize()
+    
+    func getHistory() -> WorkoutDiary? {
+        return workoutDiary
     }
+
+//    func saveExercise() {
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(self), forKey: "ExerciseProgram")
+//        defaults.synchronize()
+//    }
     
     // MARK: NSCoder
     
