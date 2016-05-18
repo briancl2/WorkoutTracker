@@ -143,7 +143,8 @@ class ExerciseDetailTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "RecordWorkout" {
-            let recordWorkoutTableViewController = segue.destinationViewController as! RecordWorkoutTableViewController
+            let destination = segue.destinationViewController as! UINavigationController
+            let recordWorkoutTableViewController = destination.topViewController as! RecordWorkoutTableViewController
             
             recordWorkoutTableViewController.exerciseName = exercise.name
             

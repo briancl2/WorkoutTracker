@@ -50,11 +50,7 @@ class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate
     }
 
     // MARK: Actions
-
-    @IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
-        navigationController!.popViewControllerAnimated(true)
-    }
-    
+   
     // MARK: - Navigation
     
     // This method lets you configure a view controller before it's presented.

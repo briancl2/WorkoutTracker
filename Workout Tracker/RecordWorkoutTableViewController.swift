@@ -22,6 +22,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var timerStartButton: UIButton!
     @IBOutlet weak var timerResetButton: UIButton!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
 
     var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
     var workout: Workout? // passed from sender
@@ -63,6 +64,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         self.title = "Add \(exerciseName!) Workout"
         dateTextField.delegate = self
         doneButton.enabled = false
+        cancelButton.enabled = true
         
         newDate = NSDate()
         
@@ -96,6 +98,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        print("deinit")
     }
 
     //  MARK: UITextFieldDelegate
@@ -179,10 +182,10 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
             if started && !restart {
                 updateLabel(timerEnd)
                 schedulePushNotification()
-                print("starting new timer")
             } else {
-                print("restarting timer")
             }
+            
+            cancelButton.enabled = false
         }
     }
     
@@ -197,6 +200,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
             cancelAllNotifications()
         }
+        cancelButton.enabled = true
     }
     
     // MARK: Timer Storage
@@ -204,6 +208,10 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     struct PropertyKey {
         static let timerCounterKey = "RecordWorkoutTableViewController_timeCount"
         static let timeMeasurementKey = "RecordWorkoutTableViewController_timeMeasurement"
+        static let newDateKey = "RecordWorkoutTableViewController_newDate"
+        static let newWeightKey = "RecordWorkoutTableViewController_newWeight"
+        static let newSetOneKey = "RecordWorkoutTableViewController_newSetOne"
+        static let newSetTwoKey = "RecordWOrkoutTableViewController_newSetTwo"
     }
     
     dynamic private func applicationWillResignActive() {
@@ -226,14 +234,12 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         let userDefault = NSUserDefaults.standardUserDefaults()
         userDefault.setObject(timerCounter, forKey: PropertyKey.timerCounterKey)
         userDefault.setObject(NSDate().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
-        print("saving defaults")
     }
     
     private func clearDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
         userDefault.removeObjectForKey(PropertyKey.timerCounterKey)
         userDefault.removeObjectForKey(PropertyKey.timeMeasurementKey)
-        print("cleaning defaults")
     }
     
     private func loadDefaults() {
@@ -243,7 +249,6 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         let timeDelta = NSDate().timeIntervalSince1970 - restoredTimeMeasurement
         
         timerCounter = restoredTimerCounter - timeDelta
-        print("loading defaults")
     }
 
     
@@ -263,11 +268,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     }
     
     // MARK: Actions
-    
-    @IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
-        navigationController!.popViewControllerAnimated(true)
-    }
-    
+       
     @IBAction func weightStepperChanged(sender: UIStepper) {
         newWeight = Int(sender.value)
         closeKeyboard()
@@ -305,7 +306,4 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
             clearDefaults()
         }
     }
-
-
-
 }

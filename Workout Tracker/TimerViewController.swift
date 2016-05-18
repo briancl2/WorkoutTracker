@@ -53,9 +53,7 @@ class TimerViewController: UIViewController {
             if started && !restart {
                 updateLabel(timerEnd)
                 schedulePushNotification()
-                print("starting new timer")
             } else {
-                print("restarting timer")
             }
         }
     }
@@ -113,14 +111,12 @@ class TimerViewController: UIViewController {
         let userDefault = NSUserDefaults.standardUserDefaults()
         userDefault.setObject(timerCounter, forKey: PropertyKey.timerCounterKey)
         userDefault.setObject(NSDate().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
-        print("saving defaults")
     }
     
     private func clearDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
         userDefault.removeObjectForKey(PropertyKey.timerCounterKey)
         userDefault.removeObjectForKey(PropertyKey.timeMeasurementKey)
-        print("cleaning defaults")
     }
     
     private func loadDefaults() {
@@ -130,7 +126,6 @@ class TimerViewController: UIViewController {
         let timeDelta = NSDate().timeIntervalSince1970 - restoredTimeMeasurement
         
         timerCounter = restoredTimerCounter - timeDelta
-        print("loading defaults")
     }
     
     // MARK: Notifications

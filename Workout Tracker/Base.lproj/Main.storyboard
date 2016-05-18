@@ -10,7 +10,7 @@
         <!--Master Table View Controller-->
         <scene sceneID="MzS-td-GLU">
             <objects>
-                <tableViewController storyboardIdentifier="MasterTableViewController" id="uPf-26-ocp" customClass="MasterTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MasterTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uPf-26-ocp" customClass="MasterTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="5cE-YQ-uJB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,7 +36,7 @@
                     <navigationItem key="navigationItem" id="kXG-dF-PjM">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="V5w-53-yc3">
                             <connections>
-                                <segue destination="Pap-IC-fRa" kind="show" id="qe0-89-MyB"/>
+                                <segue destination="vJV-yJ-Gzc" kind="presentation" id="qe0-89-MyB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -48,7 +48,7 @@
         <!--Exercise Detail Table View Controller-->
         <scene sceneID="9ST-Cl-06S">
             <objects>
-                <tableViewController id="Gcq-mm-5Nt" customClass="ExerciseDetailTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ExerciseDetailTableView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gcq-mm-5Nt" customClass="ExerciseDetailTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="a6M-o2-GDT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,7 +71,7 @@
                     <navigationItem key="navigationItem" id="no8-fM-nq6">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ob0-aY-iNa">
                             <connections>
-                                <segue destination="VZP-DE-Mxe" kind="show" identifier="RecordWorkout" id="yLK-36-9BQ"/>
+                                <segue destination="xPo-s9-dW7" kind="presentation" identifier="RecordWorkout" id="yLK-36-9BQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -83,7 +83,7 @@
         <!--Record Workout-->
         <scene sceneID="uhP-0d-52F">
             <objects>
-                <tableViewController id="VZP-DE-Mxe" customClass="RecordWorkoutTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RecordWorkoutView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VZP-DE-Mxe" customClass="RecordWorkoutTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ruS-kV-ZCp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -370,7 +370,7 @@
                             <tableViewSection headerTitle="Timer" id="K8y-2i-IKJ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Hyy-fO-MGL">
-                                        <rect key="frame" x="0.0" y="304" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="443" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hyy-fO-MGL" id="tSX-Rm-gff">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -422,7 +422,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jjE-a5-XCH">
-                                        <rect key="frame" x="0.0" y="348" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="487" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jjE-a5-XCH" id="4rS-NZ-ubX">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -509,16 +509,17 @@
                     <navigationItem key="navigationItem" title="Record Workout" id="5W8-L3-gWB">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ex0-S3-0Hh">
                             <connections>
-                                <action selector="cancelButtonTapped:" destination="VZP-DE-Mxe" id="ZIV-fD-1hE"/>
+                                <segue destination="Slu-mY-9yp" kind="unwind" unwindAction="unwindToExerciseDetail:" id="xrc-Dr-vtI"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="QhP-xS-Url">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="QhP-xS-Url">
                             <connections>
                                 <segue destination="Slu-mY-9yp" kind="unwind" unwindAction="unwindToExerciseDetail:" id="fe0-bM-pgr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="Ex0-S3-0Hh" id="BjA-m9-jKP"/>
                         <outlet property="dateTextField" destination="RrK-wc-qOT" id="oS7-Bf-hsn"/>
                         <outlet property="doneButton" destination="QhP-xS-Url" id="aGg-vM-ngc"/>
                         <outlet property="setOneLabel" destination="vwd-VP-Oiw" id="OdT-WH-2vT"/>
@@ -535,7 +536,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFQ-WP-keR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Slu-mY-9yp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1774.5" y="405"/>
+            <point key="canvasLocation" x="2692.5" y="405"/>
         </scene>
         <!--Add New Exercise-->
         <scene sceneID="2Be-af-EbU">
@@ -717,7 +718,7 @@
                     <navigationItem key="navigationItem" title="Add New Exercise" id="s7X-le-B6y">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mza-Bz-Kwd">
                             <connections>
-                                <action selector="cancelButtonTapped:" destination="Pap-IC-fRa" id="SW1-lF-ha5"/>
+                                <segue destination="1h1-aH-O3C" kind="unwind" unwindAction="unwindToExerciseList:" id="Mfg-qF-vex"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="M9B-Tk-QKY">
@@ -736,7 +737,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpG-UC-MZu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1h1-aH-O3C" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="984" y="-431.25"/>
+            <point key="canvasLocation" x="1902" y="-431.25"/>
         </scene>
         <!--Profile-->
         <scene sceneID="IUh-bY-iLI">
@@ -921,12 +922,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dF-yI-51b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1471.5" y="-1037.25"/>
+            <point key="canvasLocation" x="-1096.5" y="-626.25"/>
         </scene>
         <!--Workout-->
         <scene sceneID="nXz-MD-MtV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6gd-LE-WXB" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RootWorkoutTableView" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6gd-LE-WXB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Workout" id="Ydc-WL-iXY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rwz-I8-tMG">
@@ -948,7 +949,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="7K6-qZ-Rbk">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="0TX-qW-NC3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="RootTabBarView" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0TX-qW-NC3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Nuc-48-X3z">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1053,6 +1054,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzH-PZ-PWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1456.5" y="1023.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="y5y-38-CF4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vJV-yJ-Gzc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eY1-jH-kwm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Pap-IC-fRa" kind="relationship" relationship="rootViewController" id="a1r-hz-bAC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zo6-u1-tQm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="984" y="-431.25"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5hk-Fk-ZC9">
+            <objects>
+                <navigationController storyboardIdentifier="RecordWorkoutNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xPo-s9-dW7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oek-rK-Gwg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="VZP-DE-Mxe" kind="relationship" relationship="rootViewController" id="sP4-Wg-xx0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CQK-gl-8ZU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1774.5" y="405"/>
         </scene>
     </scenes>
 </document>
