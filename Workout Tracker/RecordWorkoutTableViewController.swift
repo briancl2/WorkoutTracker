@@ -52,12 +52,11 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
             setTwoLabel.text = "Set 2: \(newSetTwo!) reps"
         }
     }
-
+   
+    private let timerEnd: NSTimeInterval = 90
+    private var timerCounter: NSTimeInterval = 0
     
-    var timer = NSTimer()
-    let timeInterval:NSTimeInterval = 0.01
-    let timerEnd:NSTimeInterval = 90
-    var timeCount:NSTimeInterval = 0
+    var myTimer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,8 +88,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         setTwoStepper.maximumValue = 20
         setTwoStepper.value = Double(newSetTwo!)
         
-        resetTimeCount()
-        timerLabel.text = timeString(timeCount)
+        updateLabel(timerEnd)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -166,73 +164,88 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         }
     }
     
-    // MARK: Timer
+    // MARK: Timer Handlers
     
-    func resetTimeCount(){
-        timeCount = timerEnd
-    }
-    
-    func timerDidEnd(timer: NSTimer){
-        //timer that counts down
-        timeCount = timeCount - timeInterval
-        if timeCount <= 0 {  //test for target time reached.
-            timerLabel.text = "Time is up!!"
-            timer.invalidate()
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-            cancelAllNotifications()
-        } else { //update the time on the clock if not reached
-            timerLabel.text = timeString(timeCount)
+    private func startTimer(length: NSTimeInterval, restart: Bool = false) {
+        if myTimer?.running != true { // only proceed if myTimer? points to an object AND running is false
+            myTimer = Timer(length: length)
+            
+            let started = myTimer.start({
+                [weak self] leftTick in self!.updateLabel(leftTick)
+                }, stopHandler: {
+                    [weak self] finished in self!.showFinish(finished)
+                })
+            
+            if started && !restart {
+                updateLabel(timerEnd)
+                schedulePushNotification()
+                print("starting new timer")
+            } else {
+                print("restarting timer")
+            }
         }
     }
     
-    func timeString(time: NSTimeInterval) -> String {
-        let minutes = Int(time) / 60
-        let seconds = time - Double(minutes) * 60
-        let secondsFraction = seconds - Double(Int(seconds))
-        return String(format:"%02i:%02i.%02i",minutes,Int(seconds),Int(secondsFraction * 100.0))
+    private func updateLabel(time: NSTimeInterval) {
+        timerLabel.text = time.myPrettyString
+        timerCounter = time
+    }
+    
+    private func showFinish(finished: Bool) {
+        if finished {
+            timerLabel.text = "Time is up!!"
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            cancelAllNotifications()
+        }
     }
     
     // MARK: Timer Storage
     
     struct PropertyKey {
-        static let timeCountKey = "RecordWorkoutTableViewController_timeCount"
+        static let timerCounterKey = "RecordWorkoutTableViewController_timeCount"
         static let timeMeasurementKey = "RecordWorkoutTableViewController_timeMeasurement"
     }
     
     dynamic private func applicationWillResignActive() {
-        if !timer.valid {
-            clearDefaults()
-        } else {
+        if myTimer?.running == true {
             saveDefaults()
+        } else {
+            clearDefaults()
         }
     }
     
     dynamic private func applicationDidBecomeActive() {
-        if timer.valid {
+        if myTimer?.running == true {
             loadDefaults()
+            myTimer.stop(true)
+            startTimer(timerCounter, restart: true)
         }
     }
     
     private func saveDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setObject(timeCount, forKey: PropertyKey.timeCountKey)
+        userDefault.setObject(timerCounter, forKey: PropertyKey.timerCounterKey)
         userDefault.setObject(NSDate().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
+        print("saving defaults")
     }
     
     private func clearDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.removeObjectForKey(PropertyKey.timeCountKey)
+        userDefault.removeObjectForKey(PropertyKey.timerCounterKey)
         userDefault.removeObjectForKey(PropertyKey.timeMeasurementKey)
+        print("cleaning defaults")
     }
     
     private func loadDefaults() {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        let restoredTimeCount = userDefault.objectForKey(PropertyKey.timeCountKey) as! Double
+        let restoredTimerCounter = userDefault.objectForKey(PropertyKey.timerCounterKey) as! Double
         let restoredTimeMeasurement = userDefault.objectForKey(PropertyKey.timeMeasurementKey) as! Double
-        
         let timeDelta = NSDate().timeIntervalSince1970 - restoredTimeMeasurement
-        timeCount = restoredTimeCount - timeDelta
+        
+        timerCounter = restoredTimerCounter - timeDelta
+        print("loading defaults")
     }
+
     
     // MARK: Notifications
     
@@ -271,18 +284,13 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     }
     
     @IBAction func timerStartButtonTapped(sender: UIButton) {
-        if !timer.valid { //prevent more than one timer on the thread
-            timerLabel.text = timeString(timeCount)
-            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self,selector: #selector(RecordWorkoutTableViewController.timerDidEnd(_:)),userInfo: nil, repeats: true)
-            schedulePushNotification()
-        }
+        startTimer(timerEnd)
     }
     
     @IBAction func timerResetButtonTapped(sender: UIButton) {
-        timer.invalidate()
-        resetTimeCount()
-        timerLabel.text = timeString(timeCount)
+        myTimer?.stop(true)
         cancelAllNotifications()
+        updateLabel(timerEnd)
     }
     // MARK: Navigation
     
@@ -292,7 +300,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
 
             // Set the meal to be passed to MealListTableViewController after the unwind segue.
             newWorkout = Workout(date: newDate!, sets: newSets)
-            timer.invalidate()
+            myTimer?.stop(true)
             cancelAllNotifications()
             clearDefaults()
         }

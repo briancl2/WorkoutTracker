@@ -15,8 +15,8 @@ class TimerViewController: UIViewController {
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var resetTimerButton: UIButton!
     
-    let timerEnd: NSTimeInterval = 90
-    var timerCounter: NSTimeInterval = 0
+    private let timerEnd: NSTimeInterval = 90
+    private var timerCounter: NSTimeInterval = 0
     
     var myTimer: Timer!
     
@@ -40,7 +40,7 @@ class TimerViewController: UIViewController {
     
     // MARK: Timer Handlers
     
-    func startTimer(length: NSTimeInterval, restart: Bool = false) {
+    private func startTimer(length: NSTimeInterval, restart: Bool = false) {
         if myTimer?.running != true { // only proceed if myTimer? points to an object AND running is false
             myTimer = Timer(length: length)
             
@@ -60,12 +60,12 @@ class TimerViewController: UIViewController {
         }
     }
     
-    func updateLabel(time: NSTimeInterval) {
+    private func updateLabel(time: NSTimeInterval) {
         timerLabel.text = time.myPrettyString
         timerCounter = time
     }
     
-    func showFinish(finished: Bool) {
+    private func showFinish(finished: Bool) {
         if finished {
             timerLabel.text = "Time is up!!"
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
@@ -88,7 +88,7 @@ class TimerViewController: UIViewController {
     
     // MARK: Timer Storage
     
-    struct PropertyKey {
+    private struct PropertyKey {
         static let timerCounterKey = "TimerViewController_timerCounter"
         static let timeMeasurementKey = "TimerViewController_timeMeasurement"
     }
@@ -135,7 +135,7 @@ class TimerViewController: UIViewController {
     
     // MARK: Notifications
     
-    func schedulePushNotification() {
+    private func schedulePushNotification() {
         let notification = UILocalNotification()
         notification.alertAction = "Go back to App"
         notification.alertBody = "The 90s timer is finished!"
@@ -144,7 +144,7 @@ class TimerViewController: UIViewController {
 
     }
     
-    func cancelAllNotifications() {
+    private func cancelAllNotifications() {
         UIApplication.sharedApplication().cancelAllLocalNotifications()
     }
     
