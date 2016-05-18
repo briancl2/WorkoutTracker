@@ -46,6 +46,20 @@ class WorkoutDiary: NSObject, NSCoding {
         diary.sortInPlace({$0.date < $1.date})
     }
 
+    func removeWorkout(workout: Workout) {
+        diary.removeAtIndex(diary.indexOf(workout)!)
+    }
+    
+    func replaceWorkout(originalWorkout: Workout, newWorkout: Workout) {
+        diary[diary.indexOf(originalWorkout)!] = newWorkout
+    }
+    
+    func getWorkout(index: Int) -> Workout? {
+        if index < diary.count {
+            return diary[index]
+        }
+        return nil
+    }
     
     func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
         // if diary is empty, return nil

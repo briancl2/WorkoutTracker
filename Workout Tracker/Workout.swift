@@ -36,5 +36,13 @@ class Workout: NSObject, NSCoding {
         
         self.init(date: date, sets: sets)
     }
-    
+}
+
+func == (lhs: Workout, rhs: Workout) -> Bool {
+    let areEqual = lhs.date == rhs.date && lhs.sets == rhs.sets
+    print(lhs.date)
+    print(rhs.date)
+    print(rhs.sets[0])
+    print(lhs.sets[1])
+    return areEqual
 }

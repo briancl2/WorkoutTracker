@@ -12,11 +12,11 @@ protocol ExerciseDetailTableViewControllerDelegate {
     func save()
 }
 
-class ExerciseDetailTableViewController: UITableViewController {
+class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTableViewControllerDelegate {
 
     var exercise: Exercise!
     
-    var exerciseDetails = [[String]]()
+    var exerciseDetails = [[(String, String)]]()
     var exerciseSections = [String]()
 
     override func viewWillAppear(animated: Bool) {
@@ -35,35 +35,35 @@ class ExerciseDetailTableViewController: UITableViewController {
     
     func displayExerciseDetail() {
         let currentWeights = exercise.currentWeights
-        let warmup25Text = "Warmup (25%): \(currentWeights.warmup25.value)lbs \(currentWeights.warmup25.barText)"
-        let warmup50Text = "Warmup (50%): \(currentWeights.warmup50.value)lbs \(currentWeights.warmup50.barText)"
-        let heavyText = "Heavy (100%): \(currentWeights.heavy.value)lbs \(currentWeights.heavy.barText)"
+        let warmup25Text = ("Warmup (25%)", "\(currentWeights.warmup25.value)lbs \(currentWeights.warmup25.barText)")
+        let warmup50Text = ("Warmup (50%)", "\(currentWeights.warmup50.value)lbs \(currentWeights.warmup50.barText)")
+        let heavyText = ("Heavy (100%)", "\(currentWeights.heavy.value)lbs \(currentWeights.heavy.barText)")
         
         exerciseDetails = [[warmup25Text, warmup50Text, heavyText]]
         exerciseSections = ["Weights"]
     
     
         if let lastWorkouts = exercise.getLastWorkouts(3) {
-            var workoutsToDisplay = [String]()
+            var workoutsToDisplay = [(String, String)]()
             for workout in lastWorkouts {
-                workoutsToDisplay.append("\(workout.date.myPrettyString): \(workout.sets[0].repCount) and \(workout.sets[1].repCount) Reps @ \(workout.sets[0].weight)lbs")
+                workoutsToDisplay.append(("\(workout.date.myPrettyString)", "\(workout.sets[0].repCount) and \(workout.sets[1].repCount) Reps @ \(workout.sets[0].weight)lbs"))
             }
             exerciseDetails.append(workoutsToDisplay)
             exerciseSections.append("Last Workouts")
-            var stats: [String] = []
-            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(15) {
-                stats.append("15-day total volume increase: \(totalVolumeIncrease)%")
+            var stats: [(String, String)] = []
+            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(30) {
+                stats.append(("30d progress", "\(totalVolumeIncrease)%"))
             }
-            stats.append("Calculated 1RM: \(exercise.calculated1RM)lbs")
-            stats.append("Goal Attainment: \(exercise.goalAttainment)% of \(exercise.goal)lbs")
+            stats.append(("1RM", "\(exercise.calculated1RM)lbs"))
+            stats.append(("Goal", "\(exercise.goalAttainment)% of \(exercise.goal)lbs"))
             exerciseDetails.append(stats)
             exerciseSections.append("Stats")
         }
         
-        if let notes = exercise.notes {
-            exerciseDetails.append(["\(notes)"])
-            exerciseSections.append("Notes")
-        }
+//        if let notes = exercise.notes {
+//            exerciseDetails.append(["\(notes)"])
+//            exerciseSections.append("Notes")
+//        }
 
     }
 
@@ -89,7 +89,9 @@ class ExerciseDetailTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ExerciseDetailCell", forIndexPath: indexPath) as! ExerciseDetailTableViewCell
         
         let exerciseDetailText = exerciseDetails[indexPath.section][indexPath.row]
-        cell.textLabel?.text = exerciseDetailText
+        
+        cell.detailTextLabel?.text = exerciseDetailText.1
+        cell.textLabel?.text = exerciseDetailText.0
 
         // Configure the cell...
 
@@ -143,8 +145,8 @@ class ExerciseDetailTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "RecordWorkout" {
-            let destination = segue.destinationViewController as! UINavigationController
-            let recordWorkoutTableViewController = destination.topViewController as! RecordWorkoutTableViewController
+            let navController = segue.destinationViewController as! UINavigationController
+            let recordWorkoutTableViewController = navController.topViewController as! RecordWorkoutTableViewController
             
             recordWorkoutTableViewController.exerciseName = exercise.name
             
@@ -154,11 +156,8 @@ class ExerciseDetailTableViewController: UITableViewController {
         } else if segue.identifier == "WorkoutHistory" {
             let workoutHistoryTableViewController = segue.destinationViewController as! WorkoutHistoryTableViewController
             
-            workoutHistoryTableViewController.workoutName = exercise.name
-            
-            if let history = exercise.getHistory() {
-                workoutHistoryTableViewController.workoutHistory = history
-            }
+            workoutHistoryTableViewController.delegate = self
+            workoutHistoryTableViewController.exercise = exercise
         }
         
     }

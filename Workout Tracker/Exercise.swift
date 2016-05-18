@@ -75,6 +75,10 @@ class Exercise: NSObject, NSCoding {
         self.currentWeights = ExerciseWeights(weight: newWorkout.sets[0].weight)
     }
     
+    func replaceWorkout(originalWorkout: Workout, newWorkout: Workout) {
+        workoutDiary.replaceWorkout(originalWorkout, newWorkout: newWorkout)
+    }
+    
     func getLastWorkout() -> Workout? {
         return workoutDiary.diary.last
     }

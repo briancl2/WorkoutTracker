@@ -37,3 +37,7 @@ class Sets: NSObject, NSCoding {
     
 }
 
+func ==(lhs: Sets, rhs: Sets) -> Bool {
+    let areEqual = lhs.weight == rhs.weight && lhs.repCount == rhs.repCount
+    return areEqual
+}

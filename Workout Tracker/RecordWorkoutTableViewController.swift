@@ -62,9 +62,11 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add \(exerciseName!) Workout"
+
+        
         dateTextField.delegate = self
         doneButton.enabled = false
-        cancelButton.enabled = true
+        
         
         newDate = NSDate()
         
@@ -91,9 +93,10 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         setTwoStepper.value = Double(newSetTwo!)
         
         updateLabel(timerEnd)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
+
     }
 
     deinit {
@@ -208,10 +211,6 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     struct PropertyKey {
         static let timerCounterKey = "RecordWorkoutTableViewController_timeCount"
         static let timeMeasurementKey = "RecordWorkoutTableViewController_timeMeasurement"
-        static let newDateKey = "RecordWorkoutTableViewController_newDate"
-        static let newWeightKey = "RecordWorkoutTableViewController_newWeight"
-        static let newSetOneKey = "RecordWorkoutTableViewController_newSetOne"
-        static let newSetTwoKey = "RecordWOrkoutTableViewController_newSetTwo"
     }
     
     dynamic private func applicationWillResignActive() {
@@ -268,7 +267,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     }
     
     // MARK: Actions
-       
+    
     @IBAction func weightStepperChanged(sender: UIStepper) {
         newWeight = Int(sender.value)
         closeKeyboard()
@@ -297,10 +296,10 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if doneButton === sender {
-            let newSets = [Sets(weight: newWeight!, repCount: newSetOne!), Sets(weight: newWeight!, repCount: newSetTwo!)]
-
-            // Set the meal to be passed to MealListTableViewController after the unwind segue.
-            newWorkout = Workout(date: newDate!, sets: newSets)
+            if let date = newDate, weight = newWeight, setOne = newSetOne, setTwo = newSetTwo {
+                let newSets = [Sets(weight: weight, repCount: setOne), Sets(weight: weight, repCount: setTwo)]
+                newWorkout = Workout(date: date, sets: newSets)
+            }
             myTimer?.stop(true)
             cancelAllNotifications()
             clearDefaults()
