@@ -8,16 +8,27 @@
 
 import Foundation
 
-
-
 struct Weight {
     let value: Int
     var barText: String {
-        return BarText(weight: value).barText
+        if value == 0 {
+            return ""
+        }
+        
+        let barWeight = 45
+        var plates = [(45, 0), (35, 0), (25, 0), (10, 0), (5,0), (2.5, 0)]
+        var tmp = Double(value - barWeight)
+        
+        for i in 0...plates.count-1 {
+            while (tmp / plates[i].0 >= 2) {
+                tmp -= (plates[i].0 * 2)
+                plates[i].1 += 2
+            }
+        }
+        return plates.filter({$0.1 > 0}).reduce("Bar", combine: { $0 + " + \($1.1)x\($1.0.trimmedToString)" })
     }
     
     init(value: Int) {
         self.value = value.roundedToFive
     }
-    
 }

@@ -10,12 +10,12 @@ import Foundation
 
 class Workout: NSObject, NSCoding {
     var date: NSDate
-    var sets: [Sets]
+    var sets: [WorkSet]
     var totalVolume: Int {
         return sets.reduce(0, combine: { $0 + $1.volume })
     }
     
-    init(date: NSDate, sets: [Sets]) {
+    init(date: NSDate, sets: [WorkSet]) {
         self.date = date
         self.sets = sets
     }
@@ -32,17 +32,9 @@ class Workout: NSObject, NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         let date = aDecoder.decodeObjectForKey(PropertyKey.dateKey) as! NSDate
-        let sets = aDecoder.decodeObjectForKey(PropertyKey.setsKey) as! [Sets]
+        let sets = aDecoder.decodeObjectForKey(PropertyKey.setsKey) as! [WorkSet]
         
         self.init(date: date, sets: sets)
     }
 }
 
-func == (lhs: Workout, rhs: Workout) -> Bool {
-    let areEqual = lhs.date == rhs.date && lhs.sets == rhs.sets
-    print(lhs.date)
-    print(rhs.date)
-    print(rhs.sets[0])
-    print(lhs.sets[1])
-    return areEqual
-}

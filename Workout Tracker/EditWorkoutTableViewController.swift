@@ -165,7 +165,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if doneButton === sender {
             if let date = newDate, weight = newWeight, setOne = newSetOne, setTwo = newSetTwo {
-                let newSets = [Sets(weight: weight, repCount: setOne), Sets(weight: weight, repCount: setTwo)]
+                let newSets = [WorkSet(weight: weight, repCount: setOne), WorkSet(weight: weight, repCount: setTwo)]
                 newWorkout = Workout(date: date, sets: newSets)
             }
            

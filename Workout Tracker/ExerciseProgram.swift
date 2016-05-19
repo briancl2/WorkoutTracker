@@ -13,6 +13,9 @@ class ExerciseProgram: NSObject, NSCoding {
     var startDate = "16-04-20"
     var userProfile: User
     var program: [Exercise] = []
+    var count: Int {
+        return program.count
+    }
 
     init?(name: String, startDate: String, program: [Exercise], userProfile: User) {
         self.name = name
@@ -22,8 +25,6 @@ class ExerciseProgram: NSObject, NSCoding {
     }
     
     // MARK: Types
-    
-    
     
     struct PropertyKey {
         static let nameKey = "ExerciseProgram_name"
@@ -40,10 +41,6 @@ class ExerciseProgram: NSObject, NSCoding {
     
     func getExercise(index: Int) -> Exercise {
         return program[index]
-    }
-    
-    func getCount() ->  Int {
-        return program.count
     }
     
     func updateExercise(index: Int, updatedExercise: Exercise) {

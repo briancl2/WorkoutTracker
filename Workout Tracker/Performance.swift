@@ -10,13 +10,9 @@ import Foundation
 
 
 struct TotalVolumeIncrease {
-    var percentage: Int?
-    
-    init(diary: WorkoutDiary, dateRange: Int) {
-        self.percentage = calcTotalVolumeIncrease(diary, dateRange: dateRange)
-    }
-    
-    private func calcTotalVolumeIncrease(diary: WorkoutDiary, dateRange: Int) -> Int? {
+    var diary: WorkoutDiary
+    var dateRange: Int
+    var percentage: Int? {
         if let oldWorkout = diary.getOldestWorkoutFromRange(dateRange) {
             let oldVolume = oldWorkout.totalVolume
             let newVolume = diary.getLastWorkout()!.totalVolume
@@ -24,31 +20,32 @@ struct TotalVolumeIncrease {
         }
         return nil
     }
+    
+    init(diary: WorkoutDiary, dateRange: Int) {
+        self.diary = diary
+        self.dateRange = dateRange
+    }
 }
 
 struct GoalAttainment {
-    var percentage = 0
-    
-    init(set: Sets, goal: Int) {
-        self.percentage = calcGoalAttainment(set, goal: goal)
-    }
-    
-    private func calcGoalAttainment(set: Sets, goal: Int) -> Int {
+    var set: WorkSet
+    var goal: Int
+    var percentage: Int {
         let goalWeight = Double(goal)
         let current1RM = OneRepMax(set: set).value
         
         return Int(100 * (current1RM / goalWeight))
     }
+    
+    init(set: WorkSet, goal: Int) {
+        self.set = set
+        self.goal = goal
+    }
 }
 
 struct OneRepMax {
-    var value = 0.0
-    
-    init(set: Sets) {
-        self.value = calcOneRepMax(set)
-    }
-    
-    private func calcOneRepMax(set: Sets) -> Double {
+    var set: WorkSet
+    var value: Double {
         let weight = Double(set.weight)
         let repCount = set.repCount
         let coefficient = [1.0,1.0,0.943,0.906,0.881,0.856,0.831,0.807,0.786,0.765,0.744,0.723,0.703,0.688,0.675,0.662,0.650,0.638,0.627,0.616,0.606] // first element is set to 1.0 to prevent divide by zero condition, which should never happen anyway
@@ -56,4 +53,7 @@ struct OneRepMax {
         return weight / coefficient[repCount]
     }
     
+    init(set: WorkSet) {
+        self.set = set
+    }
 }

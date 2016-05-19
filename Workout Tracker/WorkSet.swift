@@ -1,5 +1,5 @@
 //
-//  Sets.swift
+//  WorkSet.swift
 //  Workout Tracker
 //
 //  Created by briancl on 4/27/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Sets: NSObject, NSCoding {
+class WorkSet: NSObject, NSCoding {
     var weight: Int
     var repCount: Int
     var volume: Int { return weight * repCount }
@@ -35,9 +35,4 @@ class Sets: NSObject, NSCoding {
         self.init(weight: weight, repCount: repCount)
     }
     
-}
-
-func ==(lhs: Sets, rhs: Sets) -> Bool {
-    let areEqual = lhs.weight == rhs.weight && lhs.repCount == rhs.repCount
-    return areEqual
 }

@@ -9,6 +9,8 @@
 import Foundation
 
 
+
+
 func ==(lhs: NSDate, rhs: NSDate) -> Bool
 {
     return lhs === rhs || lhs.compare(rhs) == .OrderedSame
@@ -24,27 +26,21 @@ func >(lhs: NSDate, rhs: NSDate) -> Bool
     return lhs.compare(rhs) == .OrderedDescending
 }
 
-
-
-extension Int {
-    var roundedToFive: Int {
-        return 5 * Int(round(Double(self) / 5.0))
+extension NSDate {
+    func daysAgo(days: Int) -> NSDate {
+        let newDateComponents = NSDateComponents()
+        newDateComponents.day = -days
+        
+        return NSCalendar.currentCalendar().dateByAddingComponents(newDateComponents, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
     }
 }
 
 extension NSDate {
     var myPrettyString: String {
         let dateFormatter = NSDateFormatter()
-        //dateFormatter.dateFormat = "yy-MM-dd"
         dateFormatter.dateFormat = "MMM d"
         
         return dateFormatter.stringFromDate(self)
-    }
-}
-
-extension Double {
-    var trimmedToString: String {
-        return String(format: "%g", self)
     }
 }
 
@@ -56,3 +52,17 @@ extension NSTimeInterval {
         return String(format:"%02i:%02i.%02i",minutes,Int(seconds),Int(secondsFraction * 100.0))
     }
 }
+
+extension Int {
+    var roundedToFive: Int {
+        return 5 * Int(round(Double(self) / 5.0))
+    }
+}
+
+extension Double {
+    var trimmedToString: String {
+        return String(format: "%g", self)
+    }
+}
+
+

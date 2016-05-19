@@ -61,7 +61,7 @@ class Exercise: NSObject, NSCoding {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         
-        let newSets = [Sets(weight: weight, repCount: repsFirstSet),Sets(weight: weight, repCount: repsSecondSet)]
+        let newSets = [WorkSet(weight: weight, repCount: repsFirstSet), WorkSet(weight: weight, repCount: repsSecondSet)]
         let newWorkoutLogEntry = Workout(date: dateFormatter.dateFromString(date)!, sets: newSets)
         workoutDiary.addWorkout(newWorkoutLogEntry)
         
@@ -99,12 +99,6 @@ class Exercise: NSObject, NSCoding {
         return workoutDiary
     }
 
-//    func saveExercise() {
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(self), forKey: "ExerciseProgram")
-//        defaults.synchronize()
-//    }
-    
     // MARK: NSCoder
     
     func encodeWithCoder(aCoder: NSCoder) {
