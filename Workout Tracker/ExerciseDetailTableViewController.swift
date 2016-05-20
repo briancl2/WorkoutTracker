@@ -35,9 +35,9 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
     
     func displayExerciseDetail() {
         let currentWeights = exercise.currentWeights
-        let warmup25Text = ("Warmup (25%)", "\(currentWeights.warmup25.value)lbs \(currentWeights.warmup25.barText)")
-        let warmup50Text = ("Warmup (50%)", "\(currentWeights.warmup50.value)lbs \(currentWeights.warmup50.barText)")
-        let heavyText = ("Heavy (100%)", "\(currentWeights.heavy.value)lbs \(currentWeights.heavy.barText)")
+        let warmup25Text = ("Warmup (25%)", "\(currentWeights.warmup25.rounded)lbs \(currentWeights.warmup25.barText)")
+        let warmup50Text = ("Warmup (50%)", "\(currentWeights.warmup50.rounded)lbs \(currentWeights.warmup50.barText)")
+        let heavyText = ("Heavy (100%)", "\(currentWeights.heavy.rounded)lbs \(currentWeights.heavy.barText)")
         
         exerciseDetails = [[warmup25Text, warmup50Text, heavyText]]
         exerciseSections = ["Weights"]
@@ -46,7 +46,7 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
         if let lastWorkouts = exercise.getLastWorkouts(3) {
             var workoutsToDisplay = [(String, String)]()
             for workout in lastWorkouts {
-                workoutsToDisplay.append(("\(workout.date.myPrettyString)", "\(workout.sets[0].repCount) and \(workout.sets[1].repCount) Reps @ \(workout.sets[0].weight)lbs"))
+                workoutsToDisplay.append(("\(workout.date.myPrettyString)", "\(workout.sets[0].repCount) and \(workout.sets[1].repCount) Reps @ \(workout.weight)lbs"))
             }
             exerciseDetails.append(workoutsToDisplay)
             exerciseSections.append("Last Workouts")

@@ -9,15 +9,18 @@
 import Foundation
 
 class WorkoutDiary: NSObject, NSCoding {
+    
+    // MARK: Public Properties
+    
     var diary: [Workout] = []
+    
+    // MARK: Initializers
     
     init(diary: [Workout]) {
         self.diary = diary
     }
     
-    struct PropertyKey {
-        static let diaryKey = "WorkoutDiary_diary"
-    }
+    // MARK: Public Methods
     
     func addWorkout(workout: Workout) {
         if let lastWorkout = diary.last {
@@ -42,10 +45,6 @@ class WorkoutDiary: NSObject, NSCoding {
         }
     }
     
-    func sortDiaryByDate() {
-        diary.sortInPlace({$0.date < $1.date})
-    }
-
     func removeWorkout(workout: Workout) {
         diary.removeAtIndex(diary.indexOf(workout)!)
     }
@@ -83,6 +82,12 @@ class WorkoutDiary: NSObject, NSCoding {
         }
     }
     
+    // MARK: Persistence: NSCoder
+    
+    private struct PropertyKey {
+        static let diaryKey = "WorkoutDiary_diary"
+    }
+    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(diary, forKey: PropertyKey.diaryKey)
     }
@@ -93,4 +98,13 @@ class WorkoutDiary: NSObject, NSCoding {
         self.init(diary: diary)
     }
     
+}
+
+extension WorkoutDiary {
+    
+    // MARK: Private Methods
+    
+    private func sortDiaryByDate() {
+        diary.sortInPlace({$0.date < $1.date})
+    }
 }

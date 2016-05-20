@@ -71,7 +71,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         newDate = NSDate()
         
         if let lastWorkout = workout {
-            newWeight = lastWorkout.sets[0].weight
+            newWeight = lastWorkout.weight
             newSetOne = lastWorkout.sets[0].repCount
             newSetTwo = lastWorkout.sets[1].repCount
         } else {
@@ -140,12 +140,12 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         // BarText under Weight
         if newWeight != nil && section == 1 {
-            return Weight(value: newWeight!).barText
+            return Weight(actual: newWeight!).barText
         }
         
         // last workout's reps
         if workout != nil && section == 2 {
-            return "Reps finished on \(workout!.date.myPrettyString): \(workout!.sets[0].repCount) and \(workout!.sets[1].repCount) @ \(workout!.sets[0].weight)lbs"
+            return "Reps finished on \(workout!.date.myPrettyString): \(workout!.sets[0].repCount) and \(workout!.sets[1].repCount) @ \(workout!.weight)lbs"
         }
         
         return nil

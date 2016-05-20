@@ -9,6 +9,9 @@
 import Foundation
 
 class Exercise: NSObject, NSCoding {
+    
+    // MARK: Public Properties
+    
     var name: String
     var notes: String?
     private var workoutDiary = WorkoutDiary(diary: [])
@@ -22,6 +25,22 @@ class Exercise: NSObject, NSCoding {
     var goalAttainment: Int {
         return GoalAttainment(set: (getLastWorkout()?.sets[0])!, goal: goal).percentage
     }
+    
+    struct ExerciseWeights {
+        let heavy: Weight
+        var warmup25: Weight {
+            return Weight(actual: Int(Double(heavy.actual) * 0.25))
+        }
+        var warmup50: Weight {
+            return Weight(actual: Int(Double(heavy.actual) * 0.50))
+        }
+        
+        init(weight: Int) {
+            self.heavy = Weight(actual: weight)
+        }
+    }
+
+    // MARK: Initializers
 
     init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int, goal: Int) {
         self.name = name
@@ -32,30 +51,7 @@ class Exercise: NSObject, NSCoding {
 
     }
     
-    // MARK: Types
-    
-    
-    struct ExerciseWeights {
-        let heavy: Weight
-        var warmup25: Weight {
-            return Weight(value: Int(Double(heavy.value) * 0.25))
-        }
-        var warmup50: Weight {
-            return Weight(value: Int(Double(heavy.value) * 0.50))
-        }
-        
-        init(weight: Int) {
-            self.heavy = Weight(value: weight)
-        }
-    }
-    
-    private struct PropertyKey {
-        static let nameKey = "Exercise_name"
-        static let notesKey = "Exercise_notes"
-        static let workoutDiaryKey = "Exercise_workoutDiary"
-        static let currentWeightsHeavyKey = "Exercise_currentWeightsHeavy"
-        static let goal = "Exercise_goal"
-    }
+    // MARK: Public Methods
     
     func recordWorkout(date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {
         let dateFormatter = NSDateFormatter()
@@ -99,13 +95,21 @@ class Exercise: NSObject, NSCoding {
         return workoutDiary
     }
 
-    // MARK: NSCoder
+    // MARK: Persistence: NSCoder
+    
+    private struct PropertyKey {
+        static let nameKey = "Exercise_name"
+        static let notesKey = "Exercise_notes"
+        static let workoutDiaryKey = "Exercise_workoutDiary"
+        static let currentWeightsHeavyKey = "Exercise_currentWeightsHeavy"
+        static let goal = "Exercise_goal"
+    }
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
         aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
         aCoder.encodeObject(workoutDiary, forKey: PropertyKey.workoutDiaryKey)
-        aCoder.encodeInteger(currentWeights.heavy.value, forKey: PropertyKey.currentWeightsHeavyKey)
+        aCoder.encodeInteger(currentWeights.heavy.actual, forKey: PropertyKey.currentWeightsHeavyKey)
         aCoder.encodeInteger(goal, forKey: PropertyKey.goal)
     }
     

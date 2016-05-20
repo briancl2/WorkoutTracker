@@ -9,6 +9,9 @@
 import Foundation
 
 class ExerciseProgram: NSObject, NSCoding {
+    
+    // MARK: Public Properties
+    
     var name = "Allpro Auto Regulated"
     var startDate = "16-04-20"
     var userProfile: User
@@ -16,6 +19,8 @@ class ExerciseProgram: NSObject, NSCoding {
     var count: Int {
         return program.count
     }
+    
+    // MARK: Initializers
 
     init?(name: String, startDate: String, program: [Exercise], userProfile: User) {
         self.name = name
@@ -23,17 +28,8 @@ class ExerciseProgram: NSObject, NSCoding {
         self.program = program
         self.userProfile = userProfile
     }
-    
-    // MARK: Types
-    
-    struct PropertyKey {
-        static let nameKey = "ExerciseProgram_name"
-        static let startDateKey = "ExerciseProgram_startDate"
-        static let programKey = "ExerciseProgram_program"
-        static let userProfile = "ExerciseProgram_userProfile"
-    }
-    
-    // MARK: Methods
+   
+    // MARK: Public Methods
     
     func addExercise(newExercise: Exercise) {
         program.append(newExercise)
@@ -51,7 +47,7 @@ class ExerciseProgram: NSObject, NSCoding {
         program.removeAtIndex(index)
     }
     
-    // MARK: Persistence
+    // MARK: Persistence Methods
     
     func saveProgram() {
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -70,7 +66,14 @@ class ExerciseProgram: NSObject, NSCoding {
         return exerciseProgram
     }
     
-    // MARK: NSCoder
+    // MARK: Persistence: NSCoder
+    
+    private struct PropertyKey {
+        static let nameKey = "ExerciseProgram_name"
+        static let startDateKey = "ExerciseProgram_startDate"
+        static let programKey = "ExerciseProgram_program"
+        static let userProfile = "ExerciseProgram_userProfile"
+    }
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: PropertyKey.nameKey)

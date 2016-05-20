@@ -58,7 +58,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Add \(exerciseName!) Workout"
+        self.title = "Edit \(exerciseName!) Workout"
         
         originalWorkout = workout
         
@@ -67,7 +67,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         
         
         newDate = workout!.date
-        newWeight = workout!.sets[0].weight
+        newWeight = workout!.weight
         newSetOne = workout!.sets[0].repCount
         newSetTwo = workout!.sets[1].repCount
 

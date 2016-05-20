@@ -15,6 +15,10 @@ class Workout: NSObject, NSCoding {
         return sets.reduce(0, combine: { $0 + $1.volume })
     }
     
+    var weight: Int {
+        return sets.map({$0.weight}).maxElement()!
+    }
+    
     init(date: NSDate, sets: [WorkSet]) {
         self.date = date
         self.sets = sets

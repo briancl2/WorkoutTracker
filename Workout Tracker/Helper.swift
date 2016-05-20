@@ -8,9 +8,6 @@
 
 import Foundation
 
-
-
-
 func ==(lhs: NSDate, rhs: NSDate) -> Bool
 {
     return lhs === rhs || lhs.compare(rhs) == .OrderedSame
@@ -49,6 +46,7 @@ extension NSTimeInterval {
         let minutes = Int(self) / 60
         let seconds = self - Double(minutes) * 60
         let secondsFraction = seconds - Double(Int(seconds))
+        
         return String(format:"%02i:%02i.%02i",minutes,Int(seconds),Int(secondsFraction * 100.0))
     }
 }
