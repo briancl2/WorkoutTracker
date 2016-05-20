@@ -24,22 +24,22 @@ class Workout_TrackerTests: XCTestCase {
 
     
     func testAddNewExerciseProgram() {
-        let exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
-        XCTAssertEqual(exercises?.userProfile.name, "Brian")
+        let exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
+        XCTAssertEqual(exercises.userProfile.name, "Brian")
     }
     
     func testAddNewExercise() {
-        let exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
+        let exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
         let squat = Exercise(name: "Squat", notes: "Squat notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 320)
         squat.recordWorkout("16-04-17", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
-        exercises!.addExercise(squat)
+        exercises.addExercise(squat)
         let name = "test"
         let notes: String? = nil
         let weight = 0
         let goal = 200
         
-        exercises!.addExercise(Exercise(name: name, notes: notes, workoutDiary: WorkoutDiary(diary: []), weight: weight, goal: goal))
-        XCTAssertEqual(exercises!.program[0].currentWeights.warmup50.barText, "Bar + 2x10 + 2x2.5")
+        exercises.addExercise(Exercise(name: name, notes: notes, workoutDiary: WorkoutDiary(diary: []), weight: weight, goal: goal))
+        XCTAssertEqual(exercises.program[0].currentWeights.warmup50.barText, "Bar + 2x10 + 2x2.5")
         
     }
 }
@@ -62,17 +62,17 @@ class ExampleTests: XCTestCase {
         //load view hierarchy
         _ = systemUnderTest.view
         
-        let exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
+        let exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
         let squat = Exercise(name: "Squat", notes: "Squat notes", workoutDiary: WorkoutDiary(diary: []), weight: 0, goal: 320)
         squat.recordWorkout("16-04-17", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
-        exercises!.addExercise(squat)
+        exercises.addExercise(squat)
         let name = "test"
         let notes: String? = nil
         let weight = 0
         let goal = 200
         
-        exercises!.addExercise(Exercise(name: name, notes: notes, workoutDiary: WorkoutDiary(diary: []), weight: weight, goal: goal))
-        XCTAssertEqual(exercises!.program[0].currentWeights.warmup50.barText, "Bar + 2x10 + 2x2.5")
+        exercises.addExercise(Exercise(name: name, notes: notes, workoutDiary: WorkoutDiary(diary: []), weight: weight, goal: goal))
+        XCTAssertEqual(exercises.program[0].currentWeights.warmup50.barText, "Bar + 2x10 + 2x2.5")
         
     }
     

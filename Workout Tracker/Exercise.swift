@@ -14,7 +14,7 @@ class Exercise: NSObject, NSCoding {
     
     var name: String
     var notes: String?
-    private var workoutDiary = WorkoutDiary(diary: [])
+    private var workoutDiary: WorkoutDiary
     var currentWeights: ExerciseWeights
     var goal = 0
     
@@ -48,7 +48,10 @@ class Exercise: NSObject, NSCoding {
         self.workoutDiary = workoutDiary
         self.currentWeights = ExerciseWeights(weight: weight)
         self.goal = goal
-
+    }
+    
+    convenience override init() {
+        self.init(name: "", notes: nil, workoutDiary: WorkoutDiary(), weight: 1, goal: 1)
     }
     
     // MARK: Public Methods

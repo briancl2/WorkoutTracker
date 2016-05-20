@@ -15,7 +15,7 @@ protocol WorkoutHistoryTableViewControllerDelegate {
 class WorkoutHistoryTableViewController: UITableViewController {
 
     
-    var exercise: Exercise?
+    var exercise: Exercise!
     var workoutHistory: WorkoutDiary {
         return exercise!.getHistory()!
     }
@@ -62,26 +62,13 @@ class WorkoutHistoryTableViewController: UITableViewController {
         return cell
     }
 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-
-    // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             workoutHistory.removeWorkout(workoutHistory.diary[indexPath.row])
             save()
             // Delete the row from the data source
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } //else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        //}
+        }
     }
 
 
@@ -91,23 +78,20 @@ class WorkoutHistoryTableViewController: UITableViewController {
         if segue.identifier == "EditWorkout" {
             let editWorkoutTableViewController = segue.destinationViewController as! EditWorkoutTableViewController
             
-            //recordWorkoutTableViewController.delegate = self
-            
             let selectedWorkoutCell = sender as! UITableViewCell
             let indexPath = tableView.indexPathForCell(selectedWorkoutCell)
             workoutToEdit = workoutHistory.getWorkout(indexPath!.row)
             editWorkoutTableViewController.workout = workoutToEdit
-            editWorkoutTableViewController.exerciseName = exercise!.name
+            editWorkoutTableViewController.exerciseName = exercise.name
         }
     }
 
     @IBAction func unwindToWorkoutHistory(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController, updatedWorkout = sourceViewController.newWorkout {
-            exercise!.replaceWorkout(workoutToEdit!, newWorkout: updatedWorkout)
+            exercise.replaceWorkout(workoutToEdit!, newWorkout: updatedWorkout)
             save()
         }
     }
-    
     
     var delegate: WorkoutHistoryTableViewControllerDelegate?
     

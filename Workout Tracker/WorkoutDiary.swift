@@ -12,12 +12,16 @@ class WorkoutDiary: NSObject, NSCoding {
     
     // MARK: Public Properties
     
-    var diary: [Workout] = []
+    var diary: [Workout]
     
     // MARK: Initializers
     
     init(diary: [Workout]) {
         self.diary = diary
+    }
+    
+    convenience override init() {
+        self.init(diary: [])
     }
     
     // MARK: Public Methods

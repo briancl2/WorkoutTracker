@@ -139,7 +139,6 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         } else {
             return false
         }
-
     }
     
     // MARK: Actions

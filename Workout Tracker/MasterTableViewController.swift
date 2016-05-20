@@ -10,7 +10,7 @@ import UIKit
 
 class MasterTableViewController: UITableViewController, ExerciseDetailTableViewControllerDelegate {
 
-    var exercises = ExerciseProgram(name: "temp", startDate: "temp", program: [], userProfile: User(bodyWeight: 0, name: ""))
+    var exercises = ExerciseProgram()
     
     override func viewWillAppear(animated: Bool) {
         // Load any saved program, otherwise load sample data.
@@ -25,10 +25,6 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
     }
@@ -162,17 +158,17 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
         curl.recordWorkout("16-05-16", weight: 60, repsFirstSet: 11, repsSecondSet: 9)
         curl.recordWorkout("16-05-18", weight: 60, repsFirstSet: 12, repsSecondSet: 9)
         
-        exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: "16-04-20", program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
+        exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: [], userProfile: User(bodyWeight: 160, name: "Brian"))
         
-        exercises!.addExercise(squat)
-        exercises!.addExercise(bench)
-        exercises!.addExercise(row)
-        exercises!.addExercise(ohp)
-        exercises!.addExercise(sldl)
-        exercises!.addExercise(chin)
-        exercises!.addExercise(calf)
-        exercises!.addExercise(torso)
-        exercises!.addExercise(curl)
+        exercises.addExercise(squat)
+        exercises.addExercise(bench)
+        exercises.addExercise(row)
+        exercises.addExercise(ohp)
+        exercises.addExercise(sldl)
+        exercises.addExercise(chin)
+        exercises.addExercise(calf)
+        exercises.addExercise(torso)
+        exercises.addExercise(curl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -187,36 +183,27 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercises!.count
+        return exercises.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "ExerciseTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ExerciseTableViewCell
-        // Fetches the appropriate exercise for the data source layout
-        let exercise = exercises?.getExercise(indexPath.row)
-        cell.textLabel!.text = exercise!.name
-
-        // Configure the cell...
+        let exercise = exercises.getExercise(indexPath.row)
+        cell.textLabel!.text = exercise.name
         return cell
     }
 
-    // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
     
-    // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
-            exercises!.removeExercise(indexPath.row)
+            exercises.removeExercise(indexPath.row)
             save()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } //else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    //    }
+        }
     }
 
     /*
@@ -237,19 +224,15 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "ShowExerciseDetail" {
             let exerciseDetailTableViewController = segue.destinationViewController as! ExerciseDetailTableViewController
             
             exerciseDetailTableViewController.delegate = self
             
-            // Get the cell that generated this segue
             if let selectedExerciseCell = sender as? ExerciseTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedExerciseCell)!
-                let selectedExercise = exercises!.getExercise(indexPath.row)
+                let selectedExercise = exercises.getExercise(indexPath.row)
                 exerciseDetailTableViewController.exercise = selectedExercise
             }
         }
@@ -257,9 +240,8 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
     
     @IBAction func unwindToExerciseList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController, exercise = sourceViewController.exercise {
-            // Add a new exercise.
-            let newIndexPath = NSIndexPath(forRow: exercises!.count, inSection: 0)
-            exercises!.addExercise(exercise)
+            let newIndexPath = NSIndexPath(forRow: exercises.count, inSection: 0)
+            exercises.addExercise(exercise)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
             save()
         }
@@ -268,11 +250,11 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
     // MARK: NSCoding
     
     func save() {
-        exercises?.saveProgram()
+        exercises.saveProgram()
     }
     
     func load() -> ExerciseProgram? {
-        return exercises?.loadProgram()
+        return exercises.loadProgram()
     }
 
 

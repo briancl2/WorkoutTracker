@@ -9,12 +9,16 @@
 import Foundation
 
 class User: NSObject, NSCoding {
-    var bodyWeight = 1
-    var name = ""
+    var bodyWeight: Int
+    var name: String
     
     init(bodyWeight: Int, name: String) {
         self.bodyWeight = bodyWeight
         self.name = name
+    }
+    
+    convenience override init() {
+        self.init(bodyWeight: 1, name: "")
     }
     
     struct PropertyKey {

@@ -12,21 +12,25 @@ class ExerciseProgram: NSObject, NSCoding {
     
     // MARK: Public Properties
     
-    var name = "Allpro Auto Regulated"
-    var startDate = "16-04-20"
+    var name: String
+    var startDate: NSDate
     var userProfile: User
-    var program: [Exercise] = []
+    var program: [Exercise]
     var count: Int {
         return program.count
     }
     
     // MARK: Initializers
 
-    init?(name: String, startDate: String, program: [Exercise], userProfile: User) {
+    init(name: String, startDate: NSDate, program: [Exercise], userProfile: User) {
         self.name = name
         self.startDate = startDate
         self.program = program
         self.userProfile = userProfile
+    }
+    
+    convenience override init() {
+        self.init(name: "AllPro", startDate: NSDate(), program: [], userProfile: User())
     }
    
     // MARK: Public Methods
@@ -84,7 +88,7 @@ class ExerciseProgram: NSObject, NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
-        let startDate = aDecoder.decodeObjectForKey(PropertyKey.startDateKey) as! String
+        let startDate = aDecoder.decodeObjectForKey(PropertyKey.startDateKey) as! NSDate
         let program = aDecoder.decodeObjectForKey(PropertyKey.programKey) as! [Exercise]
         let userProfile = aDecoder.decodeObjectForKey(PropertyKey.userProfile) as! User
         
