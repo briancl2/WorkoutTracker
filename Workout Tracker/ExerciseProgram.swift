@@ -52,4 +52,14 @@ class ExerciseProgram: Object {
     func removeExercise(index: Int) {
         program.removeAtIndex(index)
     }
+    
+    func exportToCSV() {
+        print("exercise name,date,weight,set 1,set 2,total volume")
+        
+        for exercise in program {
+            for workout in exercise.workoutDiary {
+                print("\(exercise.name),\(workout.date.myPrettyString),\(workout.weight),\(workout.sets[0].repCount),\(workout.sets[1].repCount),\(workout.totalVolume)")
+            }
+        }
+    }
 }

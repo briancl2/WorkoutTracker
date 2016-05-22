@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var programTextField: UITextField!
     @IBOutlet weak var bodyweightTextField: UITextField!
+    @IBOutlet weak var exportDataButton: UIButton!
     
     //var userProfile: User
     let pickOption = ["Allpro", "Allpro self-regulated"]
@@ -94,12 +96,14 @@ class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UI
     func closeKeyboard() {
         self.view.endEditing(true)
     }
+
+    // MARK: Actions
     
-//    func checkValidProgram() {
-//        if newWeight > 0 {
-//            doneButton.enabled = true
-//        } else {
-//            doneButton.enabled = false
-//        }
-//    }
+    @IBAction func exportDataButtonTapped(sender: UIButton) {
+        
+        let realm = try! Realm()
+        let exercises = realm.objects(ExerciseProgram).first
+        
+        exercises!.exportToCSV()
+    }
 }

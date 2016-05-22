@@ -50,8 +50,8 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
             exerciseDetails.append(workoutsToDisplay)
             exerciseSections.append("Last Workouts")
             var stats: [(String, String)] = []
-            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(30) {
-                stats.append(("30d progress", "\(totalVolumeIncrease)%"))
+            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(30), let totalWeightIncrease = exercise.getWeightIncrease(30) {
+                stats.append(("30d progress", "Weight: \(totalWeightIncrease)% Total Volume: \(totalVolumeIncrease)%"))
             }
             stats.append(("1RM", "\(exercise.calculated1RM)lbs"))
             stats.append(("Goal", "\(exercise.goalAttainment)% of \(exercise.goal)lbs"))
@@ -81,7 +81,6 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
         return exerciseDetails[section].count
     }
 
-
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ExerciseDetailCell", forIndexPath: indexPath) as! ExerciseDetailTableViewCell
         
@@ -94,6 +93,26 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return exerciseSections[section]
+    }
+    
+    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 1 {
+            if let (lastCycleDate, lastCycleCount) = exercise.lastCycleDate {
+                if lastCycleDate.myPrettyString == NSDate().myPrettyString {
+                    return "Completed last cycle today!"
+                } else if lastCycleCount == 1 {
+                    return "Completed last cycle last workout on \(lastCycleDate.myPrettyString)"
+                } else {
+                    return "Completed last cycle \(lastCycleCount) workouts ago on \(lastCycleDate.myPrettyString)"
+                }
+            }
+        }
+        return nil
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     }
     
     // MARK: - Navigation

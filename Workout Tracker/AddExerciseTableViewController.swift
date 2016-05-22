@@ -59,11 +59,10 @@ class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate
         if doneButton === sender {
             let name = nameTextField.text ?? ""
             let notes = notesTextVIew.text ?? ""
-            let weight = 0
             let goal = Int(goalTextField.text ?? "200")!
             
             // Set the meal to be passed to MealListTableViewController after the unwind segue.
-            exercise = Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), weight: weight, goal: goal)
+            exercise = Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), goal: goal)
         }
     }
 

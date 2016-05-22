@@ -16,7 +16,6 @@ class Exercise: Object {
     dynamic var name = ""
     dynamic var notes: String?
     var workoutDiary = List<Workout>()
-    dynamic var weight = 0
     dynamic var goal = 0
     var currentWeights: ExerciseWeights {
         if let lastWorkout = workoutDiary.last {
@@ -44,6 +43,21 @@ class Exercise: Object {
         return Int(100 * (Double(calculated1RM) / Double(goal)))
     }
     
+    var lastCycleDate: (NSDate, Int)? {
+        // if diary is empty, return nil
+        if workoutDiary.count == 0 {
+            return nil
+        }
+        
+        for workout in workoutDiary.reverse() {
+            if workout.sets.reduce(0, combine: { $0 + $1.repCount }) >= 24 {
+                return (workout.date, workoutDiary.count - workoutDiary.indexOf(workout)!)
+            }
+        }
+
+        return nil
+    }
+        
     struct ExerciseWeights {
         let heavy: Weight
         var warmup25: Weight {
@@ -60,7 +74,7 @@ class Exercise: Object {
     
     // MARK: Initializers
 
-    convenience init(name: String, notes: String?, workoutDiary: List<Workout>, weight: Int, goal: Int) {
+    convenience init(name: String, notes: String?, workoutDiary: List<Workout>, goal: Int) {
         self.init()
         self.name = name
         self.notes = notes
@@ -102,6 +116,15 @@ class Exercise: Object {
             let oldVolume = oldWorkout.totalVolume
             let newVolume = workoutDiary.last!.totalVolume
             return Int(100 * (newVolume - oldVolume) / oldVolume)
+        }
+        return nil
+    }
+    
+    func getWeightIncrease(dateRange: Int) -> Int? {
+        if let oldWorkout = getOldestWorkoutFromRange(dateRange) {
+            let oldWeight = oldWorkout.weight
+            let newWeight = workoutDiary.last!.weight
+            return Int(100 * (newWeight - oldWeight) / oldWeight)
         }
         return nil
     }
