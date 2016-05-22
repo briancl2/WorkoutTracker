@@ -7,34 +7,23 @@
 //
 
 import Foundation
+import RealmSwift
 
-class WorkSet: NSObject, NSCoding {
-    var weight: Int
-    var repCount: Int
+class WorkSet: Object {
+    
+    // MARK: Public Properties
+    
+    dynamic var weight = 0
+    dynamic var repCount = 0
     var volume: Int {
         return weight * repCount
     }
-
-    init(weight: Int, repCount: Int) {
+    
+    // MARK: Initializers
+    
+    convenience init(weight: Int, repCount: Int) {
+        self.init()
         self.weight = weight
         self.repCount = repCount
     }
-    
-    struct PropertyKey {
-        static let weightKey = "Sets_weight"
-        static let repCountKey = "Sets_repCount"
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeInteger(weight, forKey: PropertyKey.weightKey)
-        aCoder.encodeInteger(repCount, forKey: PropertyKey.repCountKey)
-    }
-    
-    required convenience init?(coder aDecoder: NSCoder) {
-        let weight = aDecoder.decodeIntegerForKey(PropertyKey.weightKey)
-        let repCount = aDecoder.decodeIntegerForKey(PropertyKey.repCountKey)
-        
-        self.init(weight: weight, repCount: repCount)
-    }
-    
 }

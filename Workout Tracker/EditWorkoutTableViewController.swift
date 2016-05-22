@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RealmSwift
+
 
 class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var dateTextField: UITextField!
@@ -164,7 +166,9 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if doneButton === sender {
             if let date = newDate, weight = newWeight, setOne = newSetOne, setTwo = newSetTwo {
-                let newSets = [WorkSet(weight: weight, repCount: setOne), WorkSet(weight: weight, repCount: setTwo)]
+                let newSets = List<WorkSet>()
+                newSets.append(WorkSet(weight: weight, repCount: setOne))
+                newSets.append(WorkSet(weight: weight, repCount: setTwo))
                 newWorkout = Workout(date: date, sets: newSets)
             }
            

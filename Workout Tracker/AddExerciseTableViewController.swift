@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var doneButton: UIBarButtonItem!
@@ -62,7 +63,7 @@ class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate
             let goal = Int(goalTextField.text ?? "200")!
             
             // Set the meal to be passed to MealListTableViewController after the unwind segue.
-            exercise = Exercise(name: name, notes: notes, workoutDiary: WorkoutDiary(), weight: weight, goal: goal)
+            exercise = Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), weight: weight, goal: goal)
         }
     }
 

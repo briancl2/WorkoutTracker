@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol WorkoutHistoryTableViewControllerDelegate {
     func save()
@@ -16,10 +17,6 @@ class WorkoutHistoryTableViewController: UITableViewController {
 
     
     var exercise: Exercise!
-    var workoutHistory: WorkoutDiary {
-        return exercise!.getHistory()!
-    }
-    
     var workoutToEdit: Workout?
     
     
@@ -47,16 +44,16 @@ class WorkoutHistoryTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workoutHistory.diary.count
+        return exercise.workoutDiary.count
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("WorkoutHistoryCell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = "\(workoutHistory.diary[indexPath.row].date.myPrettyString)"
+        cell.textLabel?.text = "\(exercise.workoutDiary[indexPath.row].date.myPrettyString)"
         
-        cell.detailTextLabel?.text = "\(workoutHistory.diary[indexPath.row].sets[0].repCount) and \(workoutHistory.diary[indexPath.row].sets[1].repCount) Reps @ \(workoutHistory.diary[indexPath.row].sets[0].weight)lbs"
+        cell.detailTextLabel?.text = "\(exercise.workoutDiary[indexPath.row].sets[0].repCount) and \(exercise.workoutDiary[indexPath.row].sets[1].repCount) Reps @ \(exercise.workoutDiary[indexPath.row].sets[0].weight)lbs"
         
 
         return cell
@@ -64,8 +61,11 @@ class WorkoutHistoryTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            workoutHistory.removeWorkout(workoutHistory.diary[indexPath.row])
-            save()
+            let realm = try! Realm()
+            try! realm.write {
+                exercise.workoutDiary.removeAtIndex(indexPath.row)
+            }
+            //save()
             // Delete the row from the data source
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
@@ -80,7 +80,7 @@ class WorkoutHistoryTableViewController: UITableViewController {
             
             let selectedWorkoutCell = sender as! UITableViewCell
             let indexPath = tableView.indexPathForCell(selectedWorkoutCell)
-            workoutToEdit = workoutHistory.getWorkout(indexPath!.row)
+            workoutToEdit = exercise.workoutDiary[indexPath!.row]
             editWorkoutTableViewController.workout = workoutToEdit
             editWorkoutTableViewController.exerciseName = exercise.name
         }
@@ -88,8 +88,11 @@ class WorkoutHistoryTableViewController: UITableViewController {
 
     @IBAction func unwindToWorkoutHistory(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController, updatedWorkout = sourceViewController.newWorkout {
-            exercise.replaceWorkout(workoutToEdit!, newWorkout: updatedWorkout)
-            save()
+            let realm = try! Realm()
+            try! realm.write {
+                exercise.replaceWorkout(workoutToEdit!, newWorkout: updatedWorkout)
+            }
+            //save()
         }
     }
     

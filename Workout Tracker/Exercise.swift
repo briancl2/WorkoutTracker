@@ -7,23 +7,41 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Exercise: NSObject, NSCoding {
+class Exercise: Object {
     
     // MARK: Public Properties
     
-    var name: String
-    var notes: String?
-    private var workoutDiary: WorkoutDiary
-    var currentWeights: ExerciseWeights
-    var goal = 0
+    dynamic var name = ""
+    dynamic var notes: String?
+    var workoutDiary = List<Workout>()
+    dynamic var weight = 0
+    dynamic var goal = 0
+    var currentWeights: ExerciseWeights {
+        if let lastWorkout = workoutDiary.last {
+            
+            return ExerciseWeights(weight: lastWorkout.weight)
+        }
+        
+        return ExerciseWeights(weight: 0)
+    }
     
     var calculated1RM: Int {
-        return Int(OneRepMax(set: getLastWorkout()!.sets[0]).value)
+        if let lastWorkout = workoutDiary.last {
+            let set = lastWorkout.sets.first!
+            let weight = Double(set.weight)
+            let repCount = set.repCount
+            let coefficient = [1.0,1.0,0.943,0.906,0.881,0.856,0.831,0.807,0.786,0.765,0.744,0.723,0.703,0.688,0.675,0.662,0.650,0.638,0.627,0.616,0.606] // first element is set to 1.0 to prevent divide by zero condition, which should never happen anyway
+            
+            return Int(weight / coefficient[repCount])
+        }
+        
+        return 0
     }
     
     var goalAttainment: Int {
-        return GoalAttainment(set: (getLastWorkout()?.sets[0])!, goal: goal).percentage
+        return Int(100 * (Double(calculated1RM) / Double(goal)))
     }
     
     struct ExerciseWeights {
@@ -39,19 +57,15 @@ class Exercise: NSObject, NSCoding {
             self.heavy = Weight(actual: weight)
         }
     }
-
+    
     // MARK: Initializers
 
-    init(name: String, notes: String?, workoutDiary: WorkoutDiary, weight: Int, goal: Int) {
+    convenience init(name: String, notes: String?, workoutDiary: List<Workout>, weight: Int, goal: Int) {
+        self.init()
         self.name = name
         self.notes = notes
         self.workoutDiary = workoutDiary
-        self.currentWeights = ExerciseWeights(weight: weight)
         self.goal = goal
-    }
-    
-    convenience override init() {
-        self.init(name: "", notes: nil, workoutDiary: WorkoutDiary(), weight: 1, goal: 1)
     }
     
     // MARK: Public Methods
@@ -60,70 +74,62 @@ class Exercise: NSObject, NSCoding {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         
-        let newSets = [WorkSet(weight: weight, repCount: repsFirstSet), WorkSet(weight: weight, repCount: repsSecondSet)]
+        let newSets = List<WorkSet>()
+        newSets.append(WorkSet(weight: weight, repCount: repsFirstSet))
+        newSets.append(WorkSet(weight: weight, repCount: repsSecondSet))
         let newWorkoutLogEntry = Workout(date: dateFormatter.dateFromString(date)!, sets: newSets)
-        workoutDiary.addWorkout(newWorkoutLogEntry)
-        
-        //update weights
-        self.currentWeights = ExerciseWeights(weight: weight)
+        workoutDiary.append(newWorkoutLogEntry)
     }
     
     func recordWorkout(newWorkout: Workout) {
-        workoutDiary.addWorkout(newWorkout)
-        //update weights
-        self.currentWeights = ExerciseWeights(weight: newWorkout.sets[0].weight)
+        workoutDiary.append(newWorkout)
     }
     
     func replaceWorkout(originalWorkout: Workout, newWorkout: Workout) {
-        workoutDiary.replaceWorkout(originalWorkout, newWorkout: newWorkout)
+        workoutDiary[workoutDiary.indexOf(originalWorkout)!] = newWorkout
     }
     
     func getLastWorkout() -> Workout? {
-        return workoutDiary.diary.last
+        return workoutDiary.last
     }
     
     func getLastWorkouts(number: Int) -> [Workout]? {
-        return workoutDiary.getLastWorkouts(number)
-    }
-    
-    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
-        return workoutDiary.getOldestWorkoutFromRange(15)
+        return Array(workoutDiary.suffix(number))
     }
     
     func getTotalVolumeIncrease(dateRange: Int) -> Int? {
-        return TotalVolumeIncrease(diary: workoutDiary, dateRange: dateRange).percentage
+        if let oldWorkout = getOldestWorkoutFromRange(dateRange) {
+            let oldVolume = oldWorkout.totalVolume
+            let newVolume = workoutDiary.last!.totalVolume
+            return Int(100 * (newVolume - oldVolume) / oldVolume)
+        }
+        return nil
     }
     
-    func getHistory() -> WorkoutDiary? {
-        return workoutDiary
-    }
-
-    // MARK: Persistence: NSCoder
-    
-    private struct PropertyKey {
-        static let nameKey = "Exercise_name"
-        static let notesKey = "Exercise_notes"
-        static let workoutDiaryKey = "Exercise_workoutDiary"
-        static let currentWeightsHeavyKey = "Exercise_currentWeightsHeavy"
-        static let goal = "Exercise_goal"
+    func getHistory() -> [Workout] {
+        return Array(workoutDiary)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
-        aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
-        aCoder.encodeObject(workoutDiary, forKey: PropertyKey.workoutDiaryKey)
-        aCoder.encodeInteger(currentWeights.heavy.actual, forKey: PropertyKey.currentWeightsHeavyKey)
-        aCoder.encodeInteger(goal, forKey: PropertyKey.goal)
+    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
+        // if diary is empty, return nil
+        if workoutDiary.count == 0 {
+            return nil
+        }
+        
+        // if an argument was passed
+        if let dateRange = dateRange {
+            let daysAgo = NSDate().daysAgo(dateRange)
+            let workoutsInRange = workoutDiary.filter({$0.date > daysAgo})
+            
+            // if there are workouts in the dateRange, return the first one (oldest)
+            if workoutsInRange != [] {
+                return workoutsInRange.first
+            } else {
+                return nil // otherwise no workouts were found in range, so return nil
+            }
+        } else {
+            return workoutDiary.first // if no argument, just return the first element
+        }
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
-        let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as! String?
-        let workoutDiary = aDecoder.decodeObjectForKey(PropertyKey.workoutDiaryKey) as! WorkoutDiary
-        let currentWeights = aDecoder.decodeIntegerForKey(PropertyKey.currentWeightsHeavyKey)
-        let goal = aDecoder.decodeIntegerForKey(PropertyKey.goal)
-
-        // Must call designated initializer.
-        self.init(name: name, notes: notes, workoutDiary: workoutDiary, weight: currentWeights, goal: goal)
-    }
 }

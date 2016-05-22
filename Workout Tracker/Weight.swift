@@ -9,10 +9,14 @@
 import Foundation
 
 struct Weight {
+    
+    // MARK: Public Properties
+    
     let actual: Int
     var rounded: Int {
         return actual.roundedToFive
     }
+    
     var barText: String {
         if rounded == 0 {
             return ""

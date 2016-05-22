@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol ExerciseDetailTableViewControllerDelegate {
     func save()
@@ -85,11 +86,8 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
         let cell = tableView.dequeueReusableCellWithIdentifier("ExerciseDetailCell", forIndexPath: indexPath) as! ExerciseDetailTableViewCell
         
         let exerciseDetailText = exerciseDetails[indexPath.section][indexPath.row]
-        
         cell.detailTextLabel?.text = exerciseDetailText.1
         cell.textLabel?.text = exerciseDetailText.0
-
-        // Configure the cell...
 
         return cell
     }
@@ -121,8 +119,11 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
     
     @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController, newWorkout = sourceViewController.newWorkout {
-            exercise.recordWorkout(newWorkout)
-            save()
+            
+            let realm = try! Realm()
+            try! realm.write {
+                exercise.recordWorkout(newWorkout)
+            }
         }
     }
     
