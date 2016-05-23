@@ -20,10 +20,10 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet weak var setTwoStepper: UIStepper!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
-    var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
-    var workout: Workout? // passed from sender
-    var exerciseName: String? // passed from sender
-    var originalWorkout: Workout!
+    var newWorkout = Workout() // the new Workout to construct here and pass back to the unwind of the sender
+    var workout = Workout() // passed from sender
+    var exerciseName = "" // passed from sender
+    var originalWorkout = Workout()
     
     var newDate: NSDate? {
         didSet {
@@ -60,7 +60,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Edit \(exerciseName!) Workout"
+        self.title = "Edit \(exerciseName) Workout"
         
         originalWorkout = workout
         
@@ -68,10 +68,10 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         doneButton.enabled = false
         
         
-        newDate = workout!.date
-        newWeight = workout!.weight
-        newSetOne = workout!.sets[0].repCount
-        newSetTwo = workout!.sets[1].repCount
+        newDate = workout.date
+        newWeight = workout.weight
+        newSetOne = workout.sets[0].repCount
+        newSetTwo = workout.sets[1].repCount
 
         
         weightStepper.stepValue = 5

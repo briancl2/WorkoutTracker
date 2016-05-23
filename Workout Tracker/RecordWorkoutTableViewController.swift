@@ -25,9 +25,9 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var timerResetButton: UIButton!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
 
-    var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
+    var newWorkout = Workout() // the new Workout to construct here and pass back to the unwind of the sender
     var workout: Workout? // passed from sender
-    var exerciseName: String? // passed from sender
+    var exerciseName = "" // passed from sender
     
     var newDate: NSDate? {
         didSet {
@@ -62,7 +62,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Add \(exerciseName!) Workout"
+        self.title = "Add \(exerciseName) Workout"
 
         
         dateTextField.delegate = self
@@ -140,13 +140,13 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         // BarText under Weight
-        if newWeight != nil && section == 1 {
-            return Weight(actual: newWeight!).barText
+        if let weight = newWeight where section == 1 {
+            return Weight(weight: weight).barText
         }
         
         // last workout's reps
-        if workout != nil && section == 2 {
-            return "Reps finished on \(workout!.date.myPrettyString): \(workout!.sets[0].repCount) and \(workout!.sets[1].repCount) @ \(workout!.weight)lbs"
+        if let workout = workout where section == 2 {
+            return "Reps finished on \(workout.date.myPrettyString): \(workout.sets[0].repCount) and \(workout.sets[1].repCount) @ \(workout.weight)lbs"
         }
         
         return nil

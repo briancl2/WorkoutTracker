@@ -19,10 +19,8 @@ class Exercise: Object {
     dynamic var goal = 0
     var currentWeights: ExerciseWeights {
         if let lastWorkout = workoutDiary.last {
-            
             return ExerciseWeights(weight: lastWorkout.weight)
         }
-        
         return ExerciseWeights(weight: 0)
     }
     
@@ -31,11 +29,9 @@ class Exercise: Object {
             let set = lastWorkout.sets.first!
             let weight = Double(set.weight)
             let repCount = set.repCount
-            let coefficient = [1.0,1.0,0.943,0.906,0.881,0.856,0.831,0.807,0.786,0.765,0.744,0.723,0.703,0.688,0.675,0.662,0.650,0.638,0.627,0.616,0.606] // first element is set to 1.0 to prevent divide by zero condition, which should never happen anyway
-            
-            return Int(weight / coefficient[repCount])
+            let coefficient = [1.0,0.943,0.906,0.881,0.856,0.831,0.807,0.786,0.765,0.744,0.723,0.703,0.688,0.675,0.662,0.650,0.638,0.627,0.616,0.606]
+            return Int(weight / coefficient[repCount - 1]) // subtract one to convert repCount into 0...n index range
         }
-        
         return 0
     }
     
@@ -44,31 +40,24 @@ class Exercise: Object {
     }
     
     var lastCycleDate: (NSDate, Int)? {
-        // if diary is empty, return nil
-        if workoutDiary.count == 0 {
-            return nil
+        // return the most recent workout of all cycled workouts found
+        if let lastCycledWorkout = workoutDiary.filter({$0.totalReps >= 24}).last {
+            return (lastCycledWorkout.date, workoutDiary.count - workoutDiary.indexOf(lastCycledWorkout)!)
         }
-        
-        for workout in workoutDiary.reverse() {
-            if workout.sets.reduce(0, combine: { $0 + $1.repCount }) >= 24 {
-                return (workout.date, workoutDiary.count - workoutDiary.indexOf(workout)!)
-            }
-        }
-
         return nil
     }
         
     struct ExerciseWeights {
         let heavy: Weight
         var warmup25: Weight {
-            return Weight(actual: Int(Double(heavy.actual) * 0.25))
+            return Weight(weight: Int(Double(heavy.weight) * 0.25))
         }
         var warmup50: Weight {
-            return Weight(actual: Int(Double(heavy.actual) * 0.50))
+            return Weight(weight: Int(Double(heavy.weight) * 0.50))
         }
         
         init(weight: Int) {
-            self.heavy = Weight(actual: weight)
+            self.heavy = Weight(weight: weight)
         }
     }
     
@@ -133,26 +122,14 @@ class Exercise: Object {
         return Array(workoutDiary)
     }
     
-    func getOldestWorkoutFromRange(dateRange: Int? = nil) -> Workout? {
-        // if diary is empty, return nil
-        if workoutDiary.count == 0 {
-            return nil
-        }
+    func getOldestWorkoutFromRange(dateRange: Int) -> Workout? {
+        let daysAgo = NSDate().daysAgo(dateRange)
         
-        // if an argument was passed
-        if let dateRange = dateRange {
-            let daysAgo = NSDate().daysAgo(dateRange)
-            let workoutsInRange = workoutDiary.filter({$0.date > daysAgo})
-            
-            // if there are workouts in the dateRange, return the first one (oldest)
-            if workoutsInRange != [] {
-                return workoutsInRange.first
-            } else {
-                return nil // otherwise no workouts were found in range, so return nil
-            }
-        } else {
-            return workoutDiary.first // if no argument, just return the first element
+        // if there are workouts in the dateRange, return the first one (oldest)
+        if let oldestWorkoutInRange = workoutDiary.filter({$0.date > daysAgo}).first {
+            return oldestWorkoutInRange
         }
+        return nil // otherwise no workouts were found in range, so return nil
     }
-    
 }
+

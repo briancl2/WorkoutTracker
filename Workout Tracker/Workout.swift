@@ -15,12 +15,16 @@ class Workout: Object {
     
     dynamic var date = NSDate()
     var sets = List<WorkSet>()
-    var totalVolume: Int {
-        return sets.reduce(0, combine: { $0 + $1.volume })
-    }
-    
     var weight: Int {
         return sets.map({$0.weight}).maxElement()!
+    }
+    
+    var totalVolume: Int {
+        return sets.reduce(0) { $0 + $1.volume }
+    }
+    
+    var totalReps: Int {
+        return sets.reduce(0) { $0 + $1.repCount }
     }
     
     // MARK: Initializers

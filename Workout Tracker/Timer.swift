@@ -10,6 +10,12 @@ import Foundation
 
 class Timer {
     
+    // MARK: Public Properties
+    
+    var running: Bool {
+        return timer.valid
+    }
+    
     // MARK: Private properties
     
     private let timeInterval: NSTimeInterval = 0.01
@@ -26,12 +32,6 @@ class Timer {
     
     private var timerTickHandler: (NSTimeInterval -> ())? // function to update the timer each tick, e.g., draw a label
     private var timerStopHandler: (Bool -> ())? // function to call when timer is ended (Bool argument determines if timer finished or if it was interrupted
-    
-    // MARK: Public Properties
-    
-    var running: Bool {
-        return timer.valid
-    }
     
     // MARK: Initializers
     

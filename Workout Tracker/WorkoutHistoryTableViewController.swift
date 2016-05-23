@@ -16,8 +16,8 @@ protocol WorkoutHistoryTableViewControllerDelegate {
 class WorkoutHistoryTableViewController: UITableViewController {
 
     
-    var exercise: Exercise!
-    var workoutToEdit: Workout?
+    var exercise = Exercise()
+    var workoutToEdit = Workout()
     
     
     override func viewWillAppear(animated: Bool) {
@@ -27,7 +27,7 @@ class WorkoutHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "\(exercise!.name) History"
+        self.title = "\(exercise.name) History"
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -87,10 +87,11 @@ class WorkoutHistoryTableViewController: UITableViewController {
     }
 
     @IBAction func unwindToWorkoutHistory(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController, updatedWorkout = sourceViewController.newWorkout {
+        if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController {
+            let updatedWorkout = sourceViewController.newWorkout
             let realm = try! Realm()
             try! realm.write {
-                exercise.replaceWorkout(workoutToEdit!, newWorkout: updatedWorkout)
+                exercise.replaceWorkout(workoutToEdit, newWorkout: updatedWorkout)
             }
             //save()
         }

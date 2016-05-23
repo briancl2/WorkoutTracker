@@ -15,7 +15,7 @@ protocol ExerciseDetailTableViewControllerDelegate {
 
 class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTableViewControllerDelegate {
 
-    var exercise: Exercise!
+    var exercise = Exercise()
     
     var exerciseDetails = [[(String, String)]]()
     var exerciseSections = [String]()
@@ -34,9 +34,9 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
     
     func displayExerciseDetail() {
         let currentWeights = exercise.currentWeights
-        let warmup25Text = ("Warmup (25%)", "\(currentWeights.warmup25.rounded)lbs \(currentWeights.warmup25.barText)")
-        let warmup50Text = ("Warmup (50%)", "\(currentWeights.warmup50.rounded)lbs \(currentWeights.warmup50.barText)")
-        let heavyText = ("Heavy (100%)", "\(currentWeights.heavy.rounded)lbs \(currentWeights.heavy.barText)")
+        let warmup25Text = ("Warmup (25%)", "\(currentWeights.warmup25.weight)lbs \(currentWeights.warmup25.barText)")
+        let warmup50Text = ("Warmup (50%)", "\(currentWeights.warmup50.weight)lbs \(currentWeights.warmup50.barText)")
+        let heavyText = ("Heavy (100%)", "\(currentWeights.heavy.weight)lbs \(currentWeights.heavy.barText)")
         
         exerciseDetails = [[warmup25Text, warmup50Text, heavyText]]
         exerciseSections = ["Weights"]
@@ -99,9 +99,9 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
         if section == 1 {
             if let (lastCycleDate, lastCycleCount) = exercise.lastCycleDate {
                 if lastCycleDate.myPrettyString == NSDate().myPrettyString {
-                    return "Completed last cycle today!"
+                    return "Completed cycle today!"
                 } else if lastCycleCount == 1 {
-                    return "Completed last cycle last workout on \(lastCycleDate.myPrettyString)"
+                    return "Completed cycle last workout on \(lastCycleDate.myPrettyString)"
                 } else {
                     return "Completed last cycle \(lastCycleCount) workouts ago on \(lastCycleDate.myPrettyString)"
                 }
@@ -137,7 +137,8 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
     }
     
     @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController, newWorkout = sourceViewController.newWorkout {
+        if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController {
+            let newWorkout = sourceViewController.newWorkout
             
             let realm = try! Realm()
             try! realm.write {

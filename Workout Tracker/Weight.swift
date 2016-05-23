@@ -12,19 +12,15 @@ struct Weight {
     
     // MARK: Public Properties
     
-    let actual: Int
-    var rounded: Int {
-        return actual.roundedToFive
-    }
-    
+    let weight: Int
     var barText: String {
-        if rounded == 0 {
+        if weight == 0 {
             return ""
         }
         
         let barWeight = 45
         var plates = [(45, 0), (35, 0), (25, 0), (10, 0), (5,0), (2.5, 0)]
-        var tmp = Double(rounded - barWeight)
+        var tmp = Double(weight - barWeight)
         
         for i in 0...plates.count-1 {
             while (tmp / plates[i].0 >= 2) {
@@ -32,6 +28,12 @@ struct Weight {
                 plates[i].1 += 2
             }
         }
-        return plates.filter({$0.1 > 0}).reduce("Bar", combine: { $0 + " + \($1.1)x\($1.0.trimmedToString)" })
+        return plates.filter({$0.1 > 0}).reduce("Bar") { $0 + " + \($1.1)x\($1.0.trimmedToString)" }
+    }
+    
+    // MARK: Initializers
+    
+    init(weight: Int) {
+        self.weight = weight.roundedToFive
     }
 }

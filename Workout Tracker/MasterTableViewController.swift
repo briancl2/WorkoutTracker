@@ -253,7 +253,8 @@ class MasterTableViewController: UITableViewController, ExerciseDetailTableViewC
     }
     
     @IBAction func unwindToExerciseList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController, exercise = sourceViewController.exercise {
+        if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController {
+            let exercise = sourceViewController.exercise
             let newIndexPath = NSIndexPath(forRow: exercises.count, inSection: 0)
             let realm = try! Realm()
             try! realm.write {

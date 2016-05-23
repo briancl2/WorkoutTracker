@@ -15,7 +15,7 @@ class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet weak var goalTextField: UITextField!
     @IBOutlet weak var notesTextVIew: UITextView!
 
-    var exercise: Exercise?
+    var exercise = Exercise()
     
     
     override func viewDidLoad() {
