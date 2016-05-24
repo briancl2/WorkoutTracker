@@ -11,10 +11,14 @@ import RealmSwift
 
 class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    // MARK: Outlets
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var programTextField: UITextField!
     @IBOutlet weak var bodyweightTextField: UITextField!
     @IBOutlet weak var exportDataButton: UIButton!
+    
+    // MARK: Public Properties
     
     //var userProfile: User
     let pickOption = ["Allpro", "Allpro self-regulated"]
@@ -37,7 +41,7 @@ class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UI
         }
     }
         
-        
+    // MARK: View Lifeycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +81,7 @@ class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UI
         programTextField.text = pickOption[row]
     }
     
+    // MARK: UITextFieldDelegate
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()

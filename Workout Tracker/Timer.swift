@@ -38,6 +38,9 @@ class Timer {
     init(length: NSTimeInterval) {
         self.timeLeft = length
     }
+}
+
+extension Timer {
 
     // MARK: Public Methods
     

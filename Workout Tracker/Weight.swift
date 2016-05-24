@@ -12,7 +12,7 @@ struct Weight {
     
     // MARK: Public Properties
     
-    let weight: Int
+    var weight: Int
     var barText: String {
         if weight == 0 {
             return ""

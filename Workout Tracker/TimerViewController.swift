@@ -11,14 +11,22 @@ import AudioToolbox
 
 class TimerViewController: UIViewController {
     
+    // MARK: Outlets
+    
     @IBOutlet weak var startTimerButton: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var resetTimerButton: UIButton!
     
+    // MARK: Public Properties
+    
+    var myTimer: Timer!
+    
+    // MARK: Private Properties
+    
     private let timerEnd: NSTimeInterval = 90
     private var timerCounter: NSTimeInterval = 0
     
-    var myTimer: Timer!
+    // MARK: View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

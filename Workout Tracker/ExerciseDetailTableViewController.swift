@@ -9,17 +9,16 @@
 import UIKit
 import RealmSwift
 
-protocol ExerciseDetailTableViewControllerDelegate {
-    func save()
-}
+class ExerciseDetailTableViewController: UITableViewController {
 
-class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTableViewControllerDelegate {
-
-    var exercise = Exercise()
+    // MARK: Public Properties
     
+    var exercise = Exercise()
     var exerciseDetails = [[(String, String)]]()
     var exerciseSections = [String]()
 
+    // MARK: View Lifecycle
+    
     override func viewWillAppear(animated: Bool) {
         displayExerciseDetail()
         self.tableView.reloadData()
@@ -32,11 +31,12 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
         displayExerciseDetail()
     }
     
+    // MARK: Helper Functions
+    
     func displayExerciseDetail() {
-        let currentWeights = exercise.currentWeights
-        let warmup25Text = ("Warmup (25%)", "\(currentWeights.warmup25.weight)lbs \(currentWeights.warmup25.barText)")
-        let warmup50Text = ("Warmup (50%)", "\(currentWeights.warmup50.weight)lbs \(currentWeights.warmup50.barText)")
-        let heavyText = ("Heavy (100%)", "\(currentWeights.heavy.weight)lbs \(currentWeights.heavy.barText)")
+        let warmup25Text = ("Warmup (25%)", "\(exercise.currentWeights.warmup25.weight)lbs \(exercise.currentWeights.warmup25.barText)")
+        let warmup50Text = ("Warmup (50%)", "\(exercise.currentWeights.warmup50.weight)lbs \(exercise.currentWeights.warmup50.barText)")
+        let heavyText = ("Heavy (100%)", "\(exercise.currentWeights.heavy.weight)lbs \(exercise.currentWeights.heavy.barText)")
         
         exerciseDetails = [[warmup25Text, warmup50Text, heavyText]]
         exerciseSections = ["Weights"]
@@ -130,15 +130,14 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
         } else if segue.identifier == "WorkoutHistory" {
             let workoutHistoryTableViewController = segue.destinationViewController as! WorkoutHistoryTableViewController
             
-            workoutHistoryTableViewController.delegate = self
             workoutHistoryTableViewController.exercise = exercise
         }
         
     }
     
     @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController {
-            let newWorkout = sourceViewController.newWorkout
+        if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController, newWorkout = sourceViewController.newWorkout {
+            
             
             let realm = try! Realm()
             try! realm.write {
@@ -146,13 +145,6 @@ class ExerciseDetailTableViewController: UITableViewController, WorkoutHistoryTa
             }
         }
     }
-    
-    var delegate: ExerciseDetailTableViewControllerDelegate?
-    
-    func save() {
-        delegate?.save()
-    }
-    
 }
 
 

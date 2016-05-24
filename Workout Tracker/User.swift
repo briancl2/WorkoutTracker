@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class User: Object {
+final class User: Object {
     
     // MARK: Public Properties
     

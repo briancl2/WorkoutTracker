@@ -9,8 +9,10 @@
 import UIKit
 import RealmSwift
 
-
 class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    // MARK: Outlets
+    
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var setOneLabel: UILabel!
@@ -20,19 +22,21 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet weak var setTwoStepper: UIStepper!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
-    var newWorkout = Workout() // the new Workout to construct here and pass back to the unwind of the sender
+    // MARK: Public Properties
+    
+    var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
     var workout = Workout() // passed from sender
     var exerciseName = "" // passed from sender
     var originalWorkout = Workout()
     
-    var newDate: NSDate? {
+    private var newDate: NSDate? {
         didSet {
             dateTextField.text = newDate!.myPrettyString
             checkValidExercise()
         }
     }
     
-    var newWeight: Int? {
+    private var newWeight: Int? {
         didSet {
             weightLabel.text = "\(newWeight!) lbs"
             checkValidExercise()
@@ -40,14 +44,14 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
-    var newSetOne: Int? {
+    private var newSetOne: Int? {
         didSet {
             setOneLabel.text = "Set 1: \(newSetOne!) reps"
             checkValidExercise()
         }
     }
     
-    var newSetTwo: Int? {
+    private var newSetTwo: Int? {
         didSet {
             setTwoLabel.text = "Set 2: \(newSetTwo!) reps"
             checkValidExercise()
@@ -123,11 +127,11 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     
     // MARK: Helper Functions
     
-    func closeKeyboard() {
+    private func closeKeyboard() {
         self.view.endEditing(true)
     }
     
-    func checkValidExercise() {
+    private func checkValidExercise() {
         if !sameWorkout() && newWeight > 0 {
             doneButton.enabled = true
         } else {
@@ -135,7 +139,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
-    func sameWorkout() -> Bool {
+    private func sameWorkout() -> Bool {
         if originalWorkout.date.myPrettyString == newDate?.myPrettyString && originalWorkout.sets[0].weight == newWeight && originalWorkout.sets[0].repCount == newSetOne && originalWorkout.sets[1].repCount == newSetTwo {
             return true
         } else {
@@ -175,3 +179,5 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
 }
+
+

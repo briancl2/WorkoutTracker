@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Workout: Object {
+final class Workout: Object {
     
     // MARK: Public Properties
     

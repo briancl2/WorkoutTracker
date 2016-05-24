@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class WorkSet: Object {
+final class WorkSet: Object {
     
     // MARK: Public Properties
     

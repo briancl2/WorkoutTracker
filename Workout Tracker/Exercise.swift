@@ -9,7 +9,26 @@
 import Foundation
 import RealmSwift
 
-class Exercise: Object {
+struct ExerciseWeights {
+    
+    // MARK: Public Properties
+    
+    let heavy: Weight
+    var warmup25: Weight {
+        return Weight(weight: Int(Double(heavy.weight) * 0.25))
+    }
+    var warmup50: Weight {
+        return Weight(weight: Int(Double(heavy.weight) * 0.50))
+    }
+    
+    // MARK: Initializers
+    
+    init(weight: Int) {
+        self.heavy = Weight(weight: weight)
+    }
+}
+
+final class Exercise: Object {
     
     // MARK: Public Properties
     
@@ -47,19 +66,7 @@ class Exercise: Object {
         return nil
     }
         
-    struct ExerciseWeights {
-        let heavy: Weight
-        var warmup25: Weight {
-            return Weight(weight: Int(Double(heavy.weight) * 0.25))
-        }
-        var warmup50: Weight {
-            return Weight(weight: Int(Double(heavy.weight) * 0.50))
-        }
-        
-        init(weight: Int) {
-            self.heavy = Weight(weight: weight)
-        }
-    }
+
     
     // MARK: Initializers
 
@@ -70,7 +77,10 @@ class Exercise: Object {
         self.workoutDiary = workoutDiary
         self.goal = goal
     }
-    
+}
+
+extension Exercise {
+
     // MARK: Public Methods
     
     func recordWorkout(date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {

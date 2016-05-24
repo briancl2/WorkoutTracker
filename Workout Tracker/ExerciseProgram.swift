@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class ExerciseProgram: Object {
+final class ExerciseProgram: Object {
     
     // MARK: Public Properties
     
@@ -29,7 +29,10 @@ class ExerciseProgram: Object {
         self.startDate = startDate
         self.program = program
         self.userProfile = userProfile
-    }   
+    }
+}
+
+extension ExerciseProgram {
 
     // MARK: Public Methods
     

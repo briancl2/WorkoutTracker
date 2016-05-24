@@ -10,8 +10,10 @@ import UIKit
 import AudioToolbox
 import RealmSwift
 
-class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
+final class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
 
+    // MARK: Outlets
+    
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var setOneLabel: UILabel!
@@ -25,17 +27,25 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var timerResetButton: UIButton!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
 
-    var newWorkout = Workout() // the new Workout to construct here and pass back to the unwind of the sender
+    // MARK: Public Properties
+    
+    var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
     var workout: Workout? // passed from sender
     var exerciseName = "" // passed from sender
     
-    var newDate: NSDate? {
+    // MARK: Private Properties
+    
+    private let timerEnd: NSTimeInterval = 90
+    private var timerCounter: NSTimeInterval = 0
+    private var myTimer: Timer!
+    
+    private var newDate: NSDate? {
         didSet {
             dateTextField.text = newDate!.myPrettyString
         }
     }
     
-    var newWeight: Int? {
+    private var newWeight: Int? {
         didSet {
             weightLabel.text = "\(newWeight!) lbs"
             checkValidExercise()
@@ -43,22 +53,19 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         }
     }
     
-    var newSetOne: Int? {
+    private var newSetOne: Int? {
         didSet {
             setOneLabel.text = "Set 1: \(newSetOne!) reps"
         }
     }
     
-    var newSetTwo: Int? {
+    private var newSetTwo: Int? {
         didSet {
             setTwoLabel.text = "Set 2: \(newSetTwo!) reps"
         }
     }
    
-    private let timerEnd: NSTimeInterval = 90
-    private var timerCounter: NSTimeInterval = 0
-    
-    var myTimer: Timer!
+    // MARK: View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +109,6 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        print("deinit")
     }
 
     //  MARK: UITextFieldDelegate
@@ -159,11 +165,11 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
 
     // MARK: Helper Functions
     
-    func closeKeyboard() {
+    private func closeKeyboard() {
         self.view.endEditing(true)
     }
     
-    func checkValidExercise() {
+    private func checkValidExercise() {
         if newWeight > 0 {
             doneButton.enabled = true
         } else {
@@ -209,12 +215,12 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     // MARK: Timer Storage
     
-    struct PropertyKey {
+    private struct PropertyKey {
         static let timerCounterKey = "RecordWorkoutTableViewController_timeCount"
         static let timeMeasurementKey = "RecordWorkoutTableViewController_timeMeasurement"
     }
     
-    dynamic private func applicationWillResignActive() {
+    private dynamic func applicationWillResignActive() {
         if myTimer?.running == true {
             saveDefaults()
         } else {
@@ -222,7 +228,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         }
     }
     
-    dynamic private func applicationDidBecomeActive() {
+    private dynamic func applicationDidBecomeActive() {
         if myTimer?.running == true {
             loadDefaults()
             myTimer.stop(true)
@@ -254,7 +260,7 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
     
     // MARK: Notifications
     
-    func schedulePushNotification() {
+    private func schedulePushNotification() {
         let notification = UILocalNotification()
         notification.alertAction = "Go back to App"
         notification.alertBody = "The 90s timer is finished!"
@@ -263,32 +269,32 @@ class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelega
         
     }
     
-    func cancelAllNotifications() {
+    private func cancelAllNotifications() {
         UIApplication.sharedApplication().cancelAllLocalNotifications()
     }
     
     // MARK: Actions
     
-    @IBAction func weightStepperChanged(sender: UIStepper) {
+    @IBAction private func weightStepperChanged(sender: UIStepper) {
         newWeight = Int(sender.value)
         closeKeyboard()
     }
     
-    @IBAction func setOneStepperChanged(sender: UIStepper) {
+    @IBAction private func setOneStepperChanged(sender: UIStepper) {
         newSetOne = Int(sender.value)
         closeKeyboard()
     }
 
-    @IBAction func setTwoStepperChanged(sender: UIStepper) {
+    @IBAction private func setTwoStepperChanged(sender: UIStepper) {
         newSetTwo = Int(sender.value)
         closeKeyboard()
     }
     
-    @IBAction func timerStartButtonTapped(sender: UIButton) {
+    @IBAction private func timerStartButtonTapped(sender: UIButton) {
         startTimer(timerEnd)
     }
     
-    @IBAction func timerResetButtonTapped(sender: UIButton) {
+    @IBAction private func timerResetButtonTapped(sender: UIButton) {
         myTimer?.stop(true)
         cancelAllNotifications()
         updateLabel(timerEnd)

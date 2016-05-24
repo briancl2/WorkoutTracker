@@ -9,16 +9,14 @@
 import UIKit
 import RealmSwift
 
-protocol WorkoutHistoryTableViewControllerDelegate {
-    func save()
-}
-
 class WorkoutHistoryTableViewController: UITableViewController {
 
+    // MARK: Public Properties
     
     var exercise = Exercise()
     var workoutToEdit = Workout()
     
+    // MARK: View Lifecycle
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
@@ -87,20 +85,12 @@ class WorkoutHistoryTableViewController: UITableViewController {
     }
 
     @IBAction func unwindToWorkoutHistory(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController {
-            let updatedWorkout = sourceViewController.newWorkout
+        if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController, updatedWorkout = sourceViewController.newWorkout {
+
             let realm = try! Realm()
             try! realm.write {
                 exercise.replaceWorkout(workoutToEdit, newWorkout: updatedWorkout)
             }
-            //save()
         }
     }
-    
-    var delegate: WorkoutHistoryTableViewControllerDelegate?
-    
-    func save() {
-        delegate?.save()
-    }
-    
 }

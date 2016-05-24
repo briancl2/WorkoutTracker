@@ -10,13 +10,19 @@ import UIKit
 import RealmSwift
 
 class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    // MARK: Outlets
+    
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var goalTextField: UITextField!
     @IBOutlet weak var notesTextVIew: UITextView!
 
+    // MARK: Public Properties
+    
     var exercise = Exercise()
     
+    // MARK: View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +48,8 @@ class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate
         // Disable the Save button while editing.
         doneButton.enabled = false
     }
+    
+    // MARK: Helper Functions
     
     func checkValidExerciseName() {
         // Disable the Done button if the text field is empty.
