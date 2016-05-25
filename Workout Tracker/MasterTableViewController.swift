@@ -286,8 +286,7 @@ class MasterTableViewController: UITableViewController {
     
     func load() -> ExerciseProgram? {
         let realm = try! Realm()
-        let blah = realm.objects(ExerciseProgram)
-        return blah.first
+        return realm.objects(ExerciseProgram).first
     }
 
 

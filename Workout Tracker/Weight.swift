@@ -28,7 +28,8 @@ struct Weight {
                 plates[i].1 += 2
             }
         }
-        return plates.filter({$0.1 > 0}).reduce("Bar") { $0 + " + \($1.1)x\($1.0.trimmedToString)" }
+        return plates.filter({$0.1 > 0})
+            .reduce("Bar") { $0 + " + \($1.1)x\($1.0.trimmedToString)" }
     }
     
     // MARK: Initializers

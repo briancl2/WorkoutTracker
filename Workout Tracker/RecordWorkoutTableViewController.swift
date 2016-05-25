@@ -102,7 +102,8 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         
         updateLabel(timerEnd)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationWillEnterForegroundNotification, object: nil)
         
 
     }
@@ -196,6 +197,8 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
             }
             
             cancelButton.enabled = false
+            doneButton.enabled = false
+            timerStartButton.enabled = false
         }
     }
     
@@ -211,6 +214,8 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
             cancelAllNotifications()
         }
         cancelButton.enabled = true
+        doneButton.enabled = true
+        timerStartButton.enabled = true
     }
     
     // MARK: Timer Storage
