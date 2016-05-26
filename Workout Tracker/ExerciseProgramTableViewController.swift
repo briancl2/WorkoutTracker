@@ -7,23 +7,20 @@
 //
 
 import UIKit
-import RealmSwift
+//import RealmSwift
 
 
 class ExerciseProgramTableViewController: UITableViewController {
 
     // MARK: Public Properties
     
-    var exercisesViewModel = ExerciseProgramViewModel()
+    let exercisesViewModel = ExerciseProgramViewModel()
     
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,10 +52,7 @@ class ExerciseProgramTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let realm = try! Realm()
-            try! realm.write {
-                exercisesViewModel.removeExercise(indexPath.row)
-            }
+            exercisesViewModel.removeExercise(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
@@ -88,7 +82,7 @@ class ExerciseProgramTableViewController: UITableViewController {
             if let selectedExerciseCell = sender as? ExerciseTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedExerciseCell)!
                 let selectedExercise = exercisesViewModel.getExercise(indexPath.row)
-                exerciseDetailTableViewController.exercise = selectedExercise
+                exerciseDetailTableViewController.exerciseDetailViewModel = ExerciseDetailViewModel(exercise: selectedExercise)
             }
         }
     }
@@ -97,10 +91,7 @@ class ExerciseProgramTableViewController: UITableViewController {
         if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController {
             let exercise = sourceViewController.exercise
             let newIndexPath = NSIndexPath(forRow: exercisesViewModel.count, inSection: 0)
-            let realm = try! Realm()
-            try! realm.write {
-                exercisesViewModel.addExercise(exercise)
-            }
+            exercisesViewModel.addExercise(exercise)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
     }

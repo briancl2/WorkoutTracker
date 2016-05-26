@@ -17,9 +17,6 @@ final class ExerciseProgram: Object {
     dynamic var startDate = NSDate()
     dynamic var userProfile: User?
     var program = List<Exercise>()
-    var count: Int {
-        return program.count
-    }
     
     // MARK: Initializers
 

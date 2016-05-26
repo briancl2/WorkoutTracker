@@ -94,17 +94,13 @@ extension Exercise {
         workoutDiary.append(newWorkoutLogEntry)
     }
     
-    func recordWorkout(newWorkout: Workout) {
-        workoutDiary.append(newWorkout)
-    }
+
     
     func replaceWorkout(originalWorkout: Workout, newWorkout: Workout) {
         workoutDiary[workoutDiary.indexOf(originalWorkout)!] = newWorkout
     }
     
-    func getLastWorkout() -> Workout? {
-        return workoutDiary.last
-    }
+
     
     func getLastWorkouts(number: Int) -> [Workout]? {
         return Array(workoutDiary.suffix(number))
