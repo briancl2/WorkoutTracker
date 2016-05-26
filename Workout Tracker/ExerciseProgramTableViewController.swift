@@ -7,8 +7,6 @@
 //
 
 import UIKit
-//import RealmSwift
-
 
 class ExerciseProgramTableViewController: UITableViewController {
 
