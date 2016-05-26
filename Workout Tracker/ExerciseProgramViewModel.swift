@@ -1,41 +1,29 @@
 //
-//  MasterTableViewController.swift
+//  ExerciseProgramViewModel.swift
 //  Workout Tracker
 //
-//  Created by briancl on 4/26/16.
+//  Created by briancl on 5/25/16.
 //  Copyright © 2016 briancl. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import RealmSwift
 
-class MasterTableViewController: UITableViewController {
-
-    // MARK: Public Properties
-    
+class ExerciseProgramViewModel {
     var exercises = ExerciseProgram()
+    var count: Int {
+        return exercises.count
+    }
     
-    // MARK: View Lifecycle
-    
-    override func viewWillAppear(animated: Bool) {
-        // Load any saved program, otherwise load sample data.
+    init() {
         if let savedProgram = load() {
             exercises = savedProgram
         } else {
-            // Load the sample data.
-           loadSampleProgram()
+            loadSampleData()
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-
-    }
-    
-    func loadSampleProgram() {
+    func loadSampleData() {
         let squat = Exercise(name: "Squat", notes: "Squat notes", workoutDiary: List<Workout>(), goal: 320)
         squat.recordWorkout("16-04-20", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
         squat.recordWorkout("16-04-22", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
@@ -184,96 +172,34 @@ class MasterTableViewController: UITableViewController {
         
         exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: List<Exercise>(), userProfile: User(bodyWeight: 160, name: "Brian"))
         
-        exercises.addExercise(squat)
-        exercises.addExercise(bench)
-        exercises.addExercise(row)
-        exercises.addExercise(ohp)
-        exercises.addExercise(sldl)
-        exercises.addExercise(chin)
-        exercises.addExercise(calf)
-        exercises.addExercise(torso)
-        exercises.addExercise(curl)
+        addExercise(squat)
+        addExercise(bench)
+        addExercise(row)
+        addExercise(ohp)
+        addExercise(sldl)
+        addExercise(chin)
+        addExercise(calf)
+        addExercise(torso)
+        addExercise(curl)
         save()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercises.count
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "ExerciseTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ExerciseTableViewCell
-        let exercise = exercises.getExercise(indexPath.row)
-        cell.textLabel!.text = exercise.name
-        return cell
-    }
-
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+    
+    func getExercise(index: Int) -> Exercise {
+        return exercises.program[index]
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            let realm = try! Realm()
-            try! realm.write {
-                exercises.removeExercise(indexPath.row)
-            }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
-    }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowExerciseDetail" {
-            let exerciseDetailTableViewController = segue.destinationViewController as! ExerciseDetailTableViewController
-            
-            if let selectedExerciseCell = sender as? ExerciseTableViewCell {
-                let indexPath = tableView.indexPathForCell(selectedExerciseCell)!
-                let selectedExercise = exercises.getExercise(indexPath.row)
-                exerciseDetailTableViewController.exercise = selectedExercise
-            }
-        }
+    func removeExercise(index: Int) {
+        exercises.program.removeAtIndex(index)
     }
     
-    @IBAction func unwindToExerciseList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController {
-            let exercise = sourceViewController.exercise
-            let newIndexPath = NSIndexPath(forRow: exercises.count, inSection: 0)
-            let realm = try! Realm()
-            try! realm.write {
-                exercises.addExercise(exercise)
-            }
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-        }
+    func addExercise(newExercise: Exercise) {
+        exercises.program.append(newExercise)
     }
+    
+    func updateExercise(index: Int, updatedExercise: Exercise) {
+        exercises.program[index] = updatedExercise
+    }
+    
     
     // MARK: Storage
     
@@ -288,6 +214,5 @@ class MasterTableViewController: UITableViewController {
         let realm = try! Realm()
         return realm.objects(ExerciseProgram).first
     }
-
-
+    
 }

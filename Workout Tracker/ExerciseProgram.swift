@@ -39,23 +39,7 @@ extension ExerciseProgram {
     override class func primaryKey() -> String? {
         return "name"
     }
-    
-    func addExercise(newExercise: Exercise) {
-        program.append(newExercise)
-    }
-    
-    func getExercise(index: Int) -> Exercise {
-        return program[index]
-    }
-    
-    func updateExercise(index: Int, updatedExercise: Exercise) {
-        program[index] = updatedExercise
-    }
-    
-    func removeExercise(index: Int) {
-        program.removeAtIndex(index)
-    }
-    
+
     func exportToCSV() {
         print("exercise name,date,weight,set 1,set 2,total volume")
         

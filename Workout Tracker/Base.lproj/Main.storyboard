@@ -8,10 +8,10 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Master Table View Controller-->
+        <!--Exercise Program Table View Controller-->
         <scene sceneID="MzS-td-GLU">
             <objects>
-                <tableViewController storyboardIdentifier="MasterTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uPf-26-ocp" customClass="MasterTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ExerciseProgramTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uPf-26-ocp" customClass="ExerciseProgramTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="5cE-YQ-uJB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
