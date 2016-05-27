@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class ExerciseDetailViewModel {
+struct ExerciseDetailViewModel {
     var exercise = Exercise()
     
     
@@ -19,12 +19,11 @@ class ExerciseDetailViewModel {
         return exercise.name
     }
     
-    convenience init(exercise: Exercise) {
-        self.init()
+    init(exercise: Exercise) {
         self.exercise = exercise
     }
     
-    func displayExerciseDetail() {
+    mutating func displayExerciseDetail() {
         let warmup25Text = ("Warmup (25%)", "\(exercise.currentWeights.warmup25.weight)lbs \(exercise.currentWeights.warmup25.barText)")
         let warmup50Text = ("Warmup (50%)", "\(exercise.currentWeights.warmup50.weight)lbs \(exercise.currentWeights.warmup50.barText)")
         let heavyText = ("Heavy (100%)", "\(exercise.currentWeights.heavy.weight)lbs \(exercise.currentWeights.heavy.barText)")

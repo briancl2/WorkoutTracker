@@ -12,7 +12,7 @@ class ExerciseDetailTableViewController: UITableViewController {
 
     // MARK: Public Properties
     
-    var exerciseDetailViewModel = ExerciseDetailViewModel()
+    var exerciseDetailViewModel: ExerciseDetailViewModel!
 
     // MARK: View Lifecycle
     
