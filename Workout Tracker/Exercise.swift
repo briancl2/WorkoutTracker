@@ -65,8 +65,36 @@ final class Exercise: Object {
         }
         return nil
     }
+    
+    var averageCycleLength: Int? {
+        let numberOfDays = workoutDiary.last!.date.daysFrom(workoutDiary.first!.date)
+        let completedCycles = numberOfCompletedCycles
+        if completedCycles > 0 {
+            return numberOfDays / completedCycles
+        } else {
+            return nil
+        }
+    }
+    
+    var numberOfCompletedCycles: Int {
+        // find every workout with totalReps >= 24
+        // increment counter 1 if the weight that day goes up
+        // if weight doesn't go up, look for the next set with totalReps >= 24
         
-
+        var counter = 0
+        
+        for workout in workoutDiary {
+            if workout.totalReps >= 24 {
+                if workout != workoutDiary.last {
+                    if workout.weight < workoutDiary[workoutDiary.indexOf(workout)! + 1].weight {
+                        counter += 1
+                    }
+                }
+            }
+        }
+        
+        return counter
+    }
     
     // MARK: Initializers
 

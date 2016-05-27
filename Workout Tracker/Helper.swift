@@ -30,6 +30,10 @@ extension NSDate {
         
         return NSCalendar.currentCalendar().dateByAddingComponents(newDateComponents, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
     }
+    
+    func daysFrom(date: NSDate) -> Int {
+        return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self, options: []).day
+    }
 }
 
 extension NSDate {
