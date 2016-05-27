@@ -42,7 +42,23 @@ class Workout_TrackerTests: XCTestCase {
         let goal = 200
         
         exercisesViewModel.addExercise(Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), goal: goal))
-        XCTAssertEqual(exercisesViewModel.getExercise(exercisesViewModel.count - 1).currentWeights.warmup50.barText, "Bar + 2x10 + 2x5")
+        let exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
+        
+        let date = NSDate()
+        let weight = 145
+        let repsFirstSet = 10
+        let repsSecondSet = 9
+        
+        let workSetOne = WorkSet(weight: weight, repCount: repsFirstSet)
+        let workSetTwo = WorkSet(weight: weight, repCount: repsSecondSet)
+        
+        let workSets = List<WorkSet>()
+        
+        workSets.append(workSetOne)
+        workSets.append(workSetTwo)
+        
+        exerciseDetailViewModel.recordWorkout(Workout(date: date, sets: workSets))
+        XCTAssertEqual(exercisesViewModel.getExercise(exercisesViewModel.count - 1).currentWeights.warmup50.barText, "Bar + 2x10 + 2x2.5")
         
     }
 }
