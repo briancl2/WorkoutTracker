@@ -29,9 +29,9 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
 
     // MARK: Public Properties
     
-    var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
-    var workout: Workout? // passed from sender
-    var exerciseName = "" // passed from sender
+    var newWorkout: Workout! // the new Workout to construct here and pass back to the unwind of the sender
+    var workout: Workout! // passed from sender
+    var exerciseName: String! // passed from sender
     
     // MARK: Private Properties
     
@@ -93,10 +93,12 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         weightStepper.value = Double(newWeight!)
         
         setOneStepper.stepValue = 1
+        setOneStepper.minimumValue = 1
         setOneStepper.maximumValue = 20
         setOneStepper.value = Double(newSetOne!)
         
         setTwoStepper.stepValue = 1
+        setTwoStepper.minimumValue = 1
         setTwoStepper.maximumValue = 20
         setTwoStepper.value = Double(newSetTwo!)
         

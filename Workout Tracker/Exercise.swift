@@ -49,6 +49,9 @@ final class Exercise: Object {
             let weight = Double(set.weight)
             let repCount = set.repCount
             let coefficient = [1.0,0.943,0.906,0.881,0.856,0.831,0.807,0.786,0.765,0.744,0.723,0.703,0.688,0.675,0.662,0.650,0.638,0.627,0.616,0.606]
+            if repCount < 1 {
+                return 0
+            }
             return Int(weight / coefficient[repCount - 1]) // subtract one to convert repCount into 0...n index range
         }
         return 0
@@ -67,13 +70,14 @@ final class Exercise: Object {
     }
     
     var averageCycleLength: Int? {
-        let numberOfDays = workoutDiary.last!.date.daysFrom(workoutDiary.first!.date)
-        let completedCycles = numberOfCompletedCycles
-        if completedCycles > 0 {
-            return numberOfDays / completedCycles
-        } else {
-            return nil
+        if let lastWorkout = workoutDiary.last {
+            let numberOfDays = lastWorkout.date.daysFrom(workoutDiary.first!.date)
+            let completedCycles = numberOfCompletedCycles
+            if completedCycles > 0 {
+                return numberOfDays / completedCycles
+            }
         }
+        return nil
     }
     
     var numberOfCompletedCycles: Int {
@@ -124,9 +128,9 @@ extension Exercise {
     
 
     
-    func replaceWorkout(originalWorkout: Workout, newWorkout: Workout) {
-        workoutDiary[workoutDiary.indexOf(originalWorkout)!] = newWorkout
-    }
+//    func replaceWorkout(originalWorkout: Workout, newWorkout: Workout) {
+//        workoutDiary[workoutDiary.indexOf(originalWorkout)!] = newWorkout
+//    }
     
 
     
@@ -138,6 +142,9 @@ extension Exercise {
         if let oldWorkout = getOldestWorkoutFromRange(dateRange) {
             let oldVolume = oldWorkout.totalVolume
             let newVolume = workoutDiary.last!.totalVolume
+            if oldVolume == 0 {
+                return nil
+            }
             return Int(100 * (newVolume - oldVolume) / oldVolume)
         }
         return nil
@@ -152,11 +159,11 @@ extension Exercise {
         return nil
     }
     
-    func getHistory() -> [Workout] {
-        return Array(workoutDiary)
-    }
+//    func getHistory() -> [Workout] {
+//        return Array(workoutDiary)
+//    }
     
-    func getOldestWorkoutFromRange(dateRange: Int) -> Workout? {
+    private func getOldestWorkoutFromRange(dateRange: Int) -> Workout? {
         let daysAgo = NSDate().daysAgo(dateRange)
         
         // if there are workouts in the dateRange, return the first one (oldest)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExerciseProgramTableViewController: UITableViewController {
+final class ExerciseProgramTableViewController: UITableViewController {
 
     // MARK: Public Properties
     
@@ -86,8 +86,7 @@ class ExerciseProgramTableViewController: UITableViewController {
     }
     
     @IBAction func unwindToExerciseList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController {
-            let exercise = sourceViewController.exercise
+        if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController, exercise = sourceViewController.exercise {
             let newIndexPath = NSIndexPath(forRow: exercisesViewModel.count, inSection: 0)
             exercisesViewModel.addExercise(exercise)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExerciseDetailTableViewController: UITableViewController {
+final class ExerciseDetailTableViewController: UITableViewController {
 
     // MARK: Public Properties
     

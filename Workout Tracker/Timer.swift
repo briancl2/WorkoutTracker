@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Timer {
+final class Timer {
     
     // MARK: Public Properties
     

@@ -9,7 +9,7 @@
 import UIKit
 import AudioToolbox
 
-class TimerViewController: UIViewController {
+final class TimerViewController: UIViewController {
     
     // MARK: Outlets
     

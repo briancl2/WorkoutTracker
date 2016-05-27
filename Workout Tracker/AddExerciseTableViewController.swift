@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate {
+final class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Outlets
     
@@ -20,7 +20,7 @@ class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate
 
     // MARK: Public Properties
     
-    var exercise = Exercise()
+    var exercise: Exercise!
     
     // MARK: View Lifecycle
     
@@ -51,7 +51,7 @@ class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate
     
     // MARK: Helper Functions
     
-    func checkValidExerciseName() {
+    private func checkValidExerciseName() {
         // Disable the Done button if the text field is empty.
         let text = nameTextField.text ?? ""
         let goal = Int(goalTextField.text ?? "0")

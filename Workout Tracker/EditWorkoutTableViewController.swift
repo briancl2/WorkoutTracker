@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
+final class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Outlets
     
@@ -26,7 +26,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     
     var newWorkout: Workout! // the new Workout to construct here and pass back to the unwind of the sender
     var workoutToEdit: Workout! // passed from sender
-    var exerciseName = "" // passed from sender
+    var exerciseName: String! // passed from sender
     
     private var newDate: NSDate? {
         didSet {
@@ -80,14 +80,15 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         weightStepper.value = Double(newWeight!)
         
         setOneStepper.stepValue = 1
+        setOneStepper.minimumValue = 1
         setOneStepper.maximumValue = 20
         setOneStepper.value = Double(newSetOne!)
         
         setTwoStepper.stepValue = 1
+        setTwoStepper.minimumValue = 1
         setTwoStepper.maximumValue = 20
         setTwoStepper.value = Double(newSetTwo!)
         
-    
     }
     
 
@@ -101,7 +102,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
     }
     
-    func datePickerChanged(sender: UIDatePicker) {
+    private func datePickerChanged(sender: UIDatePicker) {
         newDate = sender.date
     }
     

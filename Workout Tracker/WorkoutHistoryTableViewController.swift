@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WorkoutHistoryTableViewController: UITableViewController {
+final class WorkoutHistoryTableViewController: UITableViewController {
 
     // MARK: Public Properties
     
