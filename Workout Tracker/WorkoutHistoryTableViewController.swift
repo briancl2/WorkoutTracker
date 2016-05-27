@@ -7,16 +7,13 @@
 //
 
 import UIKit
-import RealmSwift
-
-
 
 class WorkoutHistoryTableViewController: UITableViewController {
 
     // MARK: Public Properties
     
-    var exercise = Exercise()
-    var workoutToEdit = Workout()
+
+    var workoutHistoryViewModel: WorkoutHistoryViewModel!
     
     // MARK: View Lifecycle
     
@@ -27,8 +24,7 @@ class WorkoutHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "\(exercise.name) History"
-
+        self.title = "\(workoutHistoryViewModel.name) History"
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
@@ -44,29 +40,22 @@ class WorkoutHistoryTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercise.workoutDiary.count
+        return workoutHistoryViewModel.count
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("WorkoutHistoryCell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = "\(exercise.workoutDiary[indexPath.row].date.myPrettyString)"
+        cell.textLabel?.text = workoutHistoryViewModel.getDate(indexPath.row)
+        cell.detailTextLabel?.text = workoutHistoryViewModel.getWorkSets(indexPath.row)
         
-        cell.detailTextLabel?.text = "\(exercise.workoutDiary[indexPath.row].sets[0].repCount) and \(exercise.workoutDiary[indexPath.row].sets[1].repCount) Reps @ \(exercise.workoutDiary[indexPath.row].sets[0].weight)lbs"
-        
-
         return cell
     }
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let realm = try! Realm()
-            try! realm.write {
-                exercise.workoutDiary.removeAtIndex(indexPath.row)
-            }
-            //save()
-            // Delete the row from the data source
+            workoutHistoryViewModel.removeWorkoutAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
@@ -77,22 +66,21 @@ class WorkoutHistoryTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "EditWorkout" {
             let editWorkoutTableViewController = segue.destinationViewController as! EditWorkoutTableViewController
-            
             let selectedWorkoutCell = sender as! UITableViewCell
             let indexPath = tableView.indexPathForCell(selectedWorkoutCell)
-            workoutToEdit = exercise.workoutDiary[indexPath!.row]
-            editWorkoutTableViewController.workout = workoutToEdit
-            editWorkoutTableViewController.exerciseName = exercise.name
+            let workoutToEdit = workoutHistoryViewModel.getWorkoutAtIndex(indexPath!.row)
+            
+            editWorkoutTableViewController.workoutToEdit = workoutToEdit
+            editWorkoutTableViewController.exerciseName = workoutHistoryViewModel.name
         }
     }
 
     @IBAction func unwindToWorkoutHistory(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController, updatedWorkout = sourceViewController.newWorkout {
-
-            let realm = try! Realm()
-            try! realm.write {
-                exercise.replaceWorkout(workoutToEdit, newWorkout: updatedWorkout)
-            }
+        if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController,
+            oldWorkout = sourceViewController.workoutToEdit,
+            updatedWorkout = sourceViewController.newWorkout {
+            
+            workoutHistoryViewModel.replaceWorkout(oldWorkout, newWorkout: updatedWorkout)
         }
     }
 }

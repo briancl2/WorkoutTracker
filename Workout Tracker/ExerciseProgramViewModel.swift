@@ -202,7 +202,7 @@ struct ExerciseProgramViewModel {
         return exercises.program[index]
     }
     
-    func removeExercise(index: Int) {
+    func removeExerciseAtIndex(index: Int) {
         let realm = try! Realm()
         try! realm.write {
             exercises.program.removeAtIndex(index)

@@ -41,14 +41,14 @@ class ExerciseDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exerciseDetailViewModel.details[section].count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ExerciseDetailCell", forIndexPath: indexPath) as! ExerciseDetailTableViewCell
         
         let exerciseDetailText = exerciseDetailViewModel.details[indexPath.section][indexPath.row]
         cell.detailTextLabel?.text = exerciseDetailText.1
         cell.textLabel?.text = exerciseDetailText.0
-
+        
         return cell
     }
 
@@ -83,7 +83,8 @@ class ExerciseDetailTableViewController: UITableViewController {
         } else if segue.identifier == "WorkoutHistory" {
             let workoutHistoryTableViewController = segue.destinationViewController as! WorkoutHistoryTableViewController
             
-            workoutHistoryTableViewController.exercise = exerciseDetailViewModel.exercise
+            workoutHistoryTableViewController.workoutHistoryViewModel = WorkoutHistoryViewModel(workoutDiary: exerciseDetailViewModel.getWorkoutDiary(), exerciseName: exerciseDetailViewModel.name)
+            
         }
         
     }

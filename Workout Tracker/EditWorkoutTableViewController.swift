@@ -24,10 +24,10 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     
     // MARK: Public Properties
     
-    var newWorkout: Workout? // the new Workout to construct here and pass back to the unwind of the sender
-    var workout = Workout() // passed from sender
+    var newWorkout: Workout! // the new Workout to construct here and pass back to the unwind of the sender
+    var workoutToEdit: Workout! // passed from sender
     var exerciseName = "" // passed from sender
-    var originalWorkout = Workout()
+//    var originalWorkout = Workout()
     
     private var newDate: NSDate? {
         didSet {
@@ -66,16 +66,16 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
         super.viewDidLoad()
         self.title = "Edit \(exerciseName) Workout"
         
-        originalWorkout = workout
+        //originalWorkout = workoutToEdit
         
         dateTextField.delegate = self
         doneButton.enabled = false
         
         
-        newDate = workout.date
-        newWeight = workout.weight
-        newSetOne = workout.sets[0].repCount
-        newSetTwo = workout.sets[1].repCount
+        newDate = workoutToEdit.date
+        newWeight = workoutToEdit.weight
+        newSetOne = workoutToEdit.sets[0].repCount
+        newSetTwo = workoutToEdit.sets[1].repCount
 
         
         weightStepper.stepValue = 5
@@ -140,7 +140,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     private func sameWorkout() -> Bool {
-        if originalWorkout.date.myPrettyString == newDate?.myPrettyString && originalWorkout.sets[0].weight == newWeight && originalWorkout.sets[0].repCount == newSetOne && originalWorkout.sets[1].repCount == newSetTwo {
+        if workoutToEdit.date.myPrettyString == newDate?.myPrettyString && workoutToEdit.sets[0].weight == newWeight && workoutToEdit.sets[0].repCount == newSetOne && workoutToEdit.sets[1].repCount == newSetTwo {
             return true
         } else {
             return false
@@ -175,7 +175,6 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
                 newSets.append(WorkSet(weight: weight, repCount: setTwo))
                 newWorkout = Workout(date: date, sets: newSets)
             }
-           
         }
     }
 }

@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 
 struct ExerciseDetailViewModel {
-    var exercise = Exercise()
-    
+    private let exercise: Exercise!
     
     var details = [[(String, String)]]()
     var sections = [String]()
@@ -78,6 +77,10 @@ struct ExerciseDetailViewModel {
         try! realm.write {
             exercise.workoutDiary.append(newWorkout)
         }
+    }
+    
+    func getWorkoutDiary() -> List<Workout> {
+        return exercise.workoutDiary
     }
     
 }
