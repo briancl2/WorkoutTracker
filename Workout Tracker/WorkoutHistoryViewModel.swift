@@ -10,8 +10,8 @@ import Foundation
 import RealmSwift
 
 struct WorkoutHistoryViewModel {
-    private var workoutDiary: List<Workout>
-    private var exerciseName: String
+    private let workoutDiary: List<Workout>
+    private let exerciseName: String
     
     var name: String {
         return exerciseName

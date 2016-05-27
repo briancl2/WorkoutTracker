@@ -61,6 +61,72 @@ class Workout_TrackerTests: XCTestCase {
         XCTAssertEqual(exercisesViewModel.getExercise(exercisesViewModel.count - 1).currentWeights.warmup50.barText, "Bar + 2x10 + 2x2.5")
         
     }
+    
+    func testExerciseDetailViewModelLastWorkouts() {
+        let exercisesViewModel = ExerciseProgramViewModel()
+        
+        let name = "test"
+        let notes: String? = nil
+        let goal = 200
+        
+        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), goal: goal))
+        var exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
+        
+        let date = NSDate()
+        let weight = 145
+        let repsFirstSet = 10
+        let repsSecondSet = 9
+        
+        let workSetOne = WorkSet(weight: weight, repCount: repsFirstSet)
+        let workSetTwo = WorkSet(weight: weight, repCount: repsSecondSet)
+        
+        let workSets = List<WorkSet>()
+        
+        workSets.append(workSetOne)
+        workSets.append(workSetTwo)
+        
+        exerciseDetailViewModel.recordWorkout(Workout(date: date, sets: workSets))
+        exerciseDetailViewModel.displayExerciseDetail()
+        
+        
+        XCTAssertEqual(exerciseDetailViewModel.details[1][0].0, date.myPrettyString)
+        XCTAssertEqual(exerciseDetailViewModel.details[1][0].1, "10 and 9 Reps @ 145lbs")
+
+    }
+
+    
+    func testExerciseDetailViewModelStats() {
+        let exercisesViewModel = ExerciseProgramViewModel()
+        
+        let name = "test"
+        let notes: String? = nil
+        let goal = 200
+        
+        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), goal: goal))
+        var exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
+        
+        let date = NSDate()
+        let weight = 145
+        let repsFirstSet = 10
+        let repsSecondSet = 9
+        
+        let workSetOne = WorkSet(weight: weight, repCount: repsFirstSet)
+        let workSetTwo = WorkSet(weight: weight, repCount: repsSecondSet)
+        
+        let workSets = List<WorkSet>()
+        
+        workSets.append(workSetOne)
+        workSets.append(workSetTwo)
+        
+        exerciseDetailViewModel.recordWorkout(Workout(date: date, sets: workSets))
+        exerciseDetailViewModel.displayExerciseDetail()
+        
+
+        XCTAssertEqual(exerciseDetailViewModel.details[2][0].0, "30d progress")
+        XCTAssertEqual(exerciseDetailViewModel.details[2][0].1, "Weight: 0% Total Volume: 0%")
+        XCTAssertEqual(exerciseDetailViewModel.details[2][1].1, "194lbs")
+        XCTAssertEqual(exerciseDetailViewModel.details[2][2].1, "97% of 200lbs")
+    }
 }
 //    func testLoopPerformance() {
 //        let exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: List<Exercise>(), userProfile: User(bodyWeight: 160, name: "Brian"))

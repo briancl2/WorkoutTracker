@@ -27,7 +27,6 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     var newWorkout: Workout! // the new Workout to construct here and pass back to the unwind of the sender
     var workoutToEdit: Workout! // passed from sender
     var exerciseName = "" // passed from sender
-//    var originalWorkout = Workout()
     
     private var newDate: NSDate? {
         didSet {
@@ -65,9 +64,7 @@ class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Edit \(exerciseName) Workout"
-        
-        //originalWorkout = workoutToEdit
-        
+                
         dateTextField.delegate = self
         doneButton.enabled = false
         
