@@ -76,9 +76,21 @@ struct ExerciseDetailViewModel {
     }
     
     func recordWorkout(newWorkout: Workout) {
+        let lastWorkout = exercise.workoutDiary.last // grab the last workout for later comparison
+        
         let realm = try! Realm()
         try! realm.write {
-            exercise.workoutDiary.append(newWorkout)
+            exercise.workoutDiary.append(newWorkout) // write the workout no matter what
+        }
+        
+        if let secondToLastWorkout = lastWorkout { // only bother checking out of order if there is a last workout...
+            if newWorkout.date < secondToLastWorkout.date { // ...and now look to see if they are out of order
+                let sortedWorkoutDiary = List(exercise.workoutDiary.sorted("date"))
+                try! realm.write {
+                    exercise.workoutDiary.removeAll()
+                    exercise.workoutDiary.appendContentsOf(sortedWorkoutDiary)
+                }
+            }
         }
     }
     

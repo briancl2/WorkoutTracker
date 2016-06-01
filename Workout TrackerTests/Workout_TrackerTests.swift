@@ -124,7 +124,7 @@ class Workout_TrackerTests: XCTestCase {
 
         XCTAssertEqual(exerciseDetailViewModel.details[2][0].0, "30d progress")
         XCTAssertEqual(exerciseDetailViewModel.details[2][0].1, "Weight: 0% Total Volume: 0%")
-        XCTAssertEqual(exerciseDetailViewModel.details[2][1].1, "194lbs")
+        XCTAssertEqual(exerciseDetailViewModel.details[2][1].1, "195lbs")
         XCTAssertEqual(exerciseDetailViewModel.details[2][2].1, "97% of 200lbs")
     }
 }

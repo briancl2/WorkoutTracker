@@ -46,9 +46,31 @@ struct WorkoutHistoryViewModel {
     }
     
     func replaceWorkout(oldWorkout: Workout, newWorkout: Workout) {
+        let index = workoutDiary.indexOf(oldWorkout)!
+        
         let realm = try! Realm()
         try! realm.write {
-            workoutDiary[workoutDiary.indexOf(oldWorkout)!] = newWorkout
+            workoutDiary.replace(index, object: newWorkout)
+        }
+        
+        if index != 0 {
+            if workoutDiary[index].date < workoutDiary[index - 1].date  {
+                let sortedWorkoutDiary = List(workoutDiary.sorted("date"))
+                try! realm.write {
+                    workoutDiary.removeAll()
+                    workoutDiary.appendContentsOf(sortedWorkoutDiary)
+                }
+            }
+        }
+        
+        if index != workoutDiary.count - 1 {
+            if workoutDiary[index].date > workoutDiary[index + 1].date {
+                let sortedWorkoutDiary = List(workoutDiary.sorted("date"))
+                try! realm.write {
+                    workoutDiary.removeAll()
+                    workoutDiary.appendContentsOf(sortedWorkoutDiary)
+                }
+            }
         }
     }
 }

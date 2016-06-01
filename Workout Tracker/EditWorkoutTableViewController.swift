@@ -102,7 +102,7 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
         datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
     }
     
-    private func datePickerChanged(sender: UIDatePicker) {
+    func datePickerChanged(sender: UIDatePicker) {
         newDate = sender.date
     }
     
