@@ -43,13 +43,27 @@ final class ExerciseDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ExerciseDetailCell", forIndexPath: indexPath) as! ExerciseDetailTableViewCell
         
-        let exerciseDetailText = exerciseDetailViewModel.details[indexPath.section][indexPath.row]
-        cell.detailTextLabel?.text = exerciseDetailText.1
-        cell.textLabel?.text = exerciseDetailText.0
+        if indexPath.section != 2 {
         
-        return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("ExerciseDetailCell", forIndexPath: indexPath) as! ExerciseDetailTableViewCell
+            
+            let exerciseDetailText = exerciseDetailViewModel.details[indexPath.section][indexPath.row]
+            cell.detailTextLabel?.text = exerciseDetailText.1
+            cell.textLabel?.text = exerciseDetailText.0
+            
+            return cell
+            
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("StatsDetailCell", forIndexPath: indexPath) as! StatsDetailTableViewCell
+            
+            let exerciseDetailText = exerciseDetailViewModel.details[indexPath.section][indexPath.row]
+            cell.detailTextLabel?.text = exerciseDetailText.1
+            cell.textLabel?.text = exerciseDetailText.0
+            
+            return cell
+            
+        }
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -84,6 +98,11 @@ final class ExerciseDetailTableViewController: UITableViewController {
             let workoutHistoryTableViewController = segue.destinationViewController as! WorkoutHistoryTableViewController
             
             workoutHistoryTableViewController.workoutHistoryViewModel = WorkoutHistoryViewModel(workoutDiary: exerciseDetailViewModel.getWorkoutDiary(), exerciseName: exerciseDetailViewModel.name)
+            
+        } else if segue.identifier == "ShowStats" {
+            let statsViewController = segue.destinationViewController as! StatsViewController
+            
+            statsViewController.statsViewModel = StatsViewModel(exercise: exerciseDetailViewModel.getExercise())
             
         }
         

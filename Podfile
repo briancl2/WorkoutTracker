@@ -7,11 +7,13 @@ target 'Workout Tracker' do
 
   # Pods for Workout Tracker
   pod 'RealmSwift'
+  pod 'Charts'
 
   target 'Workout TrackerTests' do
     inherit! :search_paths
     # Pods for testing
     pod 'RealmSwift'
+    pod 'Charts'
   end
 
 end

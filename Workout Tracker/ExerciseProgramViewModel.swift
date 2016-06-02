@@ -199,7 +199,7 @@ struct ExerciseProgramViewModel {
         curl.recordWorkout("16-05-27", weight: 70, repsFirstSet: 9, repsSecondSet: 7)
         curl.recordWorkout("16-05-31", weight: 70, repsFirstSet: 9, repsSecondSet: 8)
         
-        exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: List<Exercise>(), userProfile: User(bodyWeight: 160, name: "Brian"))
+        exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: List<Exercise>(), userProfile: User(bodyWeight: 160, name: "Brian", age: 34))
         
         let realm = try! Realm()
         try! realm.write {

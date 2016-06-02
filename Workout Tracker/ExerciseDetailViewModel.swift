@@ -98,4 +98,8 @@ struct ExerciseDetailViewModel {
         return exercise.workoutDiary
     }
     
+    func getExercise() -> Exercise {
+        return exercise
+    }
+    
 }

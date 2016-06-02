@@ -15,12 +15,14 @@ final class User: Object {
     
     dynamic var bodyWeight = 0
     dynamic var name = ""
+    dynamic var age = 0
     
     // MARK: Initializers
     
-    convenience init(bodyWeight: Int, name: String) {
+    convenience init(bodyWeight: Int, name: String, age: Int) {
         self.init()
         self.bodyWeight = bodyWeight
         self.name = name
+        self.age = age
     }
 }
