@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import SwiftyJSON
+
 
 final class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -109,6 +111,24 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
         let realm = try! Realm()
         let exercises = realm.objects(ExerciseProgram).first
         
-        exercises!.exportToCSV()
+        //exercises!.exportToCSV()
+        
+        let dic = exercises!.toDictionary()
+        
+//        let newjson = JSON(dic)
+//        
+//        let string = newjson.rawData()
+//        print(string)
+
+        
+        do {
+            if let postData: NSData = try NSJSONSerialization.dataWithJSONObject(dic, options: NSJSONWritingOptions.PrettyPrinted) {
+                let json = NSString(data: postData, encoding: NSUTF8StringEncoding)! as String
+                print(json)
+            }
+            
+        } catch let error as NSError {
+            print(error)
+        }
     }
 }

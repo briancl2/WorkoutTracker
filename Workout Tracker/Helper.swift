@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 func ==(lhs: NSDate, rhs: NSDate) -> Bool
 {
@@ -68,3 +69,32 @@ extension Double {
 }
 
 
+extension Object {
+    func toDictionary() -> NSDictionary {
+        let properties = self.objectSchema.properties.map { $0.name }
+        let dictionary = self.dictionaryWithValuesForKeys(properties)
+        
+        let mutabledic = NSMutableDictionary()
+        mutabledic.setValuesForKeysWithDictionary(dictionary)
+        
+        for prop in self.objectSchema.properties as [Property]! {
+            // find lists
+            if let nestedObject = self[prop.name] as? Object {
+                mutabledic.setValue(nestedObject.toDictionary(), forKey: prop.name)
+            } else if let nestedListObject = self[prop.name] as? ListBase {
+                var objects = [AnyObject]()
+                for index in 0..<nestedListObject._rlmArray.count  {
+                    let object = nestedListObject._rlmArray[index] as AnyObject
+                    objects.append(object.toDictionary())
+                }
+                mutabledic.setObject(objects, forKey: prop.name)
+            } else if let dateObject = self[prop.name] as? NSDate {
+                let dateString = dateObject.myPrettyString //Perform the conversion you want here
+                mutabledic.setValue(dateString, forKey: prop.name)
+            }
+            
+        }
+        return mutabledic
+    }
+    
+}

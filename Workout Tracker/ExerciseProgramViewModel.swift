@@ -45,6 +45,8 @@ struct ExerciseProgramViewModel {
         squat.recordWorkout("16-05-25", weight: 155, repsFirstSet: 10, repsSecondSet: 10)
         squat.recordWorkout("16-05-27", weight: 155, repsFirstSet: 11, repsSecondSet: 10)
         squat.recordWorkout("16-05-31", weight: 155, repsFirstSet: 12, repsSecondSet: 10)
+        squat.recordWorkout("16-06-02", weight: 155, repsFirstSet: 12, repsSecondSet: 11)
+        squat.recordWorkout("16-06-06", weight: 155, repsFirstSet: 13, repsSecondSet: 11)
         
         let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", workoutDiary: List<Workout>(), goal: 240)
         bench.recordWorkout("16-04-20", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
@@ -65,6 +67,9 @@ struct ExerciseProgramViewModel {
         bench.recordWorkout("16-05-25", weight: 145, repsFirstSet: 9, repsSecondSet: 8)
         bench.recordWorkout("16-05-27", weight: 145, repsFirstSet: 10, repsSecondSet: 8)
         bench.recordWorkout("16-05-31", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
+        bench.recordWorkout("16-06-02", weight: 145, repsFirstSet: 11, repsSecondSet: 8)
+        bench.recordWorkout("16-06-06", weight: 145, repsFirstSet: 11, repsSecondSet: 8)
+        
         
         let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", workoutDiary: List<Workout>(), goal: 240)
         row.recordWorkout("16-04-20", weight: 115, repsFirstSet: 11, repsSecondSet: 10)
@@ -85,6 +90,8 @@ struct ExerciseProgramViewModel {
         row.recordWorkout("16-05-25", weight: 135, repsFirstSet: 9, repsSecondSet: 9)
         row.recordWorkout("16-05-27", weight: 135, repsFirstSet: 10, repsSecondSet: 9)
         row.recordWorkout("16-05-31", weight: 135, repsFirstSet: 10, repsSecondSet: 9)
+        row.recordWorkout("16-06-02", weight: 135, repsFirstSet: 11, repsSecondSet: 10)
+        row.recordWorkout("16-06-06", weight: 135, repsFirstSet: 11, repsSecondSet: 10)
         
         let ohp = Exercise(name: "Overhead Press", notes: "OHP notes", workoutDiary: List<Workout>(), goal: 160)
         ohp.recordWorkout("16-04-20", weight: 95, repsFirstSet: 8, repsSecondSet: 8)
@@ -105,6 +112,8 @@ struct ExerciseProgramViewModel {
         ohp.recordWorkout("16-05-25", weight: 95, repsFirstSet: 11, repsSecondSet: 9)
         ohp.recordWorkout("16-05-27", weight: 95, repsFirstSet: 11, repsSecondSet: 7)
         ohp.recordWorkout("16-05-31", weight: 95, repsFirstSet: 11, repsSecondSet: 9)
+        ohp.recordWorkout("16-06-02", weight: 95, repsFirstSet: 11, repsSecondSet: 8)
+        ohp.recordWorkout("16-06-06", weight: 95, repsFirstSet: 11, repsSecondSet: 10)
         
         let sldl = Exercise(name: "Straight Leg Deadlift", notes: "SLDL notes", workoutDiary: List<Workout>(), goal: 240)
         sldl.recordWorkout("16-04-20", weight: 95, repsFirstSet: 13, repsSecondSet: 11)
@@ -125,6 +134,8 @@ struct ExerciseProgramViewModel {
         sldl.recordWorkout("16-05-25", weight: 125, repsFirstSet: 10, repsSecondSet: 9)
         sldl.recordWorkout("16-05-27", weight: 125, repsFirstSet: 11, repsSecondSet: 10)
         sldl.recordWorkout("16-05-31", weight: 125, repsFirstSet: 12, repsSecondSet: 11)
+        sldl.recordWorkout("16-06-02", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
+        sldl.recordWorkout("16-06-06", weight: 135, repsFirstSet: 9, repsSecondSet: 9)
         
         let chin = Exercise(name: "Chin-up", notes: "Chin notes", workoutDiary: List<Workout>(), goal: 240)
         chin.recordWorkout("16-04-20", weight: 110, repsFirstSet: 10, repsSecondSet: 9)
@@ -144,6 +155,8 @@ struct ExerciseProgramViewModel {
         chin.recordWorkout("16-05-25", weight: 120, repsFirstSet: 12, repsSecondSet: 11)
         chin.recordWorkout("16-05-27", weight: 120, repsFirstSet: 13, repsSecondSet: 11)
         chin.recordWorkout("16-05-31", weight: 135, repsFirstSet: 9, repsSecondSet: 8)
+        chin.recordWorkout("16-06-02", weight: 135, repsFirstSet: 10, repsSecondSet: 8)
+        chin.recordWorkout("16-06-02", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
         
         let calf = Exercise(name: "Calf Raise", notes: "calf notes", workoutDiary: List<Workout>(), goal: 320)
         calf.recordWorkout("16-04-20", weight: 150, repsFirstSet: 13, repsSecondSet: 11)
@@ -161,6 +174,7 @@ struct ExerciseProgramViewModel {
         calf.recordWorkout("16-05-25", weight: 195, repsFirstSet: 13, repsSecondSet: 11)
         calf.recordWorkout("16-05-27", weight: 215, repsFirstSet: 10, repsSecondSet: 9)
         calf.recordWorkout("16-05-31", weight: 215, repsFirstSet: 11, repsSecondSet: 10)
+        calf.recordWorkout("16-06-06", weight: 215, repsFirstSet: 12, repsSecondSet: 10)
         
         let torso = Exercise(name: "Torso Rotation", notes: "torso notes", workoutDiary: List<Workout>(), goal: 240)
         torso.recordWorkout("16-04-20", weight: 130, repsFirstSet: 13, repsSecondSet: 11)
@@ -179,6 +193,7 @@ struct ExerciseProgramViewModel {
         torso.recordWorkout("16-05-25", weight: 155, repsFirstSet: 11, repsSecondSet: 9)
         torso.recordWorkout("16-05-27", weight: 155, repsFirstSet: 12, repsSecondSet: 10)
         torso.recordWorkout("16-05-31", weight: 155, repsFirstSet: 12, repsSecondSet: 10)
+        torso.recordWorkout("16-06-06", weight: 155, repsFirstSet: 12, repsSecondSet: 11)
         
         let curl = Exercise(name: "Curl", notes: "curl notes", workoutDiary: List<Workout>(), goal: 120)
         curl.recordWorkout("16-04-20", weight: 50, repsFirstSet: 11, repsSecondSet: 8)
@@ -198,6 +213,7 @@ struct ExerciseProgramViewModel {
         curl.recordWorkout("16-05-25", weight: 60, repsFirstSet: 13, repsSecondSet: 11)
         curl.recordWorkout("16-05-27", weight: 70, repsFirstSet: 9, repsSecondSet: 7)
         curl.recordWorkout("16-05-31", weight: 70, repsFirstSet: 9, repsSecondSet: 8)
+        curl.recordWorkout("16-06-06", weight: 70, repsFirstSet: 10, repsSecondSet: 8)
         
         exercises = ExerciseProgram(name: "Allpro Auto-regulated", startDate: NSDate(), program: List<Exercise>(), userProfile: User(bodyWeight: 160, name: "Brian", age: 34))
         
