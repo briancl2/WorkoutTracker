@@ -16,6 +16,10 @@ final class ExerciseProgramTableViewController: UITableViewController {
     
     // MARK: View Lifecycle
     
+//    override func viewWillAppear(animated: Bool) {
+//        tableView.reloadData()
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
