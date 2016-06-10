@@ -8,7 +8,8 @@ target 'Workout Tracker' do
   # Pods for Workout Tracker
   pod 'RealmSwift'
   pod 'Charts'
-   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+  pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+  pod 'Alamofire'
 
   target 'Workout TrackerTests' do
     inherit! :search_paths
@@ -16,6 +17,7 @@ target 'Workout Tracker' do
     pod 'RealmSwift'
     pod 'Charts'
     pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+    pod 'Alamofire'
   end
 
 end

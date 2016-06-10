@@ -15,17 +15,13 @@ final class ExerciseProgram: Object {
     
     dynamic var name: String = ""
     dynamic var startDate = NSDate()
-    dynamic var userProfile: User?
-    var program = List<Exercise>()
+
     
     // MARK: Initializers
 
-    convenience init(name: String, startDate: NSDate, program: List<Exercise>, userProfile: User) {
+    convenience init(name: String) {
         self.init()
         self.name = name
-        self.startDate = startDate
-        self.program = program
-        self.userProfile = userProfile
     }
 }
 
@@ -35,15 +31,5 @@ extension ExerciseProgram {
     
     override class func primaryKey() -> String? {
         return "name"
-    }
-
-    func exportToCSV() {
-        print("exercise name,date,weight,set 1,set 2,total volume")
-        
-        for exercise in program {
-            for workout in exercise.workoutDiary {
-                print("\(exercise.name),\(workout.date.myPrettyString),\(workout.weight),\(workout.sets[0].repCount),\(workout.sets[1].repCount),\(workout.totalVolume)")
-            }
-        }
     }
 }

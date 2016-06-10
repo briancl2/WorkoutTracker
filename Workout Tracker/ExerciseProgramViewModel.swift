@@ -10,36 +10,37 @@ import Foundation
 import RealmSwift
 
 struct ExerciseProgramViewModel {
-    private var exercises = ExerciseProgram()
+    private let exercises: Results<Exercise>
     var count: Int {
-        return exercises.program.count
+        return exercises.count
     }
     
     init() {
         LoadDataDefaults()
         let realm = try! Realm()
-        if let savedExerciseProgram = realm.objects(ExerciseProgram).first {
-            self.exercises = savedExerciseProgram
-        }
+        let savedExerciseProgram = realm.objects(Exercise)
+        self.exercises = savedExerciseProgram
+        
         print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
     
     func getExercise(index: Int) -> Exercise {
-        return exercises.program[index]
+        return exercises[index]
     }
     
     func removeExerciseAtIndex(index: Int) {
+        let exercise = exercises[index]
         let realm = try! Realm()
         try! realm.write {
-            exercises.program.removeAtIndex(index)
+            realm.delete(exercise)
         }
     }
     
     func addExercise(newExercise: Exercise) {
         let realm = try! Realm()
         try! realm.write {
-            exercises.program.append(newExercise)
+            realm.add(newExercise)
         }
     }
     

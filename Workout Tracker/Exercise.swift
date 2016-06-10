@@ -34,8 +34,9 @@ final class Exercise: Object {
     
     dynamic var name = ""
     dynamic var notes: String?
-    var workoutDiary = List<Workout>()
+    let workoutDiary = List<Workout>()
     dynamic var goal = 0
+    //dynamic var program: ExerciseProgram?
     var currentWeights: ExerciseWeights {
         if let lastWorkout = workoutDiary.last {
             return ExerciseWeights(weight: lastWorkout.weight)
@@ -101,11 +102,11 @@ final class Exercise: Object {
     
     // MARK: Initializers
 
-    convenience init(name: String, notes: String?, workoutDiary: List<Workout>, goal: Int) {
+    convenience init(name: String, notes: String?, goal: Int) {
         self.init()
         self.name = name
         self.notes = notes
-        self.workoutDiary = workoutDiary
+        //self.workoutDiary = workoutDiary
         self.goal = goal
     }
 }

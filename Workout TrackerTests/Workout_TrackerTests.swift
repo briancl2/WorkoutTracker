@@ -41,7 +41,7 @@ class Workout_TrackerTests: XCTestCase {
         let notes: String? = nil
         let goal = 200
         
-        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), goal: goal))
+        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, goal: goal))
         let exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
         
         let date = NSDate()
@@ -69,7 +69,7 @@ class Workout_TrackerTests: XCTestCase {
         let notes: String? = nil
         let goal = 200
         
-        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), goal: goal))
+        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, goal: goal))
         var exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
         
         let date = NSDate()
@@ -102,7 +102,7 @@ class Workout_TrackerTests: XCTestCase {
         let notes: String? = nil
         let goal = 200
         
-        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, workoutDiary: List<Workout>(), goal: goal))
+        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, goal: goal))
         var exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
         
         let date = NSDate()
