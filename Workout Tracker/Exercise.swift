@@ -8,6 +8,8 @@
 
 import Foundation
 import RealmSwift
+import ObjectMapper
+
 
 struct ExerciseWeights {
     
@@ -28,14 +30,17 @@ struct ExerciseWeights {
     }
 }
 
-final class Exercise: Object {
+final class Exercise: Object, Mappable {
     
     // MARK: Public Properties
     
+    dynamic var id: String = NSUUID().UUIDString
     dynamic var name = ""
     dynamic var notes: String?
-    let workoutDiary = List<Workout>()
+    var workoutDiary = List<Workout>()
     dynamic var goal = 0
+    
+    
     //dynamic var program: ExerciseProgram?
     var currentWeights: ExerciseWeights {
         if let lastWorkout = workoutDiary.last {
@@ -109,6 +114,23 @@ final class Exercise: Object {
         //self.workoutDiary = workoutDiary
         self.goal = goal
     }
+    
+    required convenience init?(_ map: Map) {
+        self.init()
+    }
+    
+    func mapping(map: Map) {
+        id    <- map["id"]
+        name <- map["name"]
+        notes <- map["notes"]
+        workoutDiary <- (map["workoutDiary"], ListTransform<Workout>())
+        goal <- map["goal"]
+    }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
 }
 
 extension Exercise {

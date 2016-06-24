@@ -10,6 +10,8 @@ target 'Workout Tracker' do
   pod 'Charts'
   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'Alamofire'
+  pod 'ObjectMapper'
+  pod 'AlamofireObjectMapper'
 
   target 'Workout TrackerTests' do
     inherit! :search_paths
@@ -18,6 +20,8 @@ target 'Workout Tracker' do
     pod 'Charts'
     pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
     pod 'Alamofire'
+    pod 'ObjectMapper'
+    pod 'AlamofireObjectMapper'
   end
 
 end

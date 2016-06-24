@@ -1003,6 +1003,43 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hJH-ys-Wo0">
+                                        <rect key="frame" x="0.0" y="379" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hJH-ys-Wo0" id="KmN-vO-WrH">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7x0-d8-AKE">
+                                                    <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KzX-Hc-I1F">
+                                                    <rect key="frame" x="260" y="7" width="81" height="30"/>
+                                                    <state key="normal" title="Import Data"/>
+                                                    <connections>
+                                                        <action selector="exportDataButtonTapped:" destination="Qdi-z4-Ctl" eventType="touchUpInside" id="IQy-H5-TKB"/>
+                                                        <action selector="importDataButtonTapped:" destination="Qdi-z4-Ctl" eventType="touchUpInside" id="13f-Xy-wSy"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KzX-Hc-I1F" firstAttribute="centerX" secondItem="KmN-vO-WrH" secondAttribute="centerX" id="991-LF-rXQ"/>
+                                                <constraint firstItem="KzX-Hc-I1F" firstAttribute="centerY" secondItem="KmN-vO-WrH" secondAttribute="centerY" id="i4q-RC-zTe"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="7x0-d8-AKE"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="7x0-d8-AKE"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1015,6 +1052,7 @@
                     <connections>
                         <outlet property="bodyweightTextField" destination="lSL-Rz-LWS" id="ulv-yt-BQf"/>
                         <outlet property="exportDataButton" destination="vdC-aW-luR" id="QTu-2o-E9w"/>
+                        <outlet property="importDataButton" destination="KzX-Hc-I1F" id="vts-B2-Xq8"/>
                         <outlet property="nameTextField" destination="n52-f0-38O" id="OuK-Cn-GWE"/>
                         <outlet property="programTextField" destination="xK0-El-Bur" id="Lnr-2z-Nkv"/>
                     </connections>

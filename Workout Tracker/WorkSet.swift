@@ -8,8 +8,9 @@
 
 import Foundation
 import RealmSwift
+import ObjectMapper
 
-final class WorkSet: Object {
+final class WorkSet: Object, Mappable {
     
     // MARK: Public Properties
     
@@ -25,5 +26,14 @@ final class WorkSet: Object {
         self.init()
         self.weight = weight
         self.repCount = repCount
+    }
+    
+    required convenience init?(_ map: Map) {
+        self.init()
+    }
+    
+    func mapping(map: Map) {
+        weight <- map["weight"]
+        repCount <- map["repCount"]
     }
 }

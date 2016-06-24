@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
-import SwiftyJSON
 import Alamofire
+import AlamofireObjectMapper
+import ObjectMapper
 
 
 final class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -20,6 +21,7 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var programTextField: UITextField!
     @IBOutlet weak var bodyweightTextField: UITextField!
     @IBOutlet weak var exportDataButton: UIButton!
+    @IBOutlet weak var importDataButton: UIButton!
     
     // MARK: Public Properties
     
@@ -116,9 +118,28 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
         let _ = exercise.map { exerciseJson in
             Alamofire.request(.POST, "http://fatrice:8080/workouts", parameters: exerciseJson.toDictionary() as? [String : AnyObject], encoding: .JSON)
         }
-        
-        
-        
-       
     }
+    
+    @IBAction func importDataButtonTapped(sender: UIButton) {
+        
+        Alamofire.request(.GET, "http://fatrice:8080/workouts").responseArray { (response: Response<[Exercise], NSError>) in
+            switch response.result {
+                case .Success:
+                    let exercises = response.result.value
+                    if let exercises = exercises {
+                        let realm = try! Realm()
+                        try! realm.write {
+                            realm.deleteAll()
+                            for exercise in exercises {
+                                print("Adding: \(exercise.name)")
+                                realm.add(exercise, update: true)
+                            }
+                        }
+                    }
+                case .Failure(let error):
+                    print(error)
+            }
+        }
+    }
+    
 }

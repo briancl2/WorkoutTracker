@@ -24,12 +24,3 @@ final class ExerciseProgram: Object {
         self.name = name
     }
 }
-
-extension ExerciseProgram {
-
-    // MARK: Public Methods
-    
-    override class func primaryKey() -> String? {
-        return "name"
-    }
-}

@@ -8,8 +8,9 @@
 
 import Foundation
 import RealmSwift
+import ObjectMapper
 
-final class Workout: Object {
+final class Workout: Object, Mappable {
     
     // MARK: Public Properties
     
@@ -33,6 +34,15 @@ final class Workout: Object {
         self.init()
         self.date = date
         self.sets = sets
+    }
+    
+    required convenience init?(_ map: Map) {
+        self.init()
+    }
+    
+    func mapping(map: Map) {
+        date <- map["date"]
+        sets <- (map["sets"], ListTransform<WorkSet>())
     }
 }
 
