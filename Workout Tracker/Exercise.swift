@@ -120,7 +120,7 @@ final class Exercise: Object, Mappable {
     }
     
     func mapping(map: Map) {
-        id    <- map["id"]
+        id <- map["id"]
         name <- map["name"]
         notes <- map["notes"]
         workoutDiary <- (map["workoutDiary"], ListTransform<Workout>())

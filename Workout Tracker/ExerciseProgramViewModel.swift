@@ -43,11 +43,4 @@ struct ExerciseProgramViewModel {
             realm.add(newExercise)
         }
     }
-    
-//    func updateExercise(index: Int, updatedExercise: Exercise) {
-//        let realm = try! Realm()
-//        try! realm.write {
-//            exercises.program[index] = updatedExercise
-//        }
-//    }
 }

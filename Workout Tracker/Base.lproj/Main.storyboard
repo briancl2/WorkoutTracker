@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0TX-qW-NC3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0TX-qW-NC3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1019,7 +1019,6 @@
                                                     <rect key="frame" x="260" y="7" width="81" height="30"/>
                                                     <state key="normal" title="Import Data"/>
                                                     <connections>
-                                                        <action selector="exportDataButtonTapped:" destination="Qdi-z4-Ctl" eventType="touchUpInside" id="IQy-H5-TKB"/>
                                                         <action selector="importDataButtonTapped:" destination="Qdi-z4-Ctl" eventType="touchUpInside" id="13f-Xy-wSy"/>
                                                     </connections>
                                                 </button>

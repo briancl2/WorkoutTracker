@@ -38,6 +38,7 @@
 		15BF7C8C1CD01A980095440B /* ExerciseProgramTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C8B1CD01A980095440B /* ExerciseProgramTableViewController.swift */; };
 		15BF7C901CD0C9190095440B /* ExerciseProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */; };
 		15BF7C921CD0D42A0095440B /* ExerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */; };
+		15C7DEC51D24154500DA75E6 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C7DEC41D24154500DA75E6 /* ProfileViewModel.swift */; };
 		15D5A3B11CD68E1B00936E7C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A3B01CD68E1B00936E7C /* User.swift */; };
 		BA04866A79EE54827417CF74 /* Pods_Workout_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636709F7CFDAA90E86DC7835 /* Pods_Workout_Tracker.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		15BF7C8B1CD01A980095440B /* ExerciseProgramTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseProgramTableViewController.swift; sourceTree = "<group>"; };
 		15BF7C8F1CD0C9190095440B /* ExerciseProgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseProgram.swift; sourceTree = "<group>"; };
 		15BF7C911CD0D42A0095440B /* ExerciseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseTableViewCell.swift; sourceTree = "<group>"; };
+		15C7DEC41D24154500DA75E6 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		15D5A3B01CD68E1B00936E7C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2182E2C3CB42B1F7049ED194 /* Pods-Workout TrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workout TrackerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Workout TrackerTests/Pods-Workout TrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		636709F7CFDAA90E86DC7835 /* Pods_Workout_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workout_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				156564801CF6984900A0D56D /* ExerciseProgramViewModel.swift */,
+				15C7DEC41D24154500DA75E6 /* ProfileViewModel.swift */,
 				156564831CF7B53200A0D56D /* ExerciseDetailViewModel.swift */,
 				156564851CF7E2B400A0D56D /* WorkoutHistoryViewModel.swift */,
 				1565648B1CFFBE8F00A0D56D /* StatsViewModel.swift */,
@@ -442,6 +445,7 @@
 				15BF7C8A1CD00AB90095440B /* Exercise.swift in Sources */,
 				15021DEC1CD1AAA7002508B1 /* Workout.swift in Sources */,
 				158A643D1CDFCDB400B4A54A /* AddExerciseTableViewController.swift in Sources */,
+				15C7DEC51D24154500DA75E6 /* ProfileViewModel.swift in Sources */,
 				156564861CF7E2B400A0D56D /* WorkoutHistoryViewModel.swift in Sources */,
 				158A64371CDD19CD00B4A54A /* ExerciseDetailTableViewController.swift in Sources */,
 				158A64441CE57D3000B4A54A /* TimerViewController.swift in Sources */,

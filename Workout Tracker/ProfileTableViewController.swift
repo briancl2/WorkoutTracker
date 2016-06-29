@@ -7,11 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
-import Alamofire
-import AlamofireObjectMapper
-import ObjectMapper
-
 
 final class ProfileTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -24,6 +19,8 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var importDataButton: UIButton!
     
     // MARK: Public Properties
+    
+    var profileViewModel = ProfileViewModel()
     
     //var userProfile: User
     let pickOption = ["Allpro", "Allpro self-regulated"]
@@ -111,35 +108,11 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
     // MARK: Actions
     
     @IBAction func exportDataButtonTapped(sender: UIButton) {
-        
-        let realm = try! Realm()
-        let exercise = realm.objects(Exercise)
-                
-        let _ = exercise.map { exerciseJson in
-            Alamofire.request(.POST, "http://fatrice:8080/workouts", parameters: exerciseJson.toDictionary() as? [String : AnyObject], encoding: .JSON)
-        }
+        profileViewModel.exportData()
     }
     
     @IBAction func importDataButtonTapped(sender: UIButton) {
-        
-        Alamofire.request(.GET, "http://fatrice:8080/workouts").responseArray { (response: Response<[Exercise], NSError>) in
-            switch response.result {
-                case .Success:
-                    let exercises = response.result.value
-                    if let exercises = exercises {
-                        let realm = try! Realm()
-                        try! realm.write {
-                            realm.deleteAll()
-                            for exercise in exercises {
-                                print("Adding: \(exercise.name)")
-                                realm.add(exercise, update: true)
-                            }
-                        }
-                    }
-                case .Failure(let error):
-                    print(error)
-            }
-        }
+        profileViewModel.importData()
     }
     
 }

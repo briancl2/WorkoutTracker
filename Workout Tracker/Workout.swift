@@ -41,7 +41,9 @@ final class Workout: Object, Mappable {
     }
     
     func mapping(map: Map) {
-        date <- map["date"]
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM d"
+        date <- (map["date"], DateFormatterTransform(dateFormatter: dateFormatter))
         sets <- (map["sets"], ListTransform<WorkSet>())
     }
 }

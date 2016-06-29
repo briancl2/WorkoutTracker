@@ -39,8 +39,8 @@ struct ExerciseDetailViewModel {
             details.append(workoutsToDisplay)
             sections.append("Last Workouts")
             var stats: [(String, String)] = []
-            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(30), let totalWeightIncrease = exercise.getWeightIncrease(30) {
-                stats.append(("30d progress", "Weight: \(totalWeightIncrease)% Total Volume: \(totalVolumeIncrease)%"))
+            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(60), let totalWeightIncrease = exercise.getWeightIncrease(60) {
+                stats.append(("60d progress", "Weight: \(totalWeightIncrease)% Total Volume: \(totalVolumeIncrease)%"))
             }
             stats.append(("1RM", "\(exercise.calculated1RM)lbs"))
             stats.append(("Goal", "\(exercise.goalAttainment)% of \(exercise.goal)lbs"))
