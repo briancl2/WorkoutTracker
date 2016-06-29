@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 struct ExerciseProgramViewModel {
+    
     private let exercises: Results<Exercise>
     var count: Int {
         return exercises.count
@@ -18,8 +19,7 @@ struct ExerciseProgramViewModel {
     init() {
         LoadDataDefaults()
         let realm = try! Realm()
-        let savedExerciseProgram = realm.objects(Exercise)
-        self.exercises = savedExerciseProgram
+        self.exercises = realm.objects(Exercise).sorted("sortOrder")
         
         print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
@@ -38,9 +38,13 @@ struct ExerciseProgramViewModel {
     }
     
     func addExercise(newExercise: Exercise) {
+        if let lastExercise = exercises.last {
+            newExercise.sortOrder = lastExercise.sortOrder + 1
+        }
         let realm = try! Realm()
         try! realm.write {
             realm.add(newExercise)
         }
     }
+    
 }

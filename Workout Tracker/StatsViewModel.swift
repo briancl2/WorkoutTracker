@@ -9,6 +9,7 @@
 import Foundation
 
 struct StatsViewModel {
+    
     var exercise: Exercise
     
     init(exercise: Exercise) {

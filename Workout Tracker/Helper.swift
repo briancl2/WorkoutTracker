@@ -70,6 +70,7 @@ extension Double {
 }
 
 
+// create JSON dictionary
 extension Object {
     func toDictionary() -> NSDictionary {
         let properties = self.objectSchema.properties.map { $0.name }
@@ -90,7 +91,7 @@ extension Object {
                 }
                 mutabledic.setObject(objects, forKey: prop.name)
             } else if let dateObject = self[prop.name] as? NSDate {
-                let dateString = dateObject.myPrettyString //Perform the conversion you want here
+                let dateString = dateObject.myPrettyString //Perform NSDate conversion for JSON
                 mutabledic.setValue(dateString, forKey: prop.name)
             }
             
@@ -100,6 +101,7 @@ extension Object {
 
 }
 
+// add Realm List<> support to ObjectMapper
 class ListTransform<T:RealmSwift.Object where T:Mappable> : TransformType {
     typealias Object = List<T>
     typealias JSON = [AnyObject]

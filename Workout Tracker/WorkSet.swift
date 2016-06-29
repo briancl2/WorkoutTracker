@@ -28,12 +28,19 @@ final class WorkSet: Object, Mappable {
         self.repCount = repCount
     }
     
+    // required by ObjectMapper
     required convenience init?(_ map: Map) {
         self.init()
     }
+    
+}
+
+// Support for ObjectMapper
+extension WorkSet {
     
     func mapping(map: Map) {
         weight <- map["weight"]
         repCount <- map["repCount"]
     }
+    
 }

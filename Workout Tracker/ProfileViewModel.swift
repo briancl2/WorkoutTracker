@@ -13,8 +13,8 @@ import AlamofireObjectMapper
 import ObjectMapper
 
 struct ProfileViewModel {
-    private let url = "http://fatrice:8080/workouts"
     
+    private let url = "http://fatrice:8080/workouts"
     
     func exportData() {
         

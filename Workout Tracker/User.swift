@@ -25,4 +25,5 @@ final class User: Object {
         self.name = name
         self.age = age
     }
+    
 }

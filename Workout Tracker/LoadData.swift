@@ -241,6 +241,16 @@ func LoadDataDefaults() {
     let exercises = ExerciseProgram(name: "Allpro Auto-regulated")
     let user = User(bodyWeight: 160, name: "Brian", age: 34)
     
+    squat.sortOrder = 0
+    bench.sortOrder = 1
+    row.sortOrder = 2
+    ohp.sortOrder = 3
+    sldl.sortOrder = 4
+    chin.sortOrder = 5
+    calf.sortOrder = 6
+    torso.sortOrder = 7
+    curl.sortOrder = 8
+    
     try! realm.write {
         realm.add(exercises)
         realm.add(user)

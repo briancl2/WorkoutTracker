@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 struct WorkoutHistoryViewModel {
+    
     private let workoutDiary: List<Workout>
     private let exerciseName: String
     
@@ -73,5 +74,6 @@ struct WorkoutHistoryViewModel {
             }
         }
     }
+    
 }
 

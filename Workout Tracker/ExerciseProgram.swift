@@ -23,4 +23,5 @@ final class ExerciseProgram: Object {
         self.init()
         self.name = name
     }
+    
 }

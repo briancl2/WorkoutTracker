@@ -37,4 +37,5 @@ struct Weight {
     init(weight: Int) {
         self.weight = weight.roundedToFive
     }
+    
 }

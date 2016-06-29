@@ -36,9 +36,15 @@ final class Workout: Object, Mappable {
         self.sets = sets
     }
     
+    // required for ObjectMapper
     required convenience init?(_ map: Map) {
         self.init()
     }
+    
+}
+
+// Support for ObjectMapper
+extension Workout {
     
     func mapping(map: Map) {
         let dateFormatter = NSDateFormatter()
@@ -46,5 +52,5 @@ final class Workout: Object, Mappable {
         date <- (map["date"], DateFormatterTransform(dateFormatter: dateFormatter))
         sets <- (map["sets"], ListTransform<WorkSet>())
     }
+    
 }
-

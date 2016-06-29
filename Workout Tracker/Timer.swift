@@ -38,6 +38,7 @@ final class Timer {
     init(length: NSTimeInterval) {
         self.timeLeft = length
     }
+    
 }
 
 extension Timer {
@@ -64,6 +65,7 @@ extension Timer {
         timerStopHandler = nil
         timerTickHandler = nil
     }
+    
 }
 
 private extension Timer {
@@ -80,4 +82,5 @@ private extension Timer {
             stop(false)
         }
     }
+    
 }

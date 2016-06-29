@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 struct ExerciseDetailViewModel {
+    
     private let exercise: Exercise!
     
     var details = [[(String, String)]]()

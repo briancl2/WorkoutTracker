@@ -28,6 +28,7 @@ struct ExerciseWeights {
     init(weight: Int) {
         self.heavy = Weight(weight: weight)
     }
+    
 }
 
 final class Exercise: Object, Mappable {
@@ -39,7 +40,12 @@ final class Exercise: Object, Mappable {
     dynamic var notes: String?
     var workoutDiary = List<Workout>()
     dynamic var goal = 0
+    dynamic var sortOrder = 0
     
+    // primaryKey for uniqueness in Realm
+    override class func primaryKey() -> String? {
+        return "id"
+    }
     
     //dynamic var program: ExerciseProgram?
     var currentWeights: ExerciseWeights {
@@ -115,9 +121,15 @@ final class Exercise: Object, Mappable {
         self.goal = goal
     }
     
+    // required for ObjectMapper
     required convenience init?(_ map: Map) {
         self.init()
     }
+    
+}
+
+// Support for ObjectMapper
+extension Exercise {
     
     func mapping(map: Map) {
         id <- map["id"]
@@ -125,10 +137,7 @@ final class Exercise: Object, Mappable {
         notes <- map["notes"]
         workoutDiary <- (map["workoutDiary"], ListTransform<Workout>())
         goal <- map["goal"]
-    }
-    
-    override class func primaryKey() -> String? {
-        return "id"
+        sortOrder <- map["sortOrder"]
     }
     
 }
@@ -182,5 +191,6 @@ extension Exercise {
         }
         return nil // otherwise no workouts were found in range, so return nil
     }
+    
 }
 
