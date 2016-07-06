@@ -28,6 +28,14 @@ final class Workout: Object, Mappable {
         return sets.reduce(0) { $0 + $1.repCount }
     }
     
+    var oneRepMax: Int {
+        let set = sets.first!
+        let weight = Double(set.weight)
+        let repCount = set.repCount
+        
+        return Int(100 * weight / (48.8 + 53.8 * pow(M_E, -0.075 * Double(repCount))))
+    }
+    
     // MARK: Initializers
     
     convenience init(date: NSDate, sets: List<WorkSet>) {

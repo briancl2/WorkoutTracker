@@ -1015,8 +1015,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KzX-Hc-I1F">
-                                                    <rect key="frame" x="260" y="7" width="81" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KzX-Hc-I1F">
+                                                    <rect key="frame" x="259" y="7" width="82" height="30"/>
                                                     <state key="normal" title="Import Data"/>
                                                     <connections>
                                                         <action selector="importDataButtonTapped:" destination="Qdi-z4-Ctl" eventType="touchUpInside" id="13f-Xy-wSy"/>

@@ -38,6 +38,8 @@ func LoadDataDefaults() {
     squat.recordWorkout("16-06-10", weight: 170, repsFirstSet: 9, repsSecondSet: 7)
     squat.recordWorkout("16-06-22", weight: 170, repsFirstSet: 9, repsSecondSet: 7)
     squat.recordWorkout("16-06-24", weight: 170, repsFirstSet: 9, repsSecondSet: 8)
+    squat.recordWorkout("16-06-29", weight: 170, repsFirstSet: 10, repsSecondSet: 9)
+    squat.recordWorkout("16-07-05", weight: 170, repsFirstSet: 11, repsSecondSet: 9)
     
     let bench = Exercise(name: "Bench Press", notes: "Bench Press notes", goal: 240)
     bench.recordWorkout("16-04-20", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
@@ -64,6 +66,8 @@ func LoadDataDefaults() {
     bench.recordWorkout("16-06-10", weight: 145, repsFirstSet: 12, repsSecondSet: 9)
     bench.recordWorkout("16-06-22", weight: 145, repsFirstSet: 12, repsSecondSet: 7)
     bench.recordWorkout("16-06-24", weight: 145, repsFirstSet: 11, repsSecondSet: 8)
+    bench.recordWorkout("16-06-29", weight: 145, repsFirstSet: 12, repsSecondSet: 9)
+    bench.recordWorkout("16-07-05", weight: 145, repsFirstSet: 12, repsSecondSet: 8)
     
     
     let row = Exercise(name: "Bent Over Row", notes: "Bent Over Row notes", goal: 240)
@@ -92,6 +96,8 @@ func LoadDataDefaults() {
     row.recordWorkout("16-06-22", weight: 135, repsFirstSet: 12, repsSecondSet: 9)
     row.recordWorkout("16-06-24", weight: 135, repsFirstSet: 12, repsSecondSet: 10)
     row.recordWorkout("16-06-26", weight: 135, repsFirstSet: 12, repsSecondSet: 11)
+    row.recordWorkout("16-06-29", weight: 135, repsFirstSet: 12, repsSecondSet: 11)
+    row.recordWorkout("16-07-05", weight: 135, repsFirstSet: 13, repsSecondSet: 11)
     
     let ohp = Exercise(name: "Overhead Press", notes: "OHP notes", goal: 160)
     ohp.recordWorkout("16-04-20", weight: 95, repsFirstSet: 8, repsSecondSet: 8)
@@ -119,6 +125,8 @@ func LoadDataDefaults() {
     ohp.recordWorkout("16-06-22", weight: 95, repsFirstSet: 12, repsSecondSet: 8)
     ohp.recordWorkout("16-06-24", weight: 95, repsFirstSet: 12, repsSecondSet: 9)
     ohp.recordWorkout("16-06-26", weight: 95, repsFirstSet: 12, repsSecondSet: 9)
+    ohp.recordWorkout("16-06-29", weight: 95, repsFirstSet: 12, repsSecondSet: 8)
+    ohp.recordWorkout("16-07-05", weight: 95, repsFirstSet: 12, repsSecondSet: 7)
     
     let sldl = Exercise(name: "Straight Leg Deadlift", notes: "SLDL notes", goal: 240)
     sldl.recordWorkout("16-04-20", weight: 95, repsFirstSet: 13, repsSecondSet: 11)
@@ -146,6 +154,8 @@ func LoadDataDefaults() {
     sldl.recordWorkout("16-06-22", weight: 135, repsFirstSet: 10, repsSecondSet: 10)
     sldl.recordWorkout("16-06-24", weight: 135, repsFirstSet: 11, repsSecondSet: 10)
     sldl.recordWorkout("16-06-26", weight: 135, repsFirstSet: 12, repsSecondSet: 12)
+    sldl.recordWorkout("16-06-29", weight: 145, repsFirstSet: 9, repsSecondSet: 8)
+    sldl.recordWorkout("16-07-05", weight: 145, repsFirstSet: 10, repsSecondSet: 8)
     
     let chin = Exercise(name: "Chin-up", notes: "Chin notes", goal: 240)
     chin.recordWorkout("16-04-20", weight: 110, repsFirstSet: 10, repsSecondSet: 9)
@@ -171,6 +181,8 @@ func LoadDataDefaults() {
     chin.recordWorkout("16-06-10", weight: 135, repsFirstSet: 11, repsSecondSet: 9)
     chin.recordWorkout("16-06-22", weight: 135, repsFirstSet: 11, repsSecondSet: 10)
     chin.recordWorkout("16-06-24", weight: 135, repsFirstSet: 12, repsSecondSet: 9)
+    chin.recordWorkout("16-06-29", weight: 135, repsFirstSet: 12, repsSecondSet: 10)
+    chin.recordWorkout("16-07-05", weight: 135, repsFirstSet: 12, repsSecondSet: 10)
     
     let calf = Exercise(name: "Calf Raise", notes: "calf notes", goal: 320)
     calf.recordWorkout("16-04-20", weight: 150, repsFirstSet: 13, repsSecondSet: 11)
@@ -192,6 +204,8 @@ func LoadDataDefaults() {
     calf.recordWorkout("16-06-08", weight: 215, repsFirstSet: 12, repsSecondSet: 10)
     calf.recordWorkout("16-06-22", weight: 215, repsFirstSet: 12, repsSecondSet: 10)
     calf.recordWorkout("16-06-24", weight: 215, repsFirstSet: 13, repsSecondSet: 10)
+    calf.recordWorkout("16-06-29", weight: 215, repsFirstSet: 13, repsSecondSet: 11)
+    calf.recordWorkout("16-07-05", weight: 235, repsFirstSet: 9, repsSecondSet: 8)
     
     let torso = Exercise(name: "Torso Rotation", notes: "torso notes", goal: 240)
     torso.recordWorkout("16-04-20", weight: 130, repsFirstSet: 13, repsSecondSet: 11)
@@ -214,6 +228,8 @@ func LoadDataDefaults() {
     torso.recordWorkout("16-06-08", weight: 155, repsFirstSet: 13, repsSecondSet: 11)
     torso.recordWorkout("16-06-22", weight: 170, repsFirstSet: 9, repsSecondSet: 8)
     torso.recordWorkout("16-06-24", weight: 170, repsFirstSet: 9, repsSecondSet: 9)
+    torso.recordWorkout("16-06-29", weight: 170, repsFirstSet: 9, repsSecondSet: 9)
+    torso.recordWorkout("16-07-05", weight: 170, repsFirstSet: 10, repsSecondSet: 9)
     
     let curl = Exercise(name: "Curl", notes: "curl notes", goal: 120)
     curl.recordWorkout("16-04-20", weight: 50, repsFirstSet: 11, repsSecondSet: 8)
@@ -237,6 +253,8 @@ func LoadDataDefaults() {
     curl.recordWorkout("16-06-08", weight: 70, repsFirstSet: 10, repsSecondSet: 7)
     curl.recordWorkout("16-06-22", weight: 70, repsFirstSet: 10, repsSecondSet: 7)
     curl.recordWorkout("16-06-24", weight: 70, repsFirstSet: 10, repsSecondSet: 7)
+    curl.recordWorkout("16-06-29", weight: 70, repsFirstSet: 10, repsSecondSet: 7)
+    curl.recordWorkout("16-07-05", weight: 70, repsFirstSet: 11, repsSecondSet: 7)
     
     let exercises = ExerciseProgram(name: "Allpro Auto-regulated")
     let user = User(bodyWeight: 160, name: "Brian", age: 34)

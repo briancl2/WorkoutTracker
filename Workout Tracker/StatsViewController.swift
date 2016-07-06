@@ -15,19 +15,16 @@ class StatsViewController: UIViewController, ChartViewDelegate {
     
     var statsViewModel: StatsViewModel!
     
-    let months = ["Jan" , "Feb", "Mar", "Apr", "May", "June", "July", "August", "Sept", "Oct", "Nov", "Dec"]
-
-    
-    let dollars1 = [1453.0,2352,5431,1442,5451,6486,1173,5678,9234,1345,9411,2212]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.title = statsViewModel.exercise.name // back button has exercise name in it
         self.lineChartView.delegate = self
-        self.lineChartView.descriptionText = "Total Volume"
+        self.lineChartView.descriptionText = statsViewModel.statsDescription
         self.lineChartView.descriptionTextColor = UIColor.whiteColor()
 //        self.lineChartView.gridBackgroundColor = UIColor.yellowColor().colorWithAlphaComponent(0.5)
         self.lineChartView.noDataText = "No Data Available"
-        setChartData((statsViewModel.workoutDates, statsViewModel.totalVolumes))
+        setChartData(statsViewModel.workoutDates)
+        print(statsViewModel.graphType)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,11 +32,13 @@ class StatsViewController: UIViewController, ChartViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func setChartData(data: ([String], [Double])) {
+    func setChartData(data: ([String], [Double?])) {
         // 1 - creating an array of data entries
-        var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
+        var yVals1 = [ChartDataEntry]()
         for i in 0 ..< data.0.count {
-            yVals1.append(ChartDataEntry(value: data.1[i], xIndex: i))
+            if let yval = data.1[i] {
+                yVals1.append(ChartDataEntry(value: yval, xIndex: i))
+            }
         }
         
         // 2 - create a data set with our array

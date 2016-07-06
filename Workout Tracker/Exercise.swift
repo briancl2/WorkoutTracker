@@ -57,11 +57,7 @@ final class Exercise: Object, Mappable {
     
     var calculated1RM: Int {
         if let lastWorkout = workoutDiary.last {
-            let set = lastWorkout.sets.first!
-            let weight = Double(set.weight)
-            let repCount = set.repCount
-            
-            return Int(100 * weight / (48.8 + 53.8 * pow(M_E, -0.075 * Double(repCount))))
+            return lastWorkout.oneRepMax
         }
         return 0
     }

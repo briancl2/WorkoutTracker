@@ -101,11 +101,11 @@ final class ExerciseDetailTableViewController: UITableViewController {
             
         } else if segue.identifier == "ShowStats" {
             let statsViewController = segue.destinationViewController as! StatsViewController
-            
-            statsViewController.statsViewModel = StatsViewModel(exercise: exerciseDetailViewModel.getExercise())
-            
+            let selectedStatsCell = sender as! UITableViewCell
+            if let indexPath = tableView.indexPathForCell(selectedStatsCell), graphType = StatsType(rawValue: indexPath.row) {
+                statsViewController.statsViewModel = StatsViewModel(exercise: exerciseDetailViewModel.getExercise(), graphType: graphType)
+            }
         }
-        
     }
     
     @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {
