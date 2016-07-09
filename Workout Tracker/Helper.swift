@@ -91,7 +91,8 @@ extension Object {
                 }
                 mutabledic.setObject(objects, forKey: prop.name)
             } else if let dateObject = self[prop.name] as? NSDate {
-                let dateString = dateObject.myPrettyString //Perform NSDate conversion for JSON
+                //let dateString = dateObject.myPrettyString //Perform NSDate conversion for JSON
+                let dateString = dateObject.timeIntervalSince1970
                 mutabledic.setValue(dateString, forKey: prop.name)
             }
             
@@ -129,5 +130,22 @@ class ListTransform<T:RealmSwift.Object where T:Mappable> : TransformType {
             }
         }
         return results
+    }
+}
+
+// Allow enums to be enumerated with cases() function call
+protocol EnumCollection : Hashable {}
+extension EnumCollection {
+    static func cases() -> AnySequence<Self> {
+        typealias S = Self
+        return AnySequence { () -> AnyGenerator<S> in
+            var raw = 0
+            return AnyGenerator {
+                let current : Self = withUnsafePointer(&raw) { UnsafePointer($0).memory }
+                guard current.hashValue == raw else { return nil }
+                raw += 1
+                return current
+            }
+        }
     }
 }

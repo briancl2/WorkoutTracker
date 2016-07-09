@@ -23,7 +23,6 @@ struct StatsViewModel {
     }
     
     var workoutDates: ([String], [Double?]) {
-        //return exercise.workoutDiary.map { $0.date.myPrettyString }
         if let lastWorkout = exercise.workoutDiary.last, firstWorkout = exercise.workoutDiary.first {
            
             var dates = [String]()
@@ -61,20 +60,6 @@ struct StatsViewModel {
         }
         return ([], [])
     }
-    
-    var stats: [Double] {
-        switch graphType {
-        case .Progress:
-            return exercise.workoutDiary.map { Double($0.totalVolume) }
-        case .OneRepMax:
-            return exercise.workoutDiary.map { Double($0.oneRepMax) }
-        case .Goal:
-            return exercise.workoutDiary.map { Double($0.weight) }
-        default:
-            return exercise.workoutDiary.map { Double($0.totalVolume) }
-        }
-    }
-    
     
     var statsDescription: String {
         switch graphType {

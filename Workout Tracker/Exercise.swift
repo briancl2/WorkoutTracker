@@ -10,6 +10,37 @@ import Foundation
 import RealmSwift
 import ObjectMapper
 
+enum ExerciseType: EnumCollection {
+    case BackSquat, FrontSquat, BenchPress, BentOverRow, PendlayRow, OverheadPress, PushPress, StraightLeggedDeadlift, RomanianDeadlift, Deadlift, SumoDeadlift, ChinUp, PullUp, CalfRaise, TorsoRotation, Curl, Dip
+    
+    private static let associatedValues = [
+        BackSquat: (bodyWeightMultiplier: 2.0, name: "Back Squat"),
+        FrontSquat: (bodyWeightMultiplier: 2.0, name: "Front Squat"),
+        BenchPress: (bodyWeightMultiplier: 1.5, name: "Bench Press"),
+        BentOverRow: (bodyWeightMultiplier: 1.5, name: "Bent Over Row"),
+        PendlayRow: (bodyWeightMultiplier: 1.5, name: "Pendlay Row"),
+        OverheadPress: (bodyWeightMultiplier: 1.0, name: "Overhead Press"),
+        PushPress: (bodyWeightMultiplier: 1.5, name: "Push Press"),
+        StraightLeggedDeadlift: (bodyWeightMultiplier: 2.0, name: "Straight Legged Deadlift"),
+        RomanianDeadlift: (bodyWeightMultiplier: 2.0, name: "Romanian Deadlift"),
+        SumoDeadlift: (bodyWeightMultiplier: 2.0, name: "Sumo Deadlift"),
+        Deadlift: (bodyWeightMultiplier: 2.0, name: "Deadlift"),
+        ChinUp: (bodyWeightMultiplier: 1.5, name: "Chin Up"),
+        PullUp: (bodyWeightMultiplier: 1.5, name: "Pull Up"),
+        CalfRaise: (bodyWeightMultiplier: 2.0, name: "Calf Raise"),
+        TorsoRotation: (bodyWeightMultiplier: 2.0, name: "Torso Rotation"),
+        Curl: (bodyWeightMultiplier: 1.0, name: "Curl"),
+        Dip: (bodyWeightMultiplier: 1.5, name: "Dip")
+    ]
+    
+    var bodyWeightMultiplier: Double {
+        return ExerciseType.associatedValues[self]!.bodyWeightMultiplier
+    }
+    
+    var name: String {
+        return ExerciseType.associatedValues[self]!.name
+    }
+}
 
 struct ExerciseWeights {
     
@@ -39,15 +70,18 @@ final class Exercise: Object, Mappable {
     dynamic var name = ""
     dynamic var notes: String?
     var workoutDiary = List<Workout>()
-    dynamic var goal = 0
+    dynamic var bodyWeightMultiplier = 0.0
     dynamic var sortOrder = 0
+    
+    var goal: Int {
+        return Int(165 * bodyWeightMultiplier)
+    }
     
     // primaryKey for uniqueness in Realm
     override class func primaryKey() -> String? {
         return "id"
     }
     
-    //dynamic var program: ExerciseProgram?
     var currentWeights: ExerciseWeights {
         if let lastWorkout = workoutDiary.last {
             return ExerciseWeights(weight: lastWorkout.weight)
@@ -109,12 +143,11 @@ final class Exercise: Object, Mappable {
     
     // MARK: Initializers
 
-    convenience init(name: String, notes: String?, goal: Int) {
+    convenience init(exerciseType: ExerciseType, notes: String?) {
         self.init()
-        self.name = name
+        self.name = exerciseType.name
         self.notes = notes
-        //self.workoutDiary = workoutDiary
-        self.goal = goal
+        self.bodyWeightMultiplier = exerciseType.bodyWeightMultiplier
     }
     
     // required for ObjectMapper
@@ -132,7 +165,7 @@ extension Exercise {
         name <- map["name"]
         notes <- map["notes"]
         workoutDiary <- (map["workoutDiary"], ListTransform<Workout>())
-        goal <- map["goal"]
+        bodyWeightMultiplier <- map["bodyWeightMultiplier"]
         sortOrder <- map["sortOrder"]
     }
     

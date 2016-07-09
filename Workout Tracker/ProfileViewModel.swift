@@ -20,7 +20,7 @@ struct ProfileViewModel {
         
         let realm = try! Realm()
         let exercises = realm.objects(Exercise)
-        let _ = exercises.map { exercisesJson in
+        exercises.map { exercisesJson in
             Alamofire.request(.POST, url, parameters: exercisesJson.toDictionary() as? [String : AnyObject], encoding: .JSON)
         }
         print("exporting \(exercises.count) exercises")

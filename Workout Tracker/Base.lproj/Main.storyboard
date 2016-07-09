@@ -614,7 +614,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g., Squat, OHP, Bent Over Row" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZMC-BI-lX6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZMC-BI-lX6">
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1314,7 +1314,7 @@
             </objects>
             <point key="canvasLocation" x="433.5" y="1332.75"/>
         </scene>
-        <!--Title-->
+        <!--Edit Workout-->
         <scene sceneID="APi-Z6-zlG">
             <objects>
                 <tableViewController storyboardIdentifier="EditWorkout" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L5G-Pd-RJf" customClass="EditWorkoutTableViewController" customModule="Workout_Tracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -1607,7 +1607,7 @@
                             <outlet property="delegate" destination="L5G-Pd-RJf" id="N1F-i8-UQd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="1t9-e1-duh">
+                    <navigationItem key="navigationItem" title="Edit Workout" id="1t9-e1-duh">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="HVx-TT-pyo">
                             <connections>
                                 <segue destination="Qy8-Ms-z7k" kind="unwind" unwindAction="unwindToWorkoutHistory:" id="em2-L2-avo"/>

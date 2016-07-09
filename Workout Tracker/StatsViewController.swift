@@ -53,7 +53,10 @@ class StatsViewController: UIViewController, ChartViewDelegate {
 //        set1.drawCubicEnabled = true
 //        set1.cubicIntensity = 0.05
         set1.drawValuesEnabled = false
-        set1.drawCirclesEnabled = false
+        set1.circleRadius = 3
+        set1.circleHoleRadius = 0
+        set1.setCircleColor(UIColor.darkGrayColor())
+        set1.drawCirclesEnabled = true
         set1.drawFilledEnabled = true
         
         
