@@ -16,6 +16,8 @@ struct ProfileViewModel {
     
     private let url = "http://fatrice:8080/workouts"
     
+    let pickOption = ["Allpro", "Allpro self-regulated"]
+    
     func exportData() {
         
         let realm = try! Realm()

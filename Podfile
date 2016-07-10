@@ -8,7 +8,6 @@ target 'Workout Tracker' do
   # Pods for Workout Tracker
   pod 'RealmSwift'
   pod 'Charts'
-  pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'Alamofire'
   pod 'ObjectMapper'
   pod 'AlamofireObjectMapper'
@@ -18,7 +17,6 @@ target 'Workout Tracker' do
     # Pods for testing
     pod 'RealmSwift'
     pod 'Charts'
-    pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
     pod 'Alamofire'
     pod 'ObjectMapper'
     pod 'AlamofireObjectMapper'

@@ -20,12 +20,13 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     
     // MARK: Public Properties
     
+    private let addExerciseViewModel = AddExerciseViewModel()
+    
     var exercise: Exercise!
     
-    let exercisePicker = UIPickerView()
-    let exerciseTypes = Array(ExerciseType.cases())
+    private let exercisePicker = UIPickerView()
     
-    var selectedExercise: ExerciseType? {
+    private var selectedExercise: ExerciseType? {
         didSet {
             nameTextField.text = selectedExercise!.name
         }
@@ -36,9 +37,9 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //doneButton.enabled = false
+        doneButton.enabled = false
         nameTextField.delegate = self
-        //goalTextField.delegate = self
+        goalTextField.delegate = self
         
         exercisePicker.dataSource = self
         exercisePicker.delegate = self
@@ -47,24 +48,31 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     }
 
     // MARK: UITextFieldDelegate
-    
-//    func textFieldShouldReturn(textField: UITextField) -> Bool {
-//        // Hide the keyboard.
-//        textField.resignFirstResponder()
-//        return true
-//    }
-    
-//    func textFieldDidEndEditing(textField: UITextField) {
-//        checkValidExerciseName()
-//    }
-    
-    //  MARK: UITextFieldDelegate
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        // Hide the keyboard.
+        textField.resignFirstResponder()
+        return true
+    }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        //doneButton.enabled = false
+        doneButton.enabled = false
         if textField == nameTextField {
             exercisePicker.hidden = false
             textField.inputView = exercisePicker
+        }
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        checkValidExerciseName()
+    }
+    
+    // disable editing of name text.  picker input only
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField == nameTextField {
+            return false
+        } else {
+            return true
         }
     }
     
@@ -75,15 +83,15 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return exerciseTypes.count
+        return addExerciseViewModel.exerciseTypes.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return exerciseTypes[row].name
+        return addExerciseViewModel.exerciseTypes[row].name
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedExercise = exerciseTypes[row]
+        selectedExercise = addExerciseViewModel.exerciseTypes[row]
         //exercisePicker.hidden = true
     }
     

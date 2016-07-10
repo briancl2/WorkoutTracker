@@ -35,6 +35,8 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
     
     // MARK: Private Properties
     
+    private let recordWorkoutViewModel = RecordWorkoutViewModel()
+    
     private let timerEnd: NSTimeInterval = 90
     private var timerCounter: NSTimeInterval = 0
     private var myTimer: Timer!
@@ -71,10 +73,8 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         super.viewDidLoad()
         self.title = "Add \(exerciseName) Workout"
 
-        
         dateTextField.delegate = self
         doneButton.enabled = false
-        
         
         newDate = NSDate()
         
@@ -104,10 +104,7 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         
         updateLabel(timerEnd)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationWillEnterForegroundNotification, object: nil)
-        
-
     }
 
     deinit {
@@ -195,7 +192,6 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
             if started && !restart {
                 updateLabel(timerEnd)
                 schedulePushNotification()
-            } else {
             }
             
             cancelButton.enabled = false
@@ -222,48 +218,21 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
     
     // MARK: Timer Storage
     
-    private struct PropertyKey {
-        static let timerCounterKey = "RecordWorkoutTableViewController_timeCount"
-        static let timeMeasurementKey = "RecordWorkoutTableViewController_timeMeasurement"
-    }
-    
     private dynamic func applicationWillResignActive() {
         if myTimer?.running == true {
-            saveDefaults()
+            recordWorkoutViewModel.saveDefaults(timerCounter)
         } else {
-            clearDefaults()
+            recordWorkoutViewModel.clearDefaults()
         }
     }
     
     private dynamic func applicationDidBecomeActive() {
         if myTimer?.running == true {
-            loadDefaults()
+            timerCounter = recordWorkoutViewModel.loadDefaults()
             myTimer.stop(true)
             startTimer(timerCounter, restart: true)
         }
     }
-    
-    private func saveDefaults() {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setObject(timerCounter, forKey: PropertyKey.timerCounterKey)
-        userDefault.setObject(NSDate().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
-    }
-    
-    private func clearDefaults() {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.removeObjectForKey(PropertyKey.timerCounterKey)
-        userDefault.removeObjectForKey(PropertyKey.timeMeasurementKey)
-    }
-    
-    private func loadDefaults() {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        let restoredTimerCounter = userDefault.objectForKey(PropertyKey.timerCounterKey) as! Double
-        let restoredTimeMeasurement = userDefault.objectForKey(PropertyKey.timeMeasurementKey) as! Double
-        let timeDelta = NSDate().timeIntervalSince1970 - restoredTimeMeasurement
-        
-        timerCounter = restoredTimerCounter - timeDelta
-    }
-
     
     // MARK: Notifications
     
@@ -318,7 +287,7 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
             }
             myTimer?.stop(true)
             cancelAllNotifications()
-            clearDefaults()
+            recordWorkoutViewModel.clearDefaults()
         }
     }
 }

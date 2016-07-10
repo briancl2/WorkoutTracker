@@ -11,7 +11,6 @@ import UIKit
 final class WorkoutHistoryTableViewController: UITableViewController {
 
     // MARK: Public Properties
-    
 
     var workoutHistoryViewModel: WorkoutHistoryViewModel!
     
@@ -60,7 +59,6 @@ final class WorkoutHistoryTableViewController: UITableViewController {
         }
     }
 
-
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -79,7 +77,6 @@ final class WorkoutHistoryTableViewController: UITableViewController {
         if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController,
             oldWorkout = sourceViewController.workoutToEdit,
             updatedWorkout = sourceViewController.newWorkout {
-            
             workoutHistoryViewModel.replaceWorkout(oldWorkout, newWorkout: updatedWorkout)
         }
     }

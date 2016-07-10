@@ -18,31 +18,28 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var exportDataButton: UIButton!
     @IBOutlet weak var importDataButton: UIButton!
     
-    // MARK: Public Properties
+    // MARK: Private Properties
     
-    var profileViewModel = ProfileViewModel()
+    private var profileViewModel = ProfileViewModel()
     
-    //var userProfile: User
-    let pickOption = ["Allpro", "Allpro self-regulated"]
+//    private var newName: String? {
+//        didSet {
+//            nameTextField.text = newName
+//        }
+//    }
+//    
+//    private var programName: String? {
+//        didSet {
+//            programTextField.text = programName
+//        }
+//    }
+//    
+//    private var bodyweight: Int? {
+//        didSet {
+//            bodyweightTextField.text = "\(bodyweight)"
+//        }
+//    }
     
-    var newName: String? {
-        didSet {
-            nameTextField.text = newName
-        }
-    }
-    
-    var programName: String? {
-        didSet {
-            programTextField.text = programName
-        }
-    }
-    
-    var bodyweight: Int? {
-        didSet {
-            bodyweightTextField.text = "\(bodyweight)"
-        }
-    }
-        
     // MARK: View Lifeycle
     
     override func viewDidLoad() {
@@ -51,13 +48,10 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
         let pickerView = UIPickerView()
         
         pickerView.delegate = self
-        
         programTextField.inputView = pickerView
         
-       // doneButton.enabled = false
-        
-        nameTextField.delegate = self
-        bodyweightTextField.delegate = self
+//        nameTextField.delegate = self
+//        bodyweightTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,37 +66,37 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickOption.count
+        return profileViewModel.pickOption.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickOption[row]
+        return profileViewModel.pickOption[row]
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        programTextField.text = pickOption[row]
+        programTextField.text = profileViewModel.pickOption[row]
     }
     
-    // MARK: UITextFieldDelegate
-
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if textField == programTextField {
-            return false
-        } else {
-            return true
-        }
-    }
+//    // MARK: UITextFieldDelegate
+//
+//    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
+//
+//    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+//        if textField == programTextField {
+//            return false
+//        } else {
+//            return true
+//        }
+//    }
     
-    // MARK: Helper Functions
-    
-    func closeKeyboard() {
-        self.view.endEditing(true)
-    }
+//    // MARK: Helper Functions
+//    
+//    func closeKeyboard() {
+//        self.view.endEditing(true)
+//    }
 
     
     // MARK: Actions
