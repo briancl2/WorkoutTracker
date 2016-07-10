@@ -12,11 +12,7 @@ import RealmSwift
 struct WorkoutHistoryViewModel {
     
     private let workoutDiary: List<Workout>
-    private let exerciseName: String
-    
-    var name: String {
-        return exerciseName
-    }
+    let exerciseName: String
     
     var count: Int {
         return workoutDiary.count

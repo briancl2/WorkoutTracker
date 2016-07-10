@@ -26,7 +26,7 @@ class Workout_TrackerTests: XCTestCase {
     
     func testExerciseProgramViewModel() {
         let exercisesViewModel = ExerciseProgramViewModel()
-        XCTAssertEqual(exercisesViewModel.getExercise(0).name,"Squat")
+        XCTAssertEqual(exercisesViewModel.getExercise(0).name,"Back Squat")
         XCTAssertEqual(exercisesViewModel.getExercise(0).workoutDiary.first!.date.myPrettyString,"Apr 20")
         XCTAssertEqual(exercisesViewModel.getExercise(0).workoutDiary.first!.totalVolume,2755)
         XCTAssertEqual(exercisesViewModel.getExercise(8).name,"Curl")
@@ -37,11 +37,9 @@ class Workout_TrackerTests: XCTestCase {
     func testAddNewExercise() {
         let exercisesViewModel = ExerciseProgramViewModel()
         
-        let name = "test"
         let notes: String? = nil
-        let goal = 200
         
-        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, goal: goal))
+        exercisesViewModel.addExercise(Exercise(exerciseType: ExerciseType.BackSquat, notes: notes))
         let exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
         
         let date = NSDate()
@@ -65,11 +63,9 @@ class Workout_TrackerTests: XCTestCase {
     func testExerciseDetailViewModelLastWorkouts() {
         let exercisesViewModel = ExerciseProgramViewModel()
         
-        let name = "test"
         let notes: String? = nil
-        let goal = 200
         
-        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, goal: goal))
+        exercisesViewModel.addExercise(Exercise(exerciseType: ExerciseType.BackSquat, notes: notes))
         var exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
         
         let date = NSDate()
@@ -98,11 +94,9 @@ class Workout_TrackerTests: XCTestCase {
     func testExerciseDetailViewModelStats() {
         let exercisesViewModel = ExerciseProgramViewModel()
         
-        let name = "test"
         let notes: String? = nil
-        let goal = 200
         
-        exercisesViewModel.addExercise(Exercise(name: name, notes: notes, goal: goal))
+        exercisesViewModel.addExercise(Exercise(exerciseType: ExerciseType.BackSquat, notes: notes))
         var exerciseDetailViewModel = ExerciseDetailViewModel(exercise: exercisesViewModel.getExercise(exercisesViewModel.count - 1))
         
         let date = NSDate()
@@ -125,7 +119,7 @@ class Workout_TrackerTests: XCTestCase {
         XCTAssertEqual(exerciseDetailViewModel.details[2][0].0, "60d progress")
         XCTAssertEqual(exerciseDetailViewModel.details[2][0].1, "Weight: 0% Total Volume: 0%")
         XCTAssertEqual(exerciseDetailViewModel.details[2][1].1, "195lbs")
-        XCTAssertEqual(exerciseDetailViewModel.details[2][2].1, "97% of 200lbs")
+        XCTAssertEqual(exerciseDetailViewModel.details[2][2].1, "59% of 330lbs")
     }
 }
 //    func testLoopPerformance() {

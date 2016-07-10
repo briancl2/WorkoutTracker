@@ -9,13 +9,15 @@
 import Foundation
 
 enum StatsType: Int {
+    
     case Progress, OneRepMax, Goal, Cycles
+    
 }
 
 struct StatsViewModel {
     
-    var exercise: Exercise
-    var graphType: StatsType
+    private(set) var exercise: Exercise
+    private(set) var graphType: StatsType
     
     init(exercise: Exercise, graphType: StatsType) {
         self.exercise = exercise

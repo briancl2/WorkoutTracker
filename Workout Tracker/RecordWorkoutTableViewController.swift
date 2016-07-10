@@ -30,12 +30,9 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
     // MARK: Public Properties
     
     var newWorkout: Workout! // the new Workout to construct here and pass back to the unwind of the sender
-    var workout: Workout! // passed from sender
-    var exerciseName: String! // passed from sender
+    var recordWorkoutViewModel: RecordWorkoutViewModel!
     
     // MARK: Private Properties
-    
-    private let recordWorkoutViewModel = RecordWorkoutViewModel()
     
     private let timerEnd: NSTimeInterval = 90
     private var timerCounter: NSTimeInterval = 0
@@ -71,36 +68,13 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Add \(exerciseName) Workout"
+        self.title = "Add \(recordWorkoutViewModel.exerciseName) Workout"
 
         dateTextField.delegate = self
         doneButton.enabled = false
         
-        newDate = NSDate()
-        
-        if let lastWorkout = workout {
-            newWeight = lastWorkout.weight
-            newSetOne = lastWorkout.sets[0].repCount
-            newSetTwo = lastWorkout.sets[1].repCount
-        } else {
-            newWeight = 0
-            newSetOne = 8
-            newSetTwo = 8
-        }
-        
-        weightStepper.stepValue = 5
-        weightStepper.maximumValue = 995
-        weightStepper.value = Double(newWeight!)
-        
-        setOneStepper.stepValue = 1
-        setOneStepper.minimumValue = 1
-        setOneStepper.maximumValue = 20
-        setOneStepper.value = Double(newSetOne!)
-        
-        setTwoStepper.stepValue = 1
-        setTwoStepper.minimumValue = 1
-        setTwoStepper.maximumValue = 20
-        setTwoStepper.value = Double(newSetTwo!)
+        initializeLabels()
+        configureViews()
         
         updateLabel(timerEnd)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
@@ -151,8 +125,8 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         }
         
         // last workout's reps
-        if let workout = workout where section == 2 {
-            return "Reps finished on \(workout.date.myPrettyString): \(workout.sets[0].repCount) and \(workout.sets[1].repCount) @ \(workout.weight)lbs"
+        if let lastWorkout = recordWorkoutViewModel.lastWorkout where section == 2 {
+            return "Reps finished on \(lastWorkout.date.myPrettyString): \(lastWorkout.sets[0].repCount) and \(lastWorkout.sets[1].repCount) @ \(lastWorkout.weight)lbs"
         }
         
         return nil
@@ -164,6 +138,29 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
     }
 
     // MARK: Helper Functions
+    
+    private func initializeLabels() {
+        newDate = NSDate()
+        newWeight = recordWorkoutViewModel.lastWorkout?.weight ?? 0
+        newSetOne = recordWorkoutViewModel.lastWorkout?.sets[0].repCount ?? 8
+        newSetTwo = recordWorkoutViewModel.lastWorkout?.sets[1].repCount ?? 8
+    }
+    
+    private func configureViews() {
+        weightStepper.stepValue = 5
+        weightStepper.maximumValue = 995
+        weightStepper.value = Double(newWeight!)
+        
+        setOneStepper.stepValue = 1
+        setOneStepper.minimumValue = 1
+        setOneStepper.maximumValue = 20
+        setOneStepper.value = Double(newSetOne!)
+        
+        setTwoStepper.stepValue = 1
+        setTwoStepper.minimumValue = 1
+        setTwoStepper.maximumValue = 20
+        setTwoStepper.value = Double(newSetTwo!)
+    }
     
     private func closeKeyboard() {
         self.view.endEditing(true)

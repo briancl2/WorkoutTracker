@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class StatsViewController: UIViewController, ChartViewDelegate {
+final class StatsViewController: UIViewController, ChartViewDelegate {
 
     @IBOutlet weak var lineChartView: LineChartView!
     
@@ -17,14 +17,13 @@ class StatsViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.title = statsViewModel.exercise.name // back button has exercise name in it
+        self.title = statsViewModel.exercise.name // back button has exercise name in it
         self.lineChartView.delegate = self
         self.lineChartView.descriptionText = statsViewModel.statsDescription
         self.lineChartView.descriptionTextColor = UIColor.whiteColor()
 //        self.lineChartView.gridBackgroundColor = UIColor.yellowColor().colorWithAlphaComponent(0.5)
         self.lineChartView.noDataText = "No Data Available"
         setChartData(statsViewModel.workoutDates)
-        print(statsViewModel.graphType)
     }
 
     override func didReceiveMemoryWarning() {

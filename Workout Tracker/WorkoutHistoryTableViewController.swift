@@ -23,7 +23,7 @@ final class WorkoutHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "\(workoutHistoryViewModel.name) History"
+        self.title = "\(workoutHistoryViewModel.exerciseName) History"
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
@@ -69,7 +69,7 @@ final class WorkoutHistoryTableViewController: UITableViewController {
             let workoutToEdit = workoutHistoryViewModel.getWorkoutAtIndex(indexPath!.row)
             
             editWorkoutTableViewController.workoutToEdit = workoutToEdit
-            editWorkoutTableViewController.exerciseName = workoutHistoryViewModel.name
+            editWorkoutTableViewController.exerciseName = workoutHistoryViewModel.exerciseName
         }
     }
 

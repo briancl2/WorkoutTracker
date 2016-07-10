@@ -14,8 +14,8 @@ final class WorkSet: Object, Mappable {
     
     // MARK: Public Properties
     
-    dynamic var weight = 0
-    dynamic var repCount = 0
+    private(set) dynamic var weight = 0
+    private(set) dynamic var repCount = 0
     var volume: Int {
         return weight * repCount
     }

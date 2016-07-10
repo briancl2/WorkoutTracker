@@ -13,8 +13,8 @@ struct ExerciseDetailViewModel {
     
     private let exercise: Exercise!
     
-    var details = [[(String, String)]]()
-    var sections = [String]()
+    private(set) var details = [[(String, String)]]()
+    private(set) var sections = [String]()
     var name: String {
         return exercise.name
     }

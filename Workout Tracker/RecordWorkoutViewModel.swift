@@ -10,6 +10,14 @@ import Foundation
 
 struct RecordWorkoutViewModel {
     
+    private(set) var lastWorkout: Workout?
+    private(set) var exerciseName: String
+    
+    init(exerciseName: String, lastWorkout: Workout?) {
+        self.exerciseName = exerciseName
+        self.lastWorkout = lastWorkout
+    }
+    
     private struct PropertyKey {
         static let timerCounterKey = "RecordWorkoutTableViewController_timeCount"
         static let timeMeasurementKey = "RecordWorkoutTableViewController_timeMeasurement"

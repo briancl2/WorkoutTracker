@@ -13,8 +13,8 @@ final class ExerciseProgram: Object {
     
     // MARK: Public Properties
     
-    dynamic var name: String = ""
-    dynamic var startDate = NSDate()
+    private(set) dynamic var name: String = ""
+    private(set) dynamic var startDate = NSDate()
 
     
     // MARK: Initializers

@@ -13,9 +13,9 @@ final class User: Object {
     
     // MARK: Public Properties
     
-    dynamic var bodyWeight = 0
-    dynamic var name = ""
-    dynamic var age = 0
+    private(set) dynamic var bodyWeight = 0
+    private(set) dynamic var name = ""
+    private(set) dynamic var age = 0
     
     // MARK: Initializers
     

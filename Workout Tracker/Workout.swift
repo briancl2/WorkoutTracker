@@ -14,8 +14,8 @@ final class Workout: Object, Mappable {
     
     // MARK: Public Properties
     
-    dynamic var date = NSDate()
-    var sets = List<WorkSet>()
+    private(set) dynamic var date = NSDate()
+    private(set) var sets = List<WorkSet>()
     var weight: Int {
         return sets.map({$0.weight}).maxElement()!
     }
@@ -55,9 +55,6 @@ final class Workout: Object, Mappable {
 extension Workout {
     
     func mapping(map: Map) {
-//        let dateFormatter = NSDateFormatter()
-//        dateFormatter.dateFormat = "MMM d"
-//        date <- (map["date"], DateFormatterTransform(dateFormatter: dateFormatter))
         date <- (map["date"], DateTransform())
         sets <- (map["sets"], ListTransform<WorkSet>())
     }
