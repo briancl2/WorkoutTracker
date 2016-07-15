@@ -57,14 +57,14 @@ final class Exercise: Object, Mappable {
     }
     
     var averageCycleLength: Int? {
-        if let lastWorkout = workoutDiary.last {
-            let numberOfDays = lastWorkout.date.daysFrom(workoutDiary.first!.date)
-            let completedCycles = numberOfCompletedCycles
-            if completedCycles > 0 {
-                return numberOfDays / completedCycles
-            }
+        guard let lastWorkout = workoutDiary.last, let firstWorkout = workoutDiary.first
+            where numberOfCompletedCycles > 0
+            else {
+                return nil
         }
-        return nil
+        
+        let numberOfDays = lastWorkout.date.daysFrom(firstWorkout.date)
+        return numberOfDays / numberOfCompletedCycles
     }
     
     var numberOfCompletedCycles: Int {       
@@ -87,6 +87,14 @@ final class Exercise: Object, Mappable {
         }
         
         return counter
+    }
+    
+    var workoutsPerCycle: Int? {
+        if numberOfCompletedCycles > 0 {
+            let numberOfWorkouts = workoutDiary.count
+            return numberOfWorkouts / numberOfCompletedCycles
+        }
+        return nil
     }
     
     // MARK: Initializers

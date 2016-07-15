@@ -45,8 +45,8 @@ struct ExerciseDetailViewModel {
             }
             stats.append(("1RM", "\(exercise.calculated1RM)lbs"))
             stats.append(("Goal", "\(exercise.goalAttainment)% of \(exercise.goal)lbs"))
-            if let averageCycleLength = exercise.averageCycleLength {
-                stats.append(("Avg Cycle Length", "\(averageCycleLength) days"))
+            if let averageCycleDays = exercise.averageCycleLength, let averageCycleWorkouts = exercise.workoutsPerCycle {
+                stats.append(("Avg Cycle", "\(averageCycleDays) days, \(averageCycleWorkouts) workouts"))
             }
             details.append(stats)
             sections.append("Stats")
