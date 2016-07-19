@@ -111,6 +111,16 @@ final class Exercise: Object, Mappable {
         self.bodyWeightMultiplier = exerciseType.bodyWeightMultiplier
     }
     
+    convenience init(name: String, notes: String?, bodyWeightMultiplier: Double, workoutDiary: List<Workout>, username: String, sortOrder: Int) {
+        self.init()
+        self.name = name
+        self.notes = notes
+        self.bodyWeightMultiplier = bodyWeightMultiplier
+        self.workoutDiary = workoutDiary
+        self.username = username
+        self.sortOrder = sortOrder
+    }
+    
     // required for ObjectMapper
     required convenience init?(_ map: Map) {
         self.init()

@@ -17,7 +17,7 @@ struct ExerciseProgramViewModel {
     }
     
     init() {
-        LoadDataDefaults()
+        //LoadDataDefaults()
         let realm = try! Realm()
         self.exercises = realm.objects(Exercise).sorted("sortOrder")
         
@@ -33,6 +33,12 @@ struct ExerciseProgramViewModel {
         let exercise = exercises[index]
         let realm = try! Realm()
         try! realm.write {
+            for workout in exercise.workoutDiary {
+                for workSet in workout.sets {
+                    realm.delete(workSet)
+                }
+                realm.delete(workout)
+            }
             realm.delete(exercise)
         }
     }

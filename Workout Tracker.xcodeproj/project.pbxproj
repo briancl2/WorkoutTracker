@@ -306,7 +306,7 @@
 				TargetAttributes = {
 					15BF7C621CD009C80095440B = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = X8NKYZJZ6B;
+						DevelopmentTeam = FJPETT983T;
 					};
 					15BF7C791CD009C80095440B = {
 						CreatedOnToolsVersion = 7.3;
@@ -615,10 +615,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Workout Tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "briancl.com.example.Workout-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.briancl.workouttracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -628,10 +630,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Workout Tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "briancl.com.example.Workout-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.briancl.workouttracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
