@@ -20,14 +20,19 @@ final class Exercise: Object, Mappable {
     private(set) var workoutDiary = List<Workout>()
     private(set) dynamic var bodyWeightMultiplier = 0.0
     dynamic var sortOrder = 0
+    private(set) dynamic var username = "Brian"
     
-    // primaryKey for uniqueness in Realm
+    // primaryKey for uniqueness in Realmk
     override class func primaryKey() -> String? {
         return "id"
     }
     
     var goal: Int {
-        return Int(165 * bodyWeightMultiplier)
+        let realm = try! Realm()
+        if let user = realm.objects(User).first {
+            return Int(Double(user.bodyWeight) * bodyWeightMultiplier)
+        }
+        return 1
     }
     
     var currentWeights: ExerciseWeights {
@@ -123,6 +128,7 @@ extension Exercise {
         workoutDiary <- (map["workoutDiary"], ListTransform<Workout>())
         bodyWeightMultiplier <- map["bodyWeightMultiplier"]
         sortOrder <- map["sortOrder"]
+        username <- map["username"]
     }
     
 }

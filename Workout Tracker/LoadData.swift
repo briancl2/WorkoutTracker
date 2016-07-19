@@ -44,6 +44,8 @@ func LoadDataDefaults() {
     squat.recordWorkout("16-07-09", weight: 170, repsFirstSet: 11, repsSecondSet: 9)
     squat.recordWorkout("16-07-11", weight: 170, repsFirstSet: 12, repsSecondSet: 10)
     squat.recordWorkout("16-07-13", weight: 170, repsFirstSet: 13, repsSecondSet: 11)
+    squat.recordWorkout("16-07-15", weight: 185, repsFirstSet: 9, repsSecondSet: 8)
+    squat.recordWorkout("16-07-17", weight: 185, repsFirstSet: 9, repsSecondSet: 8)
     
     let bench = Exercise(exerciseType: .BenchPress, notes: "Bench Press Notes")
     bench.recordWorkout("16-04-20", weight: 125, repsFirstSet: 13, repsSecondSet: 11)
@@ -76,6 +78,8 @@ func LoadDataDefaults() {
     bench.recordWorkout("16-07-09", weight: 145, repsFirstSet: 12, repsSecondSet: 9)
     bench.recordWorkout("16-07-11", weight: 145, repsFirstSet: 12, repsSecondSet: 8)
     bench.recordWorkout("16-07-13", weight: 145, repsFirstSet: 12, repsSecondSet: 7)
+    bench.recordWorkout("16-07-15", weight: 145, repsFirstSet: 11, repsSecondSet: 9)
+    bench.recordWorkout("16-07-17", weight: 145, repsFirstSet: 12, repsSecondSet: 9)
     
     let row = Exercise(exerciseType: .BentOverRow, notes: "Bent Over Row notes")
     row.recordWorkout("16-04-20", weight: 115, repsFirstSet: 11, repsSecondSet: 10)
@@ -109,6 +113,8 @@ func LoadDataDefaults() {
     row.recordWorkout("16-07-09", weight: 145, repsFirstSet: 9, repsSecondSet: 9)
     row.recordWorkout("16-07-11", weight: 145, repsFirstSet: 10, repsSecondSet: 9)
     row.recordWorkout("16-07-13", weight: 145, repsFirstSet: 10, repsSecondSet: 10)
+    row.recordWorkout("16-07-15", weight: 145, repsFirstSet: 10, repsSecondSet: 10)
+    row.recordWorkout("16-07-17", weight: 145, repsFirstSet: 11, repsSecondSet: 10)
     
     let ohp = Exercise(exerciseType: .OverheadPress, notes: "OHP notes")
     ohp.recordWorkout("16-04-20", weight: 95, repsFirstSet: 8, repsSecondSet: 8)
@@ -142,6 +148,8 @@ func LoadDataDefaults() {
     ohp.recordWorkout("16-07-09", weight: 95, repsFirstSet: 12, repsSecondSet: 8)
     ohp.recordWorkout("16-07-11", weight: 95, repsFirstSet: 12, repsSecondSet: 8)
     ohp.recordWorkout("16-07-13", weight: 95, repsFirstSet: 12, repsSecondSet: 9)
+    ohp.recordWorkout("16-07-15", weight: 95, repsFirstSet: 12, repsSecondSet: 10)
+    ohp.recordWorkout("16-07-17", weight: 95, repsFirstSet: 13, repsSecondSet: 8)
     
     let sldl = Exercise(exerciseType: .StraightLeggedDeadlift, notes: "SLDL notes")
     sldl.recordWorkout("16-04-20", weight: 95, repsFirstSet: 13, repsSecondSet: 11)
@@ -175,6 +183,8 @@ func LoadDataDefaults() {
     sldl.recordWorkout("16-07-09", weight: 145, repsFirstSet: 11, repsSecondSet: 10)
     sldl.recordWorkout("16-07-11", weight: 145, repsFirstSet: 11, repsSecondSet: 11)
     sldl.recordWorkout("16-07-13", weight: 145, repsFirstSet: 12, repsSecondSet: 10)
+    sldl.recordWorkout("16-07-15", weight: 145, repsFirstSet: 13, repsSecondSet: 11)
+    sldl.recordWorkout("16-07-17", weight: 155, repsFirstSet: 9, repsSecondSet: 9)
     
     let chin = Exercise(exerciseType: .ChinUp, notes: "Chin notes")
     chin.recordWorkout("16-04-20", weight: 110, repsFirstSet: 10, repsSecondSet: 9)
@@ -206,6 +216,8 @@ func LoadDataDefaults() {
     chin.recordWorkout("16-07-09", weight: 135, repsFirstSet: 13, repsSecondSet: 9)
     chin.recordWorkout("16-07-11", weight: 135, repsFirstSet: 13, repsSecondSet: 10)
     chin.recordWorkout("16-07-13", weight: 135, repsFirstSet: 13, repsSecondSet: 11)
+    chin.recordWorkout("16-07-15", weight: 150, repsFirstSet: 9, repsSecondSet: 8)
+    chin.recordWorkout("16-07-17", weight: 150, repsFirstSet: 9, repsSecondSet: 9)
     
     let calf = Exercise(exerciseType: .CalfRaise, notes: "calf notes")
     calf.recordWorkout("16-04-20", weight: 150, repsFirstSet: 13, repsSecondSet: 11)
@@ -283,7 +295,7 @@ func LoadDataDefaults() {
     curl.recordWorkout("16-07-07", weight: 70, repsFirstSet: 11, repsSecondSet: 7)
     
     let exercises = ExerciseProgram(name: "Allpro Auto-regulated")
-    let user = User(bodyWeight: 160, name: "Brian", age: 34)
+    let user = User(bodyWeight: 165, name: "Brian", age: 34)
     
     squat.sortOrder = 0
     bench.sortOrder = 1

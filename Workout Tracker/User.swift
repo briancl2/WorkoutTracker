@@ -8,8 +8,9 @@
 
 import Foundation
 import RealmSwift
+import ObjectMapper
 
-final class User: Object {
+final class User: Object, Mappable {
     
     // MARK: Public Properties
     
@@ -24,6 +25,22 @@ final class User: Object {
         self.bodyWeight = bodyWeight
         self.name = name
         self.age = age
+    }
+    
+    // required for ObjectMapper
+    required convenience init?(_ map: Map) {
+        self.init()
+    }
+    
+}
+
+// Support for ObjectMapper
+extension User {
+    
+    func mapping(map: Map) {
+        bodyWeight <- map["bodyWeight"]
+        name <- map["name"]
+        age <- map["age"]
     }
     
 }
