@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        return true
 //    }
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert], categories: nil))
         
-        application.beginBackgroundTaskWithName("showNotification", expirationHandler: nil)
+        application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
         
         //LoadData.defaults()
         

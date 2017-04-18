@@ -12,7 +12,7 @@ struct Weight {
     
     // MARK: Public Properties
     
-    private(set) var weight: Int
+    fileprivate(set) var weight: Int
     var barText: String {
         if weight == 0 {
             return ""

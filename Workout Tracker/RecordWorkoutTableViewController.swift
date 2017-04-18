@@ -9,6 +9,30 @@
 import UIKit
 import AudioToolbox
 import RealmSwift
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 final class RecordWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
 
@@ -34,17 +58,17 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
     
     // MARK: Private Properties
     
-    private let timerEnd: NSTimeInterval = 90
-    private var timerCounter: NSTimeInterval = 0
-    private var myTimer: Timer!
+    fileprivate let timerEnd: TimeInterval = 90
+    fileprivate var timerCounter: TimeInterval = 0
+    fileprivate var myTimer: Timer!
     
-    private var newDate: NSDate? {
+    fileprivate var newDate: Date? {
         didSet {
             dateTextField.text = newDate!.myPrettyString
         }
     }
     
-    private var newWeight: Int? {
+    fileprivate var newWeight: Int? {
         didSet {
             weightLabel.text = "\(newWeight!) lbs"
             checkValidExercise()
@@ -52,13 +76,13 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         }
     }
     
-    private var newSetOne: Int? {
+    fileprivate var newSetOne: Int? {
         didSet {
             setOneLabel.text = "Set 1: \(newSetOne!) reps"
         }
     }
     
-    private var newSetTwo: Int? {
+    fileprivate var newSetTwo: Int? {
         didSet {
             setTwoLabel.text = "Set 2: \(newSetTwo!) reps"
         }
@@ -71,82 +95,82 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         self.title = "Add \(recordWorkoutViewModel.exerciseName) Workout"
 
         dateTextField.delegate = self
-        doneButton.enabled = false
+        doneButton.isEnabled = false
         
         initializeLabels()
         configureViews()
         
         updateLabel(timerEnd)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationWillResignActive),name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RecordWorkoutTableViewController.applicationDidBecomeActive),name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     //  MARK: UITextFieldDelegate
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         let datePicker = UIDatePicker()
-        datePicker.maximumDate = NSDate()
-        datePicker.datePickerMode = UIDatePickerMode.Date
+        datePicker.maximumDate = Date()
+        datePicker.datePickerMode = UIDatePickerMode.date
         textField.inputView = datePicker
-        datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
+        datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), for: .valueChanged)
     }
     
-    func datePickerChanged(sender: UIDatePicker) {
+    func datePickerChanged(_ sender: UIDatePicker) {
         newDate = sender.date
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 
     // disable editing of date text.  datepicker input only
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return false
     }
     
     // MARK: Touch Events
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         dateTextField.resignFirstResponder()
         closeKeyboard()
     }
     
     // MARK: tableView
     
-    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         // BarText under Weight
-        if let weight = newWeight where section == 1 {
+        if let weight = newWeight, section == 1 {
             return Weight(weight: weight).barText
         }
         
         // last workout's reps
-        if let lastWorkout = recordWorkoutViewModel.lastWorkout where section == 2 {
+        if let lastWorkout = recordWorkoutViewModel.lastWorkout, section == 2 {
             return "Reps finished on \(lastWorkout.date.myPrettyString): \(lastWorkout.sets[0].repCount) and \(lastWorkout.sets[1].repCount) @ \(lastWorkout.weight)lbs"
         }
         
         return nil
     }
     
-    override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        header.textLabel?.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
     }
 
     // MARK: Helper Functions
     
-    private func initializeLabels() {
-        newDate = NSDate()
+    fileprivate func initializeLabels() {
+        newDate = Date()
         newWeight = recordWorkoutViewModel.lastWorkout?.weight ?? 0
         newSetOne = recordWorkoutViewModel.lastWorkout?.sets[0].repCount ?? 8
         newSetTwo = recordWorkoutViewModel.lastWorkout?.sets[1].repCount ?? 8
     }
     
-    private func configureViews() {
+    fileprivate func configureViews() {
         weightStepper.stepValue = 5
         weightStepper.maximumValue = 995
         weightStepper.value = Double(newWeight!)
@@ -162,21 +186,21 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         setTwoStepper.value = Double(newSetTwo!)
     }
     
-    private func closeKeyboard() {
+    fileprivate func closeKeyboard() {
         self.view.endEditing(true)
     }
     
-    private func checkValidExercise() {
+    fileprivate func checkValidExercise() {
         if newWeight > 0 {
-            doneButton.enabled = true
+            doneButton.isEnabled = true
         } else {
-            doneButton.enabled = false
+            doneButton.isEnabled = false
         }
     }
     
     // MARK: Timer Handlers
     
-    private func startTimer(length: NSTimeInterval, restart: Bool = false) {
+    fileprivate func startTimer(_ length: TimeInterval, restart: Bool = false) {
         if myTimer?.running != true { // only proceed if myTimer? points to an object AND running is false
             myTimer = Timer(length: length)
             
@@ -191,31 +215,31 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
                 schedulePushNotification()
             }
             
-            cancelButton.enabled = false
-            doneButton.enabled = false
-            timerStartButton.enabled = false
+            cancelButton.isEnabled = false
+            doneButton.isEnabled = false
+            timerStartButton.isEnabled = false
         }
     }
     
-    private func updateLabel(time: NSTimeInterval) {
+    fileprivate func updateLabel(_ time: TimeInterval) {
         timerLabel.text = time.myPrettyString
         timerCounter = time
     }
     
-    private func showFinish(finished: Bool) {
+    fileprivate func showFinish(_ finished: Bool) {
         if finished {
             timerLabel.text = "Time is up!!"
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
             cancelAllNotifications()
         }
-        cancelButton.enabled = true
-        doneButton.enabled = true
-        timerStartButton.enabled = true
+        cancelButton.isEnabled = true
+        doneButton.isEnabled = true
+        timerStartButton.isEnabled = true
     }
     
     // MARK: Timer Storage
     
-    private dynamic func applicationWillResignActive() {
+    fileprivate dynamic func applicationWillResignActive() {
         if myTimer?.running == true {
             recordWorkoutViewModel.saveDefaults(timerCounter)
         } else {
@@ -223,7 +247,7 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
         }
     }
     
-    private dynamic func applicationDidBecomeActive() {
+    fileprivate dynamic func applicationDidBecomeActive() {
         if myTimer?.running == true {
             timerCounter = recordWorkoutViewModel.loadDefaults()
             myTimer.stop(true)
@@ -233,50 +257,50 @@ final class RecordWorkoutTableViewController: UITableViewController, UITextField
     
     // MARK: Notifications
     
-    private func schedulePushNotification() {
+    fileprivate func schedulePushNotification() {
         let notification = UILocalNotification()
         notification.alertAction = "Go back to App"
         notification.alertBody = "The 90s timer is finished!"
-        notification.fireDate = NSDate(timeIntervalSinceNow: timerEnd+1)
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        notification.fireDate = Date(timeIntervalSinceNow: timerEnd+1)
+        UIApplication.shared.scheduleLocalNotification(notification)
         
     }
     
-    private func cancelAllNotifications() {
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
+    fileprivate func cancelAllNotifications() {
+        UIApplication.shared.cancelAllLocalNotifications()
     }
     
     // MARK: Actions
     
-    @IBAction private func weightStepperChanged(sender: UIStepper) {
+    @IBAction fileprivate func weightStepperChanged(_ sender: UIStepper) {
         newWeight = Int(sender.value)
         closeKeyboard()
     }
     
-    @IBAction private func setOneStepperChanged(sender: UIStepper) {
+    @IBAction fileprivate func setOneStepperChanged(_ sender: UIStepper) {
         newSetOne = Int(sender.value)
         closeKeyboard()
     }
 
-    @IBAction private func setTwoStepperChanged(sender: UIStepper) {
+    @IBAction fileprivate func setTwoStepperChanged(_ sender: UIStepper) {
         newSetTwo = Int(sender.value)
         closeKeyboard()
     }
     
-    @IBAction private func timerStartButtonTapped(sender: UIButton) {
+    @IBAction fileprivate func timerStartButtonTapped(_ sender: UIButton) {
         startTimer(timerEnd)
     }
     
-    @IBAction private func timerResetButtonTapped(sender: UIButton) {
+    @IBAction fileprivate func timerResetButtonTapped(_ sender: UIButton) {
         myTimer?.stop(true)
         cancelAllNotifications()
         updateLabel(timerEnd)
     }
     // MARK: Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if doneButton === sender {
-            if let date = newDate, weight = newWeight, setOne = newSetOne, setTwo = newSetTwo {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if doneButton === sender as AnyObject? {
+            if let date = newDate, let weight = newWeight, let setOne = newSetOne, let setTwo = newSetTwo {
                 let newSets = List<WorkSet>()
                 newSets.append(WorkSet(weight: weight, repCount: setOne))
                 newSets.append(WorkSet(weight: weight, repCount: setTwo))

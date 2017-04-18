@@ -14,10 +14,10 @@ final class Workout: Object, Mappable {
     
     // MARK: Public Properties
     
-    private(set) dynamic var date = NSDate()
-    private(set) var sets = List<WorkSet>()
+    fileprivate(set) dynamic var date = Date()
+    fileprivate(set) var sets = List<WorkSet>()
     var weight: Int {
-        return sets.map({$0.weight}).maxElement()!
+        return sets.map({$0.weight}).max()!
     }
     
     var totalVolume: Int {
@@ -38,14 +38,14 @@ final class Workout: Object, Mappable {
     
     // MARK: Initializers
     
-    convenience init(date: NSDate, sets: List<WorkSet>) {
+    convenience init(date: Date, sets: List<WorkSet>) {
         self.init()
         self.date = date
         self.sets = sets
     }
     
     // required for ObjectMapper
-    required convenience init?(_ map: Map) {
+    required convenience init?(map: Map) {
         self.init()
     }
     

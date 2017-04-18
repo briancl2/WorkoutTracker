@@ -14,8 +14,8 @@ final class WorkSet: Object, Mappable {
     
     // MARK: Public Properties
     
-    private(set) dynamic var weight = 0
-    private(set) dynamic var repCount = 0
+    fileprivate(set) dynamic var weight = 0
+    fileprivate(set) dynamic var repCount = 0
     var volume: Int {
         return weight * repCount
     }
@@ -29,7 +29,7 @@ final class WorkSet: Object, Mappable {
     }
     
     // required by ObjectMapper
-    required convenience init?(_ map: Map) {
+    required convenience init?(map: Map) {
         self.init()
     }
     

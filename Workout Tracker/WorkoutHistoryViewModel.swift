@@ -11,7 +11,7 @@ import RealmSwift
 
 struct WorkoutHistoryViewModel {
     
-    private let workoutDiary: List<Workout>
+    fileprivate var workoutDiary: List<Workout>
     let exerciseName: String
     
     var count: Int {
@@ -23,49 +23,49 @@ struct WorkoutHistoryViewModel {
         self.exerciseName = exerciseName
     }
     
-    func getDate(index: Int) -> String {
+    func getDate(_ index: Int) -> String {
         return "\(workoutDiary[index].date.myPrettyString)"
     }
     
-    func getWorkSets(index: Int) -> String {
+    func getWorkSets(_ index: Int) -> String {
         return "\(workoutDiary[index].sets[0].repCount) and \(workoutDiary[index].sets[1].repCount) Reps @ \(workoutDiary[index].sets[0].weight)lbs"
     }
     
-    func removeWorkoutAtIndex(index: Int) {
+    mutating func removeWorkoutAtIndex(_ index: Int) {
         let realm = try! Realm()
         try! realm.write {
-            workoutDiary.removeAtIndex(index)
+            workoutDiary.remove(at: index)
         }
     }
     
-    func getWorkoutAtIndex(index: Int) -> Workout {
+    func getWorkoutAtIndex(_ index: Int) -> Workout {
         return workoutDiary[index]
     }
     
-    func replaceWorkout(oldWorkout: Workout, newWorkout: Workout) {
-        let index = workoutDiary.indexOf(oldWorkout)!
+    func replaceWorkout(_ oldWorkout: Workout, newWorkout: Workout) {
+        let index = workoutDiary.index(of: oldWorkout)!
         
         let realm = try! Realm()
         try! realm.write {
-            workoutDiary.replace(index, object: newWorkout)
+            workoutDiary.replace(index: index, object: newWorkout)
         }
         
         if index != 0 {
             if workoutDiary[index].date < workoutDiary[index - 1].date  {
-                let sortedWorkoutDiary = List(workoutDiary.sorted("date"))
+                let sortedWorkoutDiary = List(workoutDiary.sorted(byKeyPath: "date"))
                 try! realm.write {
                     workoutDiary.removeAll()
-                    workoutDiary.appendContentsOf(sortedWorkoutDiary)
+                    workoutDiary.append(objectsIn: sortedWorkoutDiary)
                 }
             }
         }
         
         if index != workoutDiary.count - 1 {
             if workoutDiary[index].date > workoutDiary[index + 1].date {
-                let sortedWorkoutDiary = List(workoutDiary.sorted("date"))
+                let sortedWorkoutDiary = List(workoutDiary.sorted(byKeyPath: "date"))
                 try! realm.write {
                     workoutDiary.removeAll()
-                    workoutDiary.appendContentsOf(sortedWorkoutDiary)
+                    workoutDiary.append(objectsIn: sortedWorkoutDiary)
                 }
             }
         }

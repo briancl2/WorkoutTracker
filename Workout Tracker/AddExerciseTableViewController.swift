@@ -8,6 +8,30 @@
 
 import UIKit
 import RealmSwift
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 final class AddExerciseTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -20,13 +44,13 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     
     // MARK: Public Properties
     
-    private let addExerciseViewModel = AddExerciseViewModel()
+    fileprivate let addExerciseViewModel = AddExerciseViewModel()
     
     var exercise: Exercise!
     
-    private let exercisePicker = UIPickerView()
+    fileprivate let exercisePicker = UIPickerView()
     
-    private var selectedExercise: ExerciseType? {
+    fileprivate var selectedExercise: ExerciseType? {
         didSet {
             nameTextField.text = selectedExercise!.name
         }
@@ -37,7 +61,7 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doneButton.enabled = false
+        doneButton.isEnabled = false
         nameTextField.delegate = self
         goalTextField.delegate = self
         
@@ -49,26 +73,26 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
         textField.resignFirstResponder()
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        doneButton.enabled = false
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        doneButton.isEnabled = false
         if textField == nameTextField {
-            exercisePicker.hidden = false
+            exercisePicker.isHidden = false
             textField.inputView = exercisePicker
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         checkValidExerciseName()
     }
     
     // disable editing of name text.  picker input only
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == nameTextField {
             return false
         } else {
@@ -78,30 +102,30 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     
     // MARK: UIPickerView implementation
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return addExerciseViewModel.exerciseTypes.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return addExerciseViewModel.exerciseTypes[row].name
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedExercise = addExerciseViewModel.exerciseTypes[row]
         //exercisePicker.hidden = true
     }
     
     // MARK: Helper Functions
     
-    private func checkValidExerciseName() {
+    fileprivate func checkValidExerciseName() {
         // Disable the Done button if the text field is empty.
         let text = nameTextField.text ?? ""
         let goal = Int(goalTextField.text ?? "0")
-        doneButton.enabled = !text.isEmpty && goal > 0
+        doneButton.isEnabled = !text.isEmpty && goal > 0
     }
 
     // MARK: Actions
@@ -109,8 +133,8 @@ final class AddExerciseTableViewController: UITableViewController, UITextFieldDe
     // MARK: - Navigation
     
     // This method lets you configure a view controller before it's presented.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if doneButton === sender {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if doneButton === sender as AnyObject? {
             //let name = nameTextField.text ?? ""
             let notes = notesTextVIew.text ?? ""
             //let goal = Int(goalTextField.text ?? "200")!

@@ -16,7 +16,7 @@ final class ExerciseDetailTableViewController: UITableViewController {
 
     // MARK: View Lifecycle
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         exerciseDetailViewModel.displayExerciseDetail()
         self.tableView.reloadData()
         self.title = exerciseDetailViewModel.name
@@ -34,18 +34,18 @@ final class ExerciseDetailTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return exerciseDetailViewModel.sections.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exerciseDetailViewModel.details[section].count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section != 2 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("ExerciseDetailCell", forIndexPath: indexPath) as! ExerciseDetailTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseDetailCell", for: indexPath) as! ExerciseDetailTableViewCell
             let exerciseDetailText = exerciseDetailViewModel.details[indexPath.section][indexPath.row]
             
             cell.detailTextLabel?.text = exerciseDetailText.1
@@ -54,7 +54,7 @@ final class ExerciseDetailTableViewController: UITableViewController {
             return cell
             
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("StatsDetailCell", forIndexPath: indexPath) as! StatsDetailTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StatsDetailCell", for: indexPath) as! StatsDetailTableViewCell
             let exerciseDetailText = exerciseDetailViewModel.details[indexPath.section][indexPath.row]
             
             cell.detailTextLabel?.text = exerciseDetailText.1
@@ -65,45 +65,45 @@ final class ExerciseDetailTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return exerciseDetailViewModel.sections[section]
     }
     
-    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 1 {
             return exerciseDetailViewModel.displayCycleDetail()
         }
         return nil
     }
     
-    override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         
-        header.textLabel?.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        header.textLabel?.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
     }
     
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case "RecordWorkout":
-                let navController = segue.destinationViewController as! UINavigationController
+                let navController = segue.destination as! UINavigationController
                 let recordWorkoutTableViewController = navController.topViewController as! RecordWorkoutTableViewController
                 
                 recordWorkoutTableViewController.recordWorkoutViewModel = RecordWorkoutViewModel(exerciseName: exerciseDetailViewModel.name, lastWorkout: exerciseDetailViewModel.getLastWorkout())
             case "WorkoutHistory":
-                let workoutHistoryTableViewController = segue.destinationViewController as! WorkoutHistoryTableViewController
+                let workoutHistoryTableViewController = segue.destination as! WorkoutHistoryTableViewController
                 
                 workoutHistoryTableViewController.workoutHistoryViewModel = WorkoutHistoryViewModel(workoutDiary: exerciseDetailViewModel.getWorkoutDiary(), exerciseName: exerciseDetailViewModel.name)
                 let backItem = UIBarButtonItem()
                 backItem.title = "Back"
                 navigationItem.backBarButtonItem = backItem
             case "ShowStats":
-                let statsViewController = segue.destinationViewController as! StatsViewController
+                let statsViewController = segue.destination as! StatsViewController
                 let selectedStatsCell = sender as! UITableViewCell
                 
-                if let indexPath = tableView.indexPathForCell(selectedStatsCell), graphType = StatsType(rawValue: indexPath.row) {
+                if let indexPath = tableView.indexPath(for: selectedStatsCell), let graphType = StatsType(rawValue: indexPath.row) {
                     statsViewController.statsViewModel = StatsViewModel(exercise: exerciseDetailViewModel.getExercise(), graphType: graphType)
                 }
                 let backItem = UIBarButtonItem()
@@ -114,8 +114,8 @@ final class ExerciseDetailTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func unwindToExerciseDetail(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? RecordWorkoutTableViewController, newWorkout = sourceViewController.newWorkout {
+    @IBAction func unwindToExerciseDetail(_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? RecordWorkoutTableViewController, let newWorkout = sourceViewController.newWorkout {
             exerciseDetailViewModel.recordWorkout(newWorkout)
         }
     }

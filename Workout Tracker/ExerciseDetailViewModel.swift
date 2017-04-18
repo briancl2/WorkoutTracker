@@ -11,10 +11,10 @@ import RealmSwift
 
 struct ExerciseDetailViewModel {
     
-    private let exercise: Exercise!
+    fileprivate let exercise: Exercise!
     
-    private(set) var details = [[(String, String)]]()
-    private(set) var sections = [String]()
+    fileprivate(set) var details = [[(String, String)]]()
+    fileprivate(set) var sections = [String]()
     var name: String {
         return exercise.name
     }
@@ -40,8 +40,14 @@ struct ExerciseDetailViewModel {
             details.append(workoutsToDisplay)
             sections.append("Last Workouts")
             var stats: [(String, String)] = []
-            if let totalVolumeIncrease = exercise.getTotalVolumeIncrease(60), let totalWeightIncrease = exercise.getWeightIncrease(60) {
-                stats.append(("60d progress", "Weight: \(totalWeightIncrease)% Total Volume: \(totalVolumeIncrease)%"))
+            if let totalVolumeIncrease = exercise.getPctTotalVolumeIncrease(30), let totalWeightIncrease = exercise.getPctWeightIncrease(30) {
+                stats.append(("30d progress", "Weight: \(totalWeightIncrease)%, Total Volume: \(totalVolumeIncrease)%"))
+            }
+            if let totalVolumeIncrease = exercise.getPctTotalVolumeIncrease(120), let totalWeightIncrease = exercise.getPctWeightIncrease(120) {
+                stats.append(("120d progress", "Weight: \(totalWeightIncrease)%, Total Volume: \(totalVolumeIncrease)%"))
+            }
+            if let pctWeightIncreasePerMonth = exercise.pctWeightIncreasePerMonth, let lbsWeightIncreasePerMonth = exercise.lbsWeightIncreasePerMonth {
+                stats.append(("Monthly Avg", "\(pctWeightIncreasePerMonth)%, \(lbsWeightIncreasePerMonth)lbs"))
             }
             stats.append(("1RM", "\(exercise.calculated1RM)lbs"))
             stats.append(("Goal", "\(exercise.goalAttainment)% of \(exercise.goal)lbs"))
@@ -61,7 +67,7 @@ struct ExerciseDetailViewModel {
     
     func displayCycleDetail() -> String? {
         if let (lastCycleDate, lastCycleCount) = exercise.lastCycleDate {
-            if lastCycleDate.myPrettyString == NSDate().myPrettyString {
+            if lastCycleDate.myPrettyString == Date().myPrettyString {
                 return "Completed cycle today!"
             } else if lastCycleCount == 1 {
                 return "Completed cycle last workout on \(lastCycleDate.myPrettyString)"
@@ -76,7 +82,7 @@ struct ExerciseDetailViewModel {
         return exercise.workoutDiary.last
     }
     
-    func recordWorkout(newWorkout: Workout) {
+    func recordWorkout(_ newWorkout: Workout) {
         let lastWorkout = exercise.workoutDiary.last // grab the last workout for later comparison
         
         let realm = try! Realm()
@@ -86,10 +92,10 @@ struct ExerciseDetailViewModel {
         
         if let secondToLastWorkout = lastWorkout { // only bother checking out of order if there is a last workout...
             if newWorkout.date < secondToLastWorkout.date { // ...and now look to see if they are out of order
-                let sortedWorkoutDiary = List(exercise.workoutDiary.sorted("date"))
+                let sortedWorkoutDiary = List(exercise.workoutDiary.sorted(byKeyPath: "date"))
                 try! realm.write {
                     exercise.workoutDiary.removeAll()
-                    exercise.workoutDiary.appendContentsOf(sortedWorkoutDiary)
+                    exercise.workoutDiary.append(objectsIn: sortedWorkoutDiary)
                 }
             }
         }

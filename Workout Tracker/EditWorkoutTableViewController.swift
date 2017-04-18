@@ -8,6 +8,30 @@
 
 import UIKit
 import RealmSwift
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 final class EditWorkoutTableViewController: UITableViewController, UITextFieldDelegate {
     
@@ -28,14 +52,14 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
     var workoutToEdit: Workout! // passed from sender
     var exerciseName: String! // passed from sender
     
-    private var newDate: NSDate? {
+    fileprivate var newDate: Date? {
         didSet {
             dateTextField.text = newDate!.myPrettyString
             checkValidExercise()
         }
     }
     
-    private var newWeight: Int? {
+    fileprivate var newWeight: Int? {
         didSet {
             weightLabel.text = "\(newWeight!) lbs"
             checkValidExercise()
@@ -43,22 +67,22 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
         }
     }
     
-    private var newSetOne: Int? {
+    fileprivate var newSetOne: Int? {
         didSet {
             setOneLabel.text = "Set 1: \(newSetOne!) reps"
             checkValidExercise()
         }
     }
     
-    private var newSetTwo: Int? {
+    fileprivate var newSetTwo: Int? {
         didSet {
             setTwoLabel.text = "Set 2: \(newSetTwo!) reps"
             checkValidExercise()
         }
     }
     
-    private let timerEnd: NSTimeInterval = 90
-    private var timerCounter: NSTimeInterval = 0
+    fileprivate let timerEnd: TimeInterval = 90
+    fileprivate var timerCounter: TimeInterval = 0
     
    
     override func viewDidLoad() {
@@ -66,7 +90,7 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
         self.title = "Edit \(exerciseName) Workout"
                 
         dateTextField.delegate = self
-        doneButton.enabled = false
+        doneButton.isEnabled = false
         
         
         newDate = workoutToEdit.date
@@ -94,50 +118,50 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
 
     //  MARK: UITextFieldDelegate
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         let datePicker = UIDatePicker()
-        datePicker.maximumDate = NSDate()
-        datePicker.datePickerMode = UIDatePickerMode.Date
+        datePicker.maximumDate = Date()
+        datePicker.datePickerMode = UIDatePickerMode.date
         textField.inputView = datePicker
-        datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
+        datePicker.addTarget(self, action: #selector(RecordWorkoutTableViewController.datePickerChanged(_:)), for: .valueChanged)
     }
     
-    func datePickerChanged(sender: UIDatePicker) {
+    func datePickerChanged(_ sender: UIDatePicker) {
         newDate = sender.date
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     // disable editing of date text.  datepicker input only
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return false
     }
     
     // MARK: Touch Events
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         dateTextField.resignFirstResponder()
         closeKeyboard()
     }
     
     // MARK: Helper Functions
     
-    private func closeKeyboard() {
+    fileprivate func closeKeyboard() {
         self.view.endEditing(true)
     }
     
-    private func checkValidExercise() {
+    fileprivate func checkValidExercise() {
         if !sameWorkout() && newWeight > 0 {
-            doneButton.enabled = true
+            doneButton.isEnabled = true
         } else {
-            doneButton.enabled = false
+            doneButton.isEnabled = false
         }
     }
     
-    private func sameWorkout() -> Bool {
+    fileprivate func sameWorkout() -> Bool {
         if workoutToEdit.date.myPrettyString == newDate?.myPrettyString && workoutToEdit.sets[0].weight == newWeight && workoutToEdit.sets[0].repCount == newSetOne && workoutToEdit.sets[1].repCount == newSetTwo {
             return true
         } else {
@@ -147,17 +171,17 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
     
     // MARK: Actions
     
-    @IBAction func weightStepperChanged(sender: UIStepper) {
+    @IBAction func weightStepperChanged(_ sender: UIStepper) {
         newWeight = Int(sender.value)
         closeKeyboard()
     }
     
-    @IBAction func setOneStepperChanged(sender: UIStepper) {
+    @IBAction func setOneStepperChanged(_ sender: UIStepper) {
         newSetOne = Int(sender.value)
         closeKeyboard()
     }
     
-    @IBAction func setTwoStepperChanged(sender: UIStepper) {
+    @IBAction func setTwoStepperChanged(_ sender: UIStepper) {
         newSetTwo = Int(sender.value)
         closeKeyboard()
     }
@@ -165,9 +189,9 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
 
     // MARK: Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if doneButton === sender {
-            if let date = newDate, weight = newWeight, setOne = newSetOne, setTwo = newSetTwo {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if doneButton === sender as AnyObject? {
+            if let date = newDate, let weight = newWeight, let setOne = newSetOne, let setTwo = newSetTwo {
                 let newSets = List<WorkSet>()
                 newSets.append(WorkSet(weight: weight, repCount: setOne))
                 newSets.append(WorkSet(weight: weight, repCount: setTwo))

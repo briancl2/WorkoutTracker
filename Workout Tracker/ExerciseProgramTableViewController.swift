@@ -16,13 +16,13 @@ final class ExerciseProgramTableViewController: UITableViewController {
     
     // MARK: View Lifecycle
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,43 +32,43 @@ final class ExerciseProgramTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exercisesViewModel.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "ExerciseTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ExerciseTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ExerciseTableViewCell
         let exercise = exercisesViewModel.getExercise(indexPath.row)
         cell.textLabel!.text = exercise.name
         return cell
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             exercisesViewModel.removeExerciseAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
 
     // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
 
     }
 
 
 
     // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
@@ -77,23 +77,23 @@ final class ExerciseProgramTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowExerciseDetail" {
-            let exerciseDetailTableViewController = segue.destinationViewController as! ExerciseDetailTableViewController
+            let exerciseDetailTableViewController = segue.destination as! ExerciseDetailTableViewController
             
             if let selectedExerciseCell = sender as? ExerciseTableViewCell {
-                let indexPath = tableView.indexPathForCell(selectedExerciseCell)!
+                let indexPath = tableView.indexPath(for: selectedExerciseCell)!
                 let selectedExercise = exercisesViewModel.getExercise(indexPath.row)
                 exerciseDetailTableViewController.exerciseDetailViewModel = ExerciseDetailViewModel(exercise: selectedExercise)
             }
         }
     }
     
-    @IBAction func unwindToExerciseList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? AddExerciseTableViewController, exercise = sourceViewController.exercise {
-            let newIndexPath = NSIndexPath(forRow: exercisesViewModel.count, inSection: 0)
+    @IBAction func unwindToExerciseList(_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? AddExerciseTableViewController, let exercise = sourceViewController.exercise {
+            let newIndexPath = IndexPath(row: exercisesViewModel.count, section: 0)
             exercisesViewModel.addExercise(exercise)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            tableView.insertRows(at: [newIndexPath], with: .bottom)
         }
     }
     

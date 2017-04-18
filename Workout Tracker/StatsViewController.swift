@@ -19,11 +19,11 @@ final class StatsViewController: UIViewController, ChartViewDelegate {
         super.viewDidLoad()
         self.title = statsViewModel.exercise.name // back button has exercise name in it
         self.lineChartView.delegate = self
-        self.lineChartView.descriptionText = statsViewModel.statsDescription
-        self.lineChartView.descriptionTextColor = UIColor.whiteColor()
+        self.lineChartView.chartDescription?.text = statsViewModel.statsDescription
+        self.lineChartView.chartDescription?.textColor = UIColor.white
 //        self.lineChartView.gridBackgroundColor = UIColor.yellowColor().colorWithAlphaComponent(0.5)
         self.lineChartView.noDataText = "No Data Available"
-        setChartData(statsViewModel.workoutDates)
+        setChartData(data: statsViewModel.workoutDates)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,39 +33,40 @@ final class StatsViewController: UIViewController, ChartViewDelegate {
     
     func setChartData(data: ([String], [Double?])) {
         // 1 - creating an array of data entries
-        var yVals1 = [ChartDataEntry]()
-        for i in 0 ..< data.0.count {
-            if let yval = data.1[i] {
-                yVals1.append(ChartDataEntry(value: yval, xIndex: i))
+        let xVals = data.0
+        let yVals = data.1
+        
+        var values = [ChartDataEntry]()
+        for i in 0 ..< xVals.count {
+            if let value = yVals[i] {
+                // values.append(ChartDataEntry(x: value, y: Double(i)))
+                values.append(ChartDataEntry(x: Double(i), y: value))
             }
         }
         
         // 2 - create a data set with our array
-        let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: nil)
-        set1.axisDependency = .Left // Line will correlate with left axis values
-        //set1.setColor(UIColor.redColor().colorWithAlphaComponent(1.0)) // our line's opacity is 50%
-        set1.setColor(UIColor(red:0.502, green:0.580, blue:0.784, alpha:1.000))
-        set1.lineWidth = 2.0
-        set1.fillAlpha = 1 //65 / 255.0
-        set1.fillColor = UIColor(red:0.502, green:0.580, blue:0.784, alpha:1.000)
-        set1.highlightColor = UIColor.whiteColor()
-//        set1.drawCubicEnabled = true
-//        set1.cubicIntensity = 0.05
-        set1.drawValuesEnabled = false
-        set1.circleRadius = 3
-        set1.circleHoleRadius = 0
-        set1.setCircleColor(UIColor.darkGrayColor())
-        set1.drawCirclesEnabled = true
-        set1.drawFilledEnabled = true
+        let dataSet: LineChartDataSet = LineChartDataSet(values: values, label: nil)
+        dataSet.axisDependency = .left // Line will correlate with left axis values
+        dataSet.setColor(UIColor(red:0.502, green:0.580, blue:0.784, alpha:1.000))
+        dataSet.lineWidth = 2.0
+        dataSet.fillAlpha = 1 //65 / 255.0
+        dataSet.fillColor = UIColor(red:0.502, green:0.580, blue:0.784, alpha:1.000)
+        dataSet.highlightColor = UIColor.white
+        dataSet.drawValuesEnabled = false
+        dataSet.circleRadius = 3
+        dataSet.circleHoleRadius = 0
+        dataSet.setCircleColor(UIColor.darkGray)
+        dataSet.drawCirclesEnabled = true
+        dataSet.drawFilledEnabled = true
         
         
         //3 - create an array to store our LineChartDataSets
-        var dataSets : [LineChartDataSet] = [LineChartDataSet]()
-        dataSets.append(set1)
+        var dataSets = [IChartDataSet]()
+        dataSets.append(dataSet)
         
         //4 - pass our months in for our x-axis label value along with our dataSets
-        let data: LineChartData = LineChartData(xVals: data.0, dataSets: dataSets)
-        data.setValueTextColor(UIColor.whiteColor())
+        let data = LineChartData(dataSets: dataSets)
+        data.setValueTextColor(UIColor.white)
 
         let legend = lineChartView.legend
         legend.enabled = false
@@ -73,8 +74,7 @@ final class StatsViewController: UIViewController, ChartViewDelegate {
         let xAxis = lineChartView.xAxis
         xAxis.drawGridLinesEnabled = false
         xAxis.drawAxisLineEnabled = false
-        xAxis.labelPosition = .Bottom
-        //xAxis.gridColor = UIColor.blackColor().colorWithAlphaComponent(0.1)
+        xAxis.labelPosition = .bottom
         
         let rightAxis = lineChartView.rightAxis
         rightAxis.drawAxisLineEnabled = false
@@ -83,7 +83,7 @@ final class StatsViewController: UIViewController, ChartViewDelegate {
         
         let leftAxis = lineChartView.leftAxis
         leftAxis.drawAxisLineEnabled = false
-        leftAxis.gridColor = UIColor.blackColor().colorWithAlphaComponent(0.1)
+        leftAxis.gridColor = UIColor.black.withAlphaComponent(0.1)
         leftAxis.gridLineWidth = 2
 
         

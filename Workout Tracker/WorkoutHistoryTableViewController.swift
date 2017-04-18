@@ -16,7 +16,7 @@ final class WorkoutHistoryTableViewController: UITableViewController {
     
     // MARK: View Lifecycle
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
@@ -24,7 +24,7 @@ final class WorkoutHistoryTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.title = "\(workoutHistoryViewModel.exerciseName) History"
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,17 +34,17 @@ final class WorkoutHistoryTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return workoutHistoryViewModel.count
     }
 
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("WorkoutHistoryCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutHistoryCell", for: indexPath)
         
         cell.textLabel?.text = workoutHistoryViewModel.getDate(indexPath.row)
         cell.detailTextLabel?.text = workoutHistoryViewModel.getWorkSets(indexPath.row)
@@ -52,20 +52,20 @@ final class WorkoutHistoryTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             workoutHistoryViewModel.removeWorkoutAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditWorkout" {
-            let editWorkoutTableViewController = segue.destinationViewController as! EditWorkoutTableViewController
+            let editWorkoutTableViewController = segue.destination as! EditWorkoutTableViewController
             let selectedWorkoutCell = sender as! UITableViewCell
-            let indexPath = tableView.indexPathForCell(selectedWorkoutCell)
+            let indexPath = tableView.indexPath(for: selectedWorkoutCell)
             let workoutToEdit = workoutHistoryViewModel.getWorkoutAtIndex(indexPath!.row)
             
             editWorkoutTableViewController.workoutToEdit = workoutToEdit
@@ -73,10 +73,10 @@ final class WorkoutHistoryTableViewController: UITableViewController {
         }
     }
 
-    @IBAction func unwindToWorkoutHistory(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? EditWorkoutTableViewController,
-            oldWorkout = sourceViewController.workoutToEdit,
-            updatedWorkout = sourceViewController.newWorkout {
+    @IBAction func unwindToWorkoutHistory(_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? EditWorkoutTableViewController,
+            let oldWorkout = sourceViewController.workoutToEdit,
+            let updatedWorkout = sourceViewController.newWorkout {
             workoutHistoryViewModel.replaceWorkout(oldWorkout, newWorkout: updatedWorkout)
         }
     }

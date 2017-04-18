@@ -10,44 +10,44 @@ import Foundation
 import RealmSwift
 import ObjectMapper
 
-func ==(lhs: NSDate, rhs: NSDate) -> Bool
-{
-    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
-}
+//func ==(lhs: Date, rhs: Date) -> Bool
+//{
+//    return lhs === rhs || lhs.compare(rhs) == .orderedSame
+//}
 
-func <(lhs: NSDate, rhs: NSDate) -> Bool
-{
-    return lhs.compare(rhs) == .OrderedAscending
-}
+//func <(lhs: Date, rhs: Date) -> Bool
+//{
+//    return lhs.compare(rhs) == .orderedAscending
+//}
+//
+//func >(lhs: Date, rhs: Date) -> Bool
+//{
+//    return lhs.compare(rhs) == .orderedDescending
+//}
 
-func >(lhs: NSDate, rhs: NSDate) -> Bool
-{
-    return lhs.compare(rhs) == .OrderedDescending
-}
-
-extension NSDate {
-    func daysAgo(days: Int) -> NSDate {
-        let newDateComponents = NSDateComponents()
+extension Date {
+    func daysAgo(_ days: Int) -> Date {
+        var newDateComponents = DateComponents()
         newDateComponents.day = -days
         
-        return NSCalendar.currentCalendar().dateByAddingComponents(newDateComponents, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
+        return (Calendar.current as NSCalendar).date(byAdding: newDateComponents, to: self, options: NSCalendar.Options.init(rawValue: 0))!
     }
     
-    func daysFrom(date: NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self, options: []).day
+    func daysFrom(_ date: Date) -> Int {
+        return (Calendar.current as NSCalendar).components(.day, from: date, to: self, options: []).day!
     }
 }
 
-extension NSDate {
+extension Date {
     var myPrettyString: String {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d"
         
-        return dateFormatter.stringFromDate(self)
+        return dateFormatter.string(from: self)
     }
 }
 
-extension NSTimeInterval {
+extension TimeInterval {
     var myPrettyString: String {
         let minutes = Int(self) / 60
         let seconds = self - Double(minutes) * 60
@@ -74,10 +74,10 @@ extension Double {
 extension Object {
     func toDictionary() -> NSDictionary {
         let properties = self.objectSchema.properties.map { $0.name }
-        let dictionary = self.dictionaryWithValuesForKeys(properties)
+        let dictionary = self.dictionaryWithValues(forKeys: properties)
         
         let mutabledic = NSMutableDictionary()
-        mutabledic.setValuesForKeysWithDictionary(dictionary)
+        mutabledic.setValuesForKeys(dictionary)
         
         for prop in self.objectSchema.properties as [Property]! {
             // find lists
@@ -89,7 +89,7 @@ extension Object {
                     let object = nestedListObject._rlmArray[index] as AnyObject
                     objects.append(object.toDictionary())
                 }
-                mutabledic.setObject(objects, forKey: prop.name)
+                mutabledic.setObject(objects, forKey: prop.name as NSCopying)
             } else if let dateObject = self[prop.name] as? NSDate {
                 //let dateString = dateObject.myPrettyString //Perform NSDate conversion for JSON
                 let dateString = dateObject.timeIntervalSince1970
@@ -103,26 +103,27 @@ extension Object {
 }
 
 // add Realm List<> support to ObjectMapper
-class ListTransform<T:RealmSwift.Object where T:Mappable> : TransformType {
+class ListTransform<T:RealmSwift.Object> : TransformType where T:Mappable {
+    
     typealias Object = List<T>
-    typealias JSON = [AnyObject]
+    typealias JSON = [[String:Any]]
     
     let mapper = Mapper<T>()
     
-    func transformFromJSON(value: AnyObject?) -> Object? {
-        let results = List<T>()
-        if let value = value as? [AnyObject] {
-            for json in value {
-                if let obj = mapper.map(json) {
-                    results.append(obj)
-                }
+    func transformFromJSON(_ value: Any?) -> List<T>? {
+        let result = List<T>()
+        if let tempArr = value as? [Any] {
+            for entry in tempArr {
+                let mapper = Mapper<T>()
+                let model : T = mapper.map(JSONObject: entry)!
+                result.append(model)
             }
         }
-        return results
+        return result
     }
     
-    func transformToJSON(value: Object?) -> JSON? {
-        var results = [AnyObject]()
+    func transformToJSON(_ value: Object?) -> JSON? {
+        var results = [[String:Any]]()
         if let value = value {
             for obj in value {
                 let json = mapper.toJSON(obj)
@@ -138,10 +139,10 @@ protocol EnumCollection : Hashable {}
 extension EnumCollection {
     static func cases() -> AnySequence<Self> {
         typealias S = Self
-        return AnySequence { () -> AnyGenerator<S> in
+        return AnySequence { () -> AnyIterator<S> in
             var raw = 0
-            return AnyGenerator {
-                let current : Self = withUnsafePointer(&raw) { UnsafePointer($0).memory }
+            return AnyIterator {
+                let current : Self = withUnsafePointer(to: &raw) { $0.withMemoryRebound(to: S.self, capacity: 1) { $0.pointee } }
                 guard current.hashValue == raw else { return nil }
                 raw += 1
                 return current

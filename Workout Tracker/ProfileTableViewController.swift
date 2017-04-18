@@ -20,7 +20,7 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
     
     // MARK: Private Properties
     
-    private var profileViewModel = ProfileViewModel()
+    fileprivate var profileViewModel = ProfileViewModel()
     
 //    private var newName: String? {
 //        didSet {
@@ -61,19 +61,19 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
 
     // MARK: PickerView
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return profileViewModel.pickOption.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return profileViewModel.pickOption[row]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         programTextField.text = profileViewModel.pickOption[row]
     }
     
@@ -101,11 +101,11 @@ final class ProfileTableViewController: UITableViewController, UITextFieldDelega
     
     // MARK: Actions
     
-    @IBAction func exportDataButtonTapped(sender: UIButton) {
+    @IBAction func exportDataButtonTapped(_ sender: UIButton) {
         profileViewModel.exportData()
     }
     
-    @IBAction func importDataButtonTapped(sender: UIButton) {
+    @IBAction func importDataButtonTapped(_ sender: UIButton) {
         profileViewModel.importData()
     }
     

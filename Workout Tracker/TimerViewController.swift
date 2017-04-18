@@ -23,8 +23,8 @@ final class TimerViewController: UIViewController {
     
     // MARK: Private Properties
     
-    private let timerEnd: NSTimeInterval = 90
-    private var timerCounter: NSTimeInterval = 0
+    fileprivate let timerEnd: TimeInterval = 90
+    fileprivate var timerCounter: TimeInterval = 0
     
     // MARK: View Lifecycle
     
@@ -33,12 +33,12 @@ final class TimerViewController: UIViewController {
        
         updateLabel(timerEnd)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimerViewController.applicationWillResignActive),name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TimerViewController.applicationDidBecomeActive),name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TimerViewController.applicationWillResignActive),name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TimerViewController.applicationDidBecomeActive),name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,7 +48,7 @@ final class TimerViewController: UIViewController {
     
     // MARK: Timer Handlers
     
-    private func startTimer(length: NSTimeInterval, restart: Bool = false) {
+    fileprivate func startTimer(_ length: TimeInterval, restart: Bool = false) {
         if myTimer?.running != true { // only proceed if myTimer? points to an object AND running is false
             myTimer = Timer(length: length)
             
@@ -66,12 +66,12 @@ final class TimerViewController: UIViewController {
         }
     }
     
-    private func updateLabel(time: NSTimeInterval) {
+    fileprivate func updateLabel(_ time: TimeInterval) {
         timerLabel.text = time.myPrettyString
         timerCounter = time
     }
     
-    private func showFinish(finished: Bool) {
+    fileprivate func showFinish(_ finished: Bool) {
         if finished {
             timerLabel.text = "Time is up!!"
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
@@ -81,12 +81,12 @@ final class TimerViewController: UIViewController {
     
     // MARK: Actions
     
-    @IBAction func startTimerButtonTapped(sender: UIButton) {
+    @IBAction func startTimerButtonTapped(_ sender: UIButton) {
         startTimer(timerEnd)
 
     }
 
-    @IBAction func resetTimerButtonTapped(sender: UIButton) {
+    @IBAction func resetTimerButtonTapped(_ sender: UIButton) {
         myTimer?.stop(true)
         cancelAllNotifications()
         updateLabel(timerEnd)
@@ -94,12 +94,12 @@ final class TimerViewController: UIViewController {
     
     // MARK: Timer Storage
     
-    private struct PropertyKey {
+    fileprivate struct PropertyKey {
         static let timerCounterKey = "TimerViewController_timerCounter"
         static let timeMeasurementKey = "TimerViewController_timeMeasurement"
     }
     
-    dynamic private func applicationWillResignActive() {
+    dynamic fileprivate func applicationWillResignActive() {
         if myTimer?.running == true {
             saveDefaults()
         } else {
@@ -107,7 +107,7 @@ final class TimerViewController: UIViewController {
         }
     }
     
-    dynamic private func applicationDidBecomeActive() {
+    dynamic fileprivate func applicationDidBecomeActive() {
         if myTimer?.running == true {
             loadDefaults()
             myTimer.stop(true)
@@ -115,40 +115,40 @@ final class TimerViewController: UIViewController {
         }
     }
     
-    private func saveDefaults() {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setObject(timerCounter, forKey: PropertyKey.timerCounterKey)
-        userDefault.setObject(NSDate().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
+    fileprivate func saveDefaults() {
+        let userDefault = UserDefaults.standard
+        userDefault.set(timerCounter, forKey: PropertyKey.timerCounterKey)
+        userDefault.set(Date().timeIntervalSince1970, forKey: PropertyKey.timeMeasurementKey)
     }
     
-    private func clearDefaults() {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.removeObjectForKey(PropertyKey.timerCounterKey)
-        userDefault.removeObjectForKey(PropertyKey.timeMeasurementKey)
+    fileprivate func clearDefaults() {
+        let userDefault = UserDefaults.standard
+        userDefault.removeObject(forKey: PropertyKey.timerCounterKey)
+        userDefault.removeObject(forKey: PropertyKey.timeMeasurementKey)
     }
     
-    private func loadDefaults() {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        let restoredTimerCounter = userDefault.objectForKey(PropertyKey.timerCounterKey) as! Double
-        let restoredTimeMeasurement = userDefault.objectForKey(PropertyKey.timeMeasurementKey) as! Double
-        let timeDelta = NSDate().timeIntervalSince1970 - restoredTimeMeasurement
+    fileprivate func loadDefaults() {
+        let userDefault = UserDefaults.standard
+        let restoredTimerCounter = userDefault.object(forKey: PropertyKey.timerCounterKey) as! Double
+        let restoredTimeMeasurement = userDefault.object(forKey: PropertyKey.timeMeasurementKey) as! Double
+        let timeDelta = Date().timeIntervalSince1970 - restoredTimeMeasurement
         
         timerCounter = restoredTimerCounter - timeDelta
     }
     
     // MARK: Notifications
     
-    private func schedulePushNotification() {
+    fileprivate func schedulePushNotification() {
         let notification = UILocalNotification()
         notification.alertAction = "Go back to App"
         notification.alertBody = "The 90s timer is finished!"
-        notification.fireDate = NSDate(timeIntervalSinceNow: timerEnd+1)
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        notification.fireDate = Date(timeIntervalSinceNow: timerEnd+1)
+        UIApplication.shared.scheduleLocalNotification(notification)
 
     }
     
-    private func cancelAllNotifications() {
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
+    fileprivate func cancelAllNotifications() {
+        UIApplication.shared.cancelAllLocalNotifications()
     }
     
 }

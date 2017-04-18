@@ -10,14 +10,14 @@ import Foundation
 
 enum StatsType: Int {
     
-    case Progress, OneRepMax, Goal, Cycles
+    case progress, oneRepMax, goal, cycles
     
 }
 
 struct StatsViewModel {
     
-    private(set) var exercise: Exercise
-    private(set) var graphType: StatsType
+    fileprivate(set) var exercise: Exercise
+    fileprivate(set) var graphType: StatsType
     
     init(exercise: Exercise, graphType: StatsType) {
         self.exercise = exercise
@@ -25,28 +25,28 @@ struct StatsViewModel {
     }
     
     var workoutDates: ([String], [Double?]) {
-        if let lastWorkout = exercise.workoutDiary.last, firstWorkout = exercise.workoutDiary.first {
+        if let lastWorkout = exercise.workoutDiary.last, let firstWorkout = exercise.workoutDiary.first {
            
             var dates = [String]()
             var stats = [Double?]()
-            let ti:NSTimeInterval = 24*60*60 //one day
+            let ti: TimeInterval = 24*60*60 //one day
             let dateFrom = firstWorkout.date
             let dateTo = lastWorkout.date
             
             var nextDate =  dateFrom
-            let endDate = dateTo.dateByAddingTimeInterval(ti)
+            let endDate = dateTo.addingTimeInterval(ti)
             
-            while nextDate.compare(endDate) == NSComparisonResult.OrderedAscending
+            while nextDate.compare(endDate) == ComparisonResult.orderedAscending
             {
                 dates.append(nextDate.myPrettyString)
                 let workout = exercise.workoutDiary.filter { $0.date.myPrettyString == nextDate.myPrettyString }.first
                 if let workout = workout {
                     switch graphType {
-                    case .Progress:
+                    case .progress:
                         stats.append(Double(workout.totalVolume))
-                    case .OneRepMax:
+                    case .oneRepMax:
                         stats.append(Double(workout.oneRepMax))
-                    case .Goal:
+                    case .goal:
                         stats.append(Double(workout.weight))
                     default:
                         stats.append(Double(workout.totalVolume))
@@ -55,7 +55,7 @@ struct StatsViewModel {
                     stats.append(nil)
                 }
                 
-                nextDate = nextDate.dateByAddingTimeInterval(ti)
+                nextDate = nextDate.addingTimeInterval(ti)
             }
             
             return (dates, stats)
@@ -65,11 +65,11 @@ struct StatsViewModel {
     
     var statsDescription: String {
         switch graphType {
-        case .Progress:
+        case .progress:
             return "Total Volume"
-        case .OneRepMax:
+        case .oneRepMax:
             return "Calculated 1RM"
-        case .Goal:
+        case .goal:
             return "Weight"
         default:
             return "Total Volume"

@@ -13,16 +13,16 @@ final class Timer {
     // MARK: Public Properties
     
     var running: Bool {
-        return timer.valid
+        return timer.isValid
     }
     
     // MARK: Private properties
     
-    private let timeInterval: NSTimeInterval = 0.01
-    private var timerEnd: NSTimeInterval = 90
-    private var timer = NSTimer()
+    fileprivate let timeInterval: TimeInterval = 0.01
+    fileprivate var timerEnd: TimeInterval = 90
+    fileprivate var timer = Foundation.Timer()
     
-    private var timeLeft: NSTimeInterval = 0 {
+    fileprivate var timeLeft: TimeInterval = 0 {
         didSet {
             if timeLeft < 0 {
                 timeLeft = 0
@@ -30,12 +30,12 @@ final class Timer {
         }
     }
     
-    private var timerTickHandler: (NSTimeInterval -> ())? // function to update the timer each tick, e.g., draw a label
-    private var timerStopHandler: (Bool -> ())? // function to call when timer is ended (Bool argument determines if timer finished or if it was interrupted
+    fileprivate var timerTickHandler: ((TimeInterval) -> ())? // function to update the timer each tick, e.g., draw a label
+    fileprivate var timerStopHandler: ((Bool) -> ())? // function to call when timer is ended (Bool argument determines if timer finished or if it was interrupted
     
     // MARK: Initializers
     
-    init(length: NSTimeInterval) {
+    init(length: TimeInterval) {
         self.timeLeft = length
     }
     
@@ -45,18 +45,18 @@ extension Timer {
 
     // MARK: Public Methods
     
-    func start(updateTick: (NSTimeInterval -> Void), stopHandler: (Bool -> Void)) -> Bool {
+    func start(_ updateTick: @escaping ((TimeInterval) -> Void), stopHandler: @escaping ((Bool) -> Void)) -> Bool {
         if running {
             return false
         }
         timerTickHandler = updateTick
         timerStopHandler = stopHandler
-        timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: #selector(Timer.countTick), userInfo: nil, repeats: true)
+        timer = Foundation.Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(Timer.countTick), userInfo: nil, repeats: true)
         
         return running
     }
     
-    func stop(interrupted: Bool) { // interrupted means stop() was called before the timer ended
+    func stop(_ interrupted: Bool) { // interrupted means stop() was called before the timer ended
         timer.invalidate()
         
         if let stopHandler = timerStopHandler {
@@ -72,7 +72,7 @@ private extension Timer {
     
     // MARK: Private Methods
     
-    dynamic private func countTick() {
+    dynamic func countTick() {
         timeLeft = timeLeft - timeInterval
         if let tickHandler = timerTickHandler {
             tickHandler(timeLeft)

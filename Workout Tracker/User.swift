@@ -14,9 +14,9 @@ final class User: Object, Mappable {
     
     // MARK: Public Properties
     
-    private(set) dynamic var bodyWeight = 0
-    private(set) dynamic var name = ""
-    private(set) dynamic var age = 0
+    fileprivate(set) dynamic var bodyWeight = 0
+    fileprivate(set) dynamic var name = ""
+    fileprivate(set) dynamic var age = 0
     
     // MARK: Initializers
     
@@ -28,7 +28,7 @@ final class User: Object, Mappable {
     }
     
     // required for ObjectMapper
-    required convenience init?(_ map: Map) {
+    required convenience init?(map: Map) {
         self.init()
     }
     

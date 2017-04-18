@@ -11,7 +11,7 @@ import RealmSwift
 
 struct ExerciseProgramViewModel {
     
-    private let exercises: Results<Exercise>
+    fileprivate let exercises: Results<Exercise>
     var count: Int {
         return exercises.count
     }
@@ -19,17 +19,17 @@ struct ExerciseProgramViewModel {
     init() {
         //LoadDataDefaults()
         let realm = try! Realm()
-        self.exercises = realm.objects(Exercise).sorted("sortOrder")
+        self.exercises = realm.objects(Exercise.self).sorted(byKeyPath: "sortOrder")
         
         print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
     
-    func getExercise(index: Int) -> Exercise {
+    func getExercise(_ index: Int) -> Exercise {
         return exercises[index]
     }
     
-    func removeExerciseAtIndex(index: Int) {
+    func removeExerciseAtIndex(_ index: Int) {
         let exercise = exercises[index]
         let realm = try! Realm()
         try! realm.write {
@@ -43,7 +43,7 @@ struct ExerciseProgramViewModel {
         }
     }
     
-    func addExercise(newExercise: Exercise) {
+    func addExercise(_ newExercise: Exercise) {
         if let lastExercise = exercises.last {
             newExercise.sortOrder = lastExercise.sortOrder + 1
         }

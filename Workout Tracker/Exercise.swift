@@ -14,13 +14,13 @@ final class Exercise: Object, Mappable {
     
     // MARK: Public Properties
     
-    private(set) dynamic var id: String = NSUUID().UUIDString
-    private(set) dynamic var name = ""
-    private(set) dynamic var notes: String?
-    private(set) var workoutDiary = List<Workout>()
-    private(set) dynamic var bodyWeightMultiplier = 0.0
+    fileprivate(set) dynamic var id: String = UUID().uuidString
+    fileprivate(set) dynamic var name = ""
+    fileprivate(set) dynamic var notes: String?
+    fileprivate(set) var workoutDiary = List<Workout>()
+    fileprivate(set) dynamic var bodyWeightMultiplier = 0.0
     dynamic var sortOrder = 0
-    private(set) dynamic var username = "Brian"
+    fileprivate(set) dynamic var username = "Brian"
     
     // primaryKey for uniqueness in Realmk
     override class func primaryKey() -> String? {
@@ -29,7 +29,7 @@ final class Exercise: Object, Mappable {
     
     var goal: Int {
         let realm = try! Realm()
-        if let user = realm.objects(User).first {
+        if let user = realm.objects(User.self).first {
             return Int(Double(user.bodyWeight) * bodyWeightMultiplier)
         }
         return 1
@@ -53,17 +53,16 @@ final class Exercise: Object, Mappable {
         return Int(100 * (Double(calculated1RM) / Double(goal)))
     }
     
-    var lastCycleDate: (NSDate, Int)? {
+    var lastCycleDate: (Date, Int)? {
         // return the most recent workout of all cycled workouts found
         if let lastCycledWorkout = workoutDiary.filter({$0.totalReps >= 24}).last {
-            return (lastCycledWorkout.date, workoutDiary.count - workoutDiary.indexOf(lastCycledWorkout)!)
+            return (lastCycledWorkout.date, workoutDiary.count - workoutDiary.index(of: lastCycledWorkout)!)
         }
         return nil
     }
     
     var averageCycleLength: Int? {
-        guard let lastWorkout = workoutDiary.last, let firstWorkout = workoutDiary.first
-            where numberOfCompletedCycles > 0
+        guard let lastWorkout = workoutDiary.last, let firstWorkout = workoutDiary.first, numberOfCompletedCycles > 0
             else {
                 return nil
         }
@@ -82,7 +81,7 @@ final class Exercise: Object, Mappable {
         for workout in workoutDiary {
             if workout.totalReps >= 24 {
                 if workout != workoutDiary.last { // count up all the previous cycles by watching for weight increases
-                    if workout.weight < workoutDiary[workoutDiary.indexOf(workout)! + 1].weight {
+                    if workout.weight < workoutDiary[workoutDiary.index(of: workout)! + 1].weight {
                         counter += 1
                     }
                 } else { // if last workout, we just cycled so increment (can only happen once because only one last)
@@ -98,6 +97,34 @@ final class Exercise: Object, Mappable {
         if numberOfCompletedCycles > 0 {
             let numberOfWorkouts = workoutDiary.count
             return numberOfWorkouts / numberOfCompletedCycles
+        }
+        return nil
+    }
+    
+    var pctWeightIncreasePerMonth: Int? {
+        if let firstWorkout = workoutDiary.first {
+            let today = Date()
+            let totalDays = -(firstWorkout.date.daysFrom(today) - 1)
+            if totalDays > 30 {
+                let totalMonths = Double(totalDays) / 30.0
+                if let totalWeightIncrease = getPctWeightIncrease(totalDays) {
+                    return Int(Double(totalWeightIncrease) / totalMonths)
+                }
+            }
+        }
+        return nil
+    }
+    
+    var lbsWeightIncreasePerMonth: Int? {
+        if let firstWorkout = workoutDiary.first {
+            let today = Date()
+            let totalDays = -(firstWorkout.date.daysFrom(today) - 1)
+            if totalDays > 30 {
+                let totalMonths = Double(totalDays) / 30.0
+                if let totalWeightIncrease = getLbsWeightIncrease(totalDays) {
+                    return Int(Double(totalWeightIncrease) / totalMonths)
+                }
+            }
         }
         return nil
     }
@@ -122,7 +149,7 @@ final class Exercise: Object, Mappable {
     }
     
     // required for ObjectMapper
-    required convenience init?(_ map: Map) {
+    required convenience init?(map: Map) {
         self.init()
     }
     
@@ -147,22 +174,22 @@ extension Exercise {
 
     // MARK: Public Methods
     
-    func recordWorkout(date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {
-        let dateFormatter = NSDateFormatter()
+    func recordWorkout(_ date: String, weight: Int, repsFirstSet: Int, repsSecondSet: Int) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
         
         let newSets = List<WorkSet>()
         newSets.append(WorkSet(weight: weight, repCount: repsFirstSet))
         newSets.append(WorkSet(weight: weight, repCount: repsSecondSet))
-        let newWorkoutLogEntry = Workout(date: dateFormatter.dateFromString(date)!, sets: newSets)
+        let newWorkoutLogEntry = Workout(date: dateFormatter.date(from: date)!, sets: newSets)
         workoutDiary.append(newWorkoutLogEntry)
     }
     
-    func getLastWorkouts(number: Int) -> [Workout]? {
+    func getLastWorkouts(_ number: Int) -> [Workout]? {
         return Array(workoutDiary.suffix(number))
     }
     
-    func getTotalVolumeIncrease(dateRange: Int) -> Int? {
+    func getPctTotalVolumeIncrease(_ dateRange: Int) -> Int? {
         if let oldWorkout = getOldestWorkoutFromRange(dateRange) {
             let oldVolume = oldWorkout.totalVolume
             let newVolume = workoutDiary.last!.totalVolume
@@ -174,7 +201,7 @@ extension Exercise {
         return nil
     }
     
-    func getWeightIncrease(dateRange: Int) -> Int? {
+    func getPctWeightIncrease(_ dateRange: Int) -> Int? {
         if let oldWorkout = getOldestWorkoutFromRange(dateRange) {
             let oldWeight = oldWorkout.weight
             let newWeight = workoutDiary.last!.weight
@@ -186,9 +213,18 @@ extension Exercise {
 }
 
 private extension Exercise {
+    
+    func getLbsWeightIncrease(_ dateRange: Int) -> Int? {
+        if let oldWorkout = getOldestWorkoutFromRange(dateRange) {
+            let oldWeight = oldWorkout.weight
+            let newWeight = workoutDiary.last!.weight
+            return newWeight - oldWeight
+        }
+        return nil
+    }
 
-    private func getOldestWorkoutFromRange(dateRange: Int) -> Workout? {
-        let daysAgo = NSDate().daysAgo(dateRange)
+    func getOldestWorkoutFromRange(_ dateRange: Int) -> Workout? {
+        let daysAgo = Date().daysAgo(dateRange)
         
         // if there are workouts in the dateRange, return the first one (oldest)
         if let oldestWorkoutInRange = workoutDiary.filter({$0.date > daysAgo}).first {
