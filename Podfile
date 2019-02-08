@@ -6,20 +6,20 @@ target 'Workout Tracker' do
   use_frameworks!
 
   # Pods for Workout Tracker
-  pod 'RealmSwift', '2.9.0'
+  pod 'RealmSwift'
   pod 'Charts', '3.0.2'
   pod 'Alamofire', '4.4.0'
-  pod 'ObjectMapper', '2.2.5'
-  pod 'AlamofireObjectMapper', '4.1.0'
+  pod 'ObjectMapper'
+  pod 'AlamofireObjectMapper'
 
   target 'Workout TrackerTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'RealmSwift', '2.9.0'
+    pod 'RealmSwift'
     pod 'Charts', '3.0.2'
     pod 'Alamofire', '4.4.0'
-    pod 'ObjectMapper', '2.2.5'
-    pod 'AlamofireObjectMapper', '4.1.0'
+    pod 'ObjectMapper'
+    pod 'AlamofireObjectMapper'
   end
 
 end
