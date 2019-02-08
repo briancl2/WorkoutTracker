@@ -87,7 +87,7 @@ final class EditWorkoutTableViewController: UITableViewController, UITextFieldDe
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Edit \(exerciseName) Workout"
+        self.title = "Edit \(String(describing: exerciseName)) Workout"
                 
         dateTextField.delegate = self
         doneButton.isEnabled = false

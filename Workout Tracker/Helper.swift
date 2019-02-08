@@ -41,7 +41,7 @@ extension Date {
 extension Date {
     var myPrettyString: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d"
+        dateFormatter.dateFormat = "MMM d yy"
         
         return dateFormatter.string(from: self)
     }
